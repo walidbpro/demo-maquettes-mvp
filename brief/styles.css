@@ -1,0 +1,267 @@
+/* styles.css — modale « Confiez-nous votre besoin », design v4 repris des maquettes
+   peaufinées input/new_modal/confiez-nous-votre-besoin-v2-1.html + -portage.html.
+   Consommé uniquement par brief.html (page autonome, affichée en iframe overlay). */
+
+:root {
+  --bleu: #2743d0;
+  --bleu-fonce: #1b2f9e;
+  --bleu-pale: #eef1fd;
+  --bleu-bordure: #c9d3f7;
+  --encre: #12172b;
+  --gris: #6b7390;
+  --gris-clair: #9aa1b5;
+  --fond-champ: #f3f5fc;
+  --vert: #0e9f6e;
+  --vert-pale: #e6f7f0;
+  --rouge: #dc2626;
+  --orange: #f76808;
+  --radius: 12px;
+  --bleu-champ: #4f6bdd;      /* texte saisi dans les champs (charte) */
+  --bleu-placeholder: #93a7ec; /* placeholders */
+}
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+/* align-items:center : centre la modale verticalement SANS l'étirer (le stretch par
+   défaut la collait sur toute la hauteur avec un blanc mort sous le footer). */
+body { background: #dfe3f0; display: flex; justify-content: center; align-items: center; padding: 10px 16px; min-height: 100vh; height: 100vh; }
+.hidden { display: none !important; }
+
+/* Mode overlay (iframe depuis dashboard.html) : fond transparent + voile sombre. */
+.in-overlay, .in-overlay body { background: transparent; }
+.v-modal { position: fixed; inset: 0; background: rgba(18, 23, 43, .45); }
+
+/* ── Modale ── */
+.modal {
+  /* Largeur de lecture d'un formulaire : ~680px — au-delà, le textarea bâille et
+     l'œil balaie trop horizontalement (retour Walid). */
+  position: relative; background: #fff; width: 100%; max-width: 680px; border-radius: 20px;
+  box-shadow: 0 24px 64px rgba(18, 23, 43, .18); display: flex; flex-direction: column;
+  max-height: calc(100vh - 16px); overflow: hidden;
+}
+/* padding-top : réserve la bande de la croix (36px + marges) — le premier
+   cartouche ne passe plus dessous. */
+.modal-scroll { overflow-y: auto; padding: 54px 28px 8px; }
+
+/* ── Croix de fermeture (coin haut droit, pas de rangée de header) ── */
+.btn-close { position: absolute; top: 12px; right: 14px; z-index: 1; border: none; background: #f1f3f9; font-size: 17px; color: var(--gris); cursor: pointer; line-height: 1; width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+/* Zone tactile ≥ 44px sans changer le visuel (36px affichés) */
+.btn-close::after { content: ""; position: absolute; inset: -6px; }
+.btn-close:hover { background: var(--fond-champ); color: var(--encre); }
+.btn-close:focus-visible { outline: 2px solid var(--bleu); outline-offset: 2px; }
+
+/* ── Étapes ── */
+.step { margin-bottom: 20px; }
+/* Cartouche d'étape (propal Walid) : fond gris-bleu doux, contenu qui respire */
+.step-card { background: #f3f4fa; border-radius: 16px; padding: 18px 20px; }
+.step-label { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.step-num { width: 23px; height: 23px; border-radius: 50%; background: var(--bleu); color: #fff; font-size: 12.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.step-num.done { background: var(--vert); }
+.step-label h2 { font-size: 16px; font-weight: 600; color: var(--encre); }
+.req { color: #e5484d; font-weight: 700; }
+.opt { font-weight: 400; color: var(--gris); font-size: 12px; } /* --gris (token charte) : contraste AA, --gris-clair descendait à ~2,9:1 */
+
+/* ── Erreurs inline (audit UX), tout en orange (demande Walid) : format invalide
+   en texte simple, obligatoire manquant en pastille — même slot absolu que ✦ détecté ── */
+.field-error { position: absolute; top: 100%; margin-top: 3px; left: 2px; font-size: 11.5px; font-weight: 600; color: var(--orange); line-height: 1.3; }
+.field.has-error > input, .field.has-error select, .field.has-error .tags-field { border-color: var(--orange); }
+.field.has-error .prefill-tag { display: none !important; }
+/* Obligatoire manquant : même pastille que « ✦ détecté », en orange (maquette Walid) */
+.field-error.missing { background: var(--orange); color: #fff; border-radius: 999px; padding: 2px 10px; line-height: 1.4; margin-top: 0; left: 10px; transform: translateY(-50%); white-space: nowrap; z-index: 1; }
+.block-error.missing { display: inline-flex; background: var(--orange); color: #fff; border-radius: 999px; padding: 2px 10px; line-height: 1.4; }
+.field.is-missing > input, .field.is-missing select, .field.is-missing .tags-field { border-color: var(--orange); }
+.field.is-missing .prefill-tag { display: none !important; }
+/* Erreur du bloc description / du choix de mode : dans le flux (pas de rangée à désaligner) */
+.block-error { font-size: 12.5px; font-weight: 600; color: var(--orange); margin-top: 8px; }
+.step-sub { font-size: 13px; color: var(--gris); margin: 0 0 5px 33px; }
+
+textarea { width: 100%; min-height: 80px; resize: vertical; border: 1.5px solid #dcdfe9; border-radius: var(--radius); background: #fff; padding: 12px 14px; font-size: 15px; color: var(--bleu-champ); font-style: italic; line-height: 1.5; }
+textarea::placeholder { color: var(--bleu-placeholder); font-style: italic; }
+textarea:focus { outline: none; border-color: var(--bleu); background: #fff; }
+
+/* ── Champ description + pièce jointe intégrée (maquette : trombone en bas à gauche) ── */
+.objet-box { border: 1.5px solid #dcdfe9; border-radius: var(--radius); background: #fff; transition: border-color .15s, background .15s; }
+.objet-box:focus-within { border-color: var(--bleu); }
+.objet-box.is-dragover { border-color: var(--bleu); background: var(--bleu-pale); }
+.objet-box textarea { min-height: 64px; border: none; background: transparent; resize: none; padding: 12px 14px 4px; }
+.objet-box textarea:focus { border: none; }
+.objet-tools { display: flex; align-items: center; gap: 10px; padding: 4px 10px 10px; }
+.btn-attach { position: relative; width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid #dcdfe9; background: #fff; color: var(--gris); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: all .15s; }
+.btn-attach::after { content: ""; position: absolute; inset: -6px; }
+.btn-attach:hover, .btn-attach:focus-visible { border-color: var(--bleu); color: var(--bleu); background: var(--bleu-pale); outline: none; }
+
+.ia-hint { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 13px; color: #333a5e; background: #e7eaf7; border-radius: 10px; padding: 9px 12px; }
+.ia-hint.done { background: var(--vert-pale); }
+.ia-hint.done { color: var(--vert); }
+/* (fond vert pâle défini plus haut) */
+.ia-hint svg { flex-shrink: 0; }
+/* Analyse IA en cours : l'étoile pulse le temps de la réponse (2-4 s). */
+.ia-hint.thinking { color: var(--bleu); background: var(--bleu-pale); }
+.ia-hint.thinking svg { animation: ia-pulse 1.1s ease-in-out infinite; }
+@keyframes ia-pulse { 50% { opacity: .35; transform: scale(.82) rotate(20deg); } }
+
+/* Sourcing : cartes radio */
+.sourcing-label { font-size: 14px; font-weight: 600; color: var(--encre); margin: 0 0 10px; }
+.cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.card { position: relative; border: 1.5px solid #dcdfe9; border-radius: var(--radius); padding: 14px 16px; background: #fff; cursor: pointer; transition: all .15s; }
+.card:hover { border-color: var(--bleu); }
+.card input { position: absolute; opacity: 0; }
+.card input:focus-visible ~ .card-inner { outline: 2px solid var(--bleu); outline-offset: 6px; border-radius: 4px; }
+.card:has(input:checked) { border-color: var(--bleu); background: var(--bleu-pale); }
+.card-inner { display: flex; gap: 10px; align-items: flex-start; }
+.radio-dot { width: 21px; height: 21px; border-radius: 50%; border: 2px solid #c9cede; flex-shrink: 0; margin-top: 1px; position: relative; transition: all .15s; }
+.card input:checked ~ .card-inner .radio-dot { border-color: var(--bleu); }
+.card input:checked ~ .card-inner .radio-dot::after { content: ''; position: absolute; inset: 4px; border-radius: 50%; background: var(--bleu); }
+.card-title { font-size: 14px; font-weight: 600; color: var(--encre); }
+.card-desc { font-size: 12.5px; color: var(--gris); margin-top: 2px; line-height: 1.3; display: block; }
+
+/* ── Champs ── */
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px 16px; }
+/* Délégué : 2 colonnes, cellules alignées par le bas (un label sur 2 lignes ne
+   désaligne pas les inputs). Le portage garde 3 colonnes via .is-portage. */
+/* Option C : base 6 colonnes — poste/loc sur 3, rangée compacte TJM/Niveau/Date
+   sur 2 chacun (3 champs par rangée), Compétences pleine largeur. Zéro trou. */
+.details-grid { grid-template-columns: repeat(6, 1fr); gap: 24px 16px; align-items: start; } /* start + gap élargi : le tag ✓ DÉTECTÉ ne désaligne plus la rangée */
+.details-grid > .field { grid-column: span 3; }
+#field-tjm-single, #field-niveau, #field-date { grid-column: span 2; }
+#field-competences { grid-column: 1 / -1; }
+.is-portage .details-grid > .field { grid-column: span 2; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 18px; }
+.field label { display: flex; align-items: baseline; gap: 6px; justify-content: flex-start; flex-wrap: wrap; font-size: 13.5px; font-weight: 600; color: var(--encre); margin-bottom: 6px; }
+/* Exception : le label du commentaire porte une précision longue — il peut replier */
+.commentaire-item label { white-space: normal; }
+.field input, .field select { width: 100%; height: 40px; border: 1.5px solid #dcdfe9; border-radius: 10px; background: #fff; padding: 0 12px; font-size: 14.5px; color: var(--bleu-champ); font-style: italic; }
+.field input::placeholder { color: var(--bleu-placeholder); font-style: italic; }
+/* Un <select> n'a pas de placeholder natif : quand son option vide est sélectionnée,
+   il affiche sa « valeur » avec la couleur pleine. On l'aligne sur les placeholders. */
+.field select:has(option[value=""]:checked) { color: var(--bleu-placeholder); }
+.field select option { color: var(--bleu-champ); }
+/* Idem pour l'input date : son gabarit jj/mm/aaaa n'est pas un placeholder — la
+   classe .is-empty (togglée par refresh()) l'aligne sur la couleur placeholder. */
+.field input[type="date"].is-empty { color: var(--bleu-placeholder); }
+/* Glyphe calendrier natif (noir) remplacé par le même dessin en bleu placeholder.
+   pointer-events: none → le popup NATIF ne s'ouvre plus (position non maîtrisable) ;
+   c'est le mini-calendrier custom #date-suggest qui s'ouvre, toujours sous le champ. */
+.field input[type="date"]::-webkit-calendar-picker-indicator {
+  background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%2393a7ec" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 9h18"/></svg>') center / 16px 16px no-repeat;
+  pointer-events: none;
+}
+
+/* ── Mini-calendrier Date de démarrage (même gabarit que les suggest-box) ── */
+#date-suggest { position: fixed; inset: auto; width: 216px; }
+.cal-head { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px 2px; }
+.cal-title { font-size: 13.5px; font-weight: 600; color: var(--encre); text-transform: capitalize; }
+.cal-nav { width: 26px; height: 26px; border: none; background: none; border-radius: 8px; color: var(--bleu); font-size: 16px; line-height: 1; cursor: pointer; }
+.cal-nav:hover { background: var(--bleu-pale); }
+.cal-nav:disabled { color: var(--gris-clair); cursor: default; background: none; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; padding: 4px 10px 10px; }
+.cal-dow { font-size: 11px; font-weight: 600; color: var(--gris-clair); text-align: center; padding: 2px 0; }
+.cal-day { border: none; background: none; border-radius: 8px; font-size: 13px; color: var(--encre); padding: 5px 0; cursor: pointer; }
+.cal-day:hover { background: var(--bleu-pale); }
+.cal-day:disabled { color: #c9cede; cursor: default; background: none; }
+.cal-day.is-selected { background: var(--bleu); color: #fff; }
+.field input:focus, .field select:focus { outline: none; border-color: var(--bleu); background: #fff; }
+.field input.prefilled, .field select.prefilled { background: var(--vert-pale); border-color: #bfe8d7; }
+.field .prefilled ~ .prefill-tag { display: inline-flex; }
+/* Hors flux (absolu sous le champ) : sa présence ne décale plus les champs voisins.
+   Pastille verte « ✦ détecté » (maquette Walid) : fond plein arrondi, texte blanc. */
+.prefill-tag { display: none; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; position: absolute; top: 100%; transform: translateY(-50%); left: 10px; background: #5ec79a; color: #fff; border-radius: 999px; padding: 2px 10px; line-height: 1.4; z-index: 1; }
+
+/* Compétences en tags (chips supprimables), pleine largeur */
+#field-competences { grid-column: 1 / -1; }
+.tags-field { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; min-height: 40px; border: 1.5px solid #dcdfe9; border-radius: 10px; background: #fff; padding: 4px 8px; }
+.tags-field:focus-within { border-color: var(--bleu); box-shadow: 0 0 0 3px rgba(39, 67, 208, .12); }
+.tags-field.prefilled { background: var(--vert-pale); border-color: #bfe8d7; }
+.field .tags-field input { flex: 1; min-width: 120px; border: none; background: transparent; box-shadow: none; height: 30px; padding: 0 4px; }
+.skill-chip { display: inline-flex; align-items: center; gap: 6px; background: #eef0f6; border-radius: 8px; padding: 4px 8px; font-size: 13px; font-weight: 400; color: #4a4f63; font-style: normal; }
+/* padding + margin négative : zone cliquable ~26px, visuel inchangé (audit : 9×14px avant) */
+.chip-x { border: none; background: none; cursor: pointer; color: var(--gris); font-size: 14px; line-height: 1; padding: 6px; margin: -6px; }
+.chip-x:hover { color: var(--rouge); }
+
+/* Autocomplétion Compétences (référentiel FreeWork) */
+.field { position: relative; }
+/* ── Selects (Séniorité, Durée estimée) : menu déroulant harmonisé avec les
+   suggestions (Localisation…) via le select stylable Chrome 135+ ; les autres
+   navigateurs gardent le popup natif (démo sur Chrome). ── */
+@supports (appearance: base-select) {
+  .field select, .field select::picker(select) { appearance: base-select; }
+  .field select { display: flex; align-items: center; white-space: nowrap; }
+  /* Bouton interne (fourni dans le markup) : flexible et rétrécissable, pour que
+     le texte tronque et que l'icône ▼ garde sa place à droite même champ étroit. */
+  .field select > button { display: flex; flex: 1; min-width: 0; align-items: center; border: 0; padding: 0; background: none; font: inherit; color: inherit; text-align: left; }
+  .field select selectedcontent { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  /* Toujours SOUS le champ, comme les suggest-box (pas de flip vers le haut). */
+  .field select::picker(select) { position-area: block-end span-inline-end; position-try-fallbacks: none; margin-top: 4px; padding: 0; border: 1.5px solid #dcdfe9; border-radius: 10px; background: #fff; box-shadow: 0 10px 24px rgba(18, 23, 43, .12); max-height: 216px; overflow-y: auto; }
+  .field select option { padding: 8px 12px; font-size: 14px; font-style: normal; color: var(--encre); cursor: pointer; }
+  .field select option:hover, .field select option:focus { background: var(--bleu-pale); outline: none; }
+  .field select option::checkmark { display: none; }
+  .field select option[value=""] { color: var(--gris-clair); }
+  /* margin auto : plaque l'icône ▼ contre le bord droit du champ (sinon elle
+     colle au texte, le select étant un conteneur flex). */
+  .field select::picker-icon { color: var(--bleu-placeholder); margin-inline-start: auto; }
+}
+
+.suggest-box { position: absolute; left: 0; right: 0; top: calc(100% + 4px); z-index: 20; background: #fff; border: 1.5px solid #dcdfe9; border-radius: 10px; box-shadow: 0 10px 24px rgba(18, 23, 43, .12); max-height: 216px; overflow-y: auto; }
+.suggest-item { padding: 8px 12px; font-size: 14px; color: var(--encre); cursor: pointer; }
+.suggest-item:hover, .suggest-item.active { background: var(--bleu-pale); }
+.suggest-item.suggest-remote { display: flex; align-items: center; gap: 8px; }
+.suggest-item.suggest-remote svg { flex-shrink: 0; color: var(--bleu); }
+
+
+/* ⚠ TJM < 100 € (arbitrage D-D, non bloquant) : sous le champ TJM, même slot
+   absolu que les erreurs inline — le tag ✓ DÉTECTÉ s'efface le temps de l'alerte */
+.tjm-warn { position: absolute; top: 100%; margin-top: 3px; left: 2px; font-size: 11.5px; font-weight: 600; color: var(--orange); line-height: 1.3; white-space: nowrap; }
+.field.has-warn .prefill-tag { display: none !important; }
+
+
+/* Commentaire conditionnel (reliquat du texte hors champs) */
+.commentaire-item { margin-top: 34px; } /* le tag ✓ DÉTECTÉ (absolu, rangée du dessus) ne mord plus le label */
+.commentaire-item textarea { min-height: 34px; font-size: 14px; border: 1.5px solid #dcdfe9; background: #fff; font-style: normal; }
+.commentaire-item textarea:focus { border-color: var(--bleu); background: #fff; }
+
+/* ── Pièce jointe : nom du fichier à côté du trombone ── */
+.file-name { font-size: 13px; color: var(--bleu-fonce); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.file-name.is-error { color: var(--rouge); font-weight: 600; }
+.file-name button { background: none; border: none; color: var(--rouge); cursor: pointer; text-decoration: underline; font: inherit; }
+
+/* ── Footer sticky ── */
+.modal-footer { display: flex; align-items: center; justify-content: flex-end; gap: 16px; padding: 6px 28px 16px; background: #fff; flex-shrink: 0; transition: box-shadow .2s; }
+/* Indice de scroll (audit) : ombre au-dessus du footer tant qu'il reste du contenu dessous */
+.modal.has-more-below .modal-footer { box-shadow: 0 -14px 18px -14px rgba(18, 23, 43, .28); }
+.status { font-size: 13px; font-weight: 600; margin-right: auto; }
+.status.is-error { color: var(--rouge); }
+.status.is-success { color: var(--vert); }
+.status.is-loading { color: var(--gris); }
+.spinner { display: inline-block; width: 12px; height: 12px; border: 2px solid var(--bleu-bordure); border-top-color: var(--bleu); border-radius: 50%; animation: spin .7s linear infinite; vertical-align: -2px; margin-right: 5px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.footer-actions { display: flex; gap: 10px; flex-shrink: 0; }
+.btn { height: 46px; padding: 0 26px; border-radius: 13px; font-size: 14.5px; font-weight: 700; cursor: pointer; transition: all .15s; border: 2px solid var(--bleu); }
+.btn:focus-visible { outline: 2px solid var(--bleu); outline-offset: 2px; }
+.btn-ghost { background: #fff; color: var(--bleu); }
+.btn-ghost:hover { background: var(--bleu-pale); }
+.btn-primary { background: var(--bleu); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: var(--bleu-fonce); border-color: var(--bleu-fonce); }
+.btn-primary:disabled { background: #c3cbec; border-color: #c3cbec; cursor: not-allowed; }
+
+/* ── Apparitions douces (audit) : sections conditionnelles et popups.
+   display:none → display relance l'animation à chaque révélation, zéro JS. ── */
+@keyframes fade-in { from { opacity: 0; } }
+#section-portage, #commentaire-item, #warn-tjm, .suggest-box, .field-error, .block-error { animation: fade-in .18s ease-out; }
+
+/* ── Motricité réduite : plus de pulsation ni de fondu (le spinner d'envoi,
+   feedback essentiel, est conservé). ── */
+@media (prefers-reduced-motion: reduce) {
+  .ia-hint.thinking svg { animation: none; }
+  #section-portage, #commentaire-item, #warn-tjm, .suggest-box, .field-error, .block-error { animation: none; }
+  .modal-footer, .card, .btn, .btn-attach, .objet-box, .radio-dot { transition: none; }
+}
+
+@media (max-width: 640px) {
+  .grid, .grid-2, .cards { grid-template-columns: 1fr; }
+  /* padding:0 : vraie modale plein écran (le padding du body laissait des marges grises) */
+  body { padding: 0; }
+  .modal { max-height: 100%; border-radius: 0; }
+  .modal-footer { flex-direction: column; align-items: stretch; }
+  .footer-actions .btn { flex: 1; }
+}
+
+/* Vocabulaire portail sous les titres des cartes de mode (spec 2026-07-19). */
+.card .card-type { display: block; margin-top: 2px; font-size: .78rem; font-weight: 600; color: #5b6472; }

@@ -3075,7 +3075,7 @@
     if (document.getElementById('depot-overlay')) return;
     var f = document.createElement('iframe');
     f.id = 'depot-overlay';
-    f.src = '/brief.html?t=' + Date.now();
+    f.src = '/brief/brief.html?t=' + Date.now();
     f.title = 'Confiez-nous votre besoin';
     document.body.appendChild(f);
     f.addEventListener('load', function(){ f.focus(); });

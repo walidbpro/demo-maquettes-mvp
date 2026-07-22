@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Confiez-nous votre besoin — Freelance.com</title>
+  <script>
+    // Hors iframe, la modale ne s'affiche jamais seule : retour au dashboard,
+    // d'où l'utilisateur ouvre la modale par le bouton « Confiez-nous votre besoin ».
+    // Script classique (non module) : il s'exécute pendant le parsing, avant tout rendu.
+    if (window.self === window.top) location.replace("./dashboard.html");
+  </script>
+  <!-- Cache-buster CSS : la modale (elle-même bustée par journey.js) charge toujours
+       un styles.css frais — un style corrigé est visible au clic suivant, sans ⌘⇧R. -->
+  <script>document.write('<link rel="stylesheet" href="./styles.css?t=' + Date.now() + '">');</script>
+  <noscript><link rel="stylesheet" href="./styles.css"></noscript>
+</head>
+<body>
+  <div class="v-modal" tabindex="0"></div>
+
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Confiez-nous votre besoin">
+    <!-- Croix en absolu dans le coin : pas de rangée de header dédiée
+         (titre supprimé à la demande de Walid, porté par l'aria-label) -->
+    <button type="button" id="btn-close" class="btn-close" aria-label="Fermer">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
+    </button>
+    <div class="modal-scroll">
+
+      <!-- ÉTAPE 1 (cartouche) : description -->
+      <div class="step step-card">
+        <div class="step-label">
+          <span class="step-num" id="num1">1</span>
+          <h2><span id="step1-title">Décrivez votre besoin</span> <span class="req">*</span></h2>
+        </div>
+        <!-- Le champ intègre la pièce jointe (maquette) : trombone en bas à
+             gauche, glisser-déposer PDF sur toute la zone. -->
+        <div class="objet-box" id="objet-box">
+          <textarea id="objet" rows="4"
+            placeholder="ex : « Je recherche un développeur Node.js senior à Paris, démarrage dès que possible, TJM entre 500 et 700 € »"></textarea>
+          <div class="objet-tools">
+            <button type="button" id="btn-attach" class="btn-attach" aria-label="Joindre un document PDF">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg>
+            </button>
+            <span id="file-name" class="file-name hidden"></span>
+            <input type="file" id="file-input" accept="application/pdf,.pdf" class="hidden">
+          </div>
+        </div>
+        <!-- aria-live : le pré-remplissage IA est annoncé aux lecteurs d'écran (audit) -->
+        <div class="ia-hint" id="ia-hint" aria-live="polite">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3l1.9 5.6L19.5 10.5l-5.6 1.9L12 18l-1.9-5.6L4.5 10.5l5.6-1.9z"/></svg>
+          <span id="ia-hint-txt">Les détails ci-dessous se rempliront automatiquement à partir de votre description.</span>
+        </div>
+      </div>
+
+      <!-- Mode de sourcing : entre les deux cartouches -->
+      <div class="step">
+        <p class="sourcing-label">Comment souhaitez-vous procéder ? <span class="req">*</span></p>
+        <div class="cards" role="radiogroup" aria-label="Mode de sourcing">
+          <label class="card">
+            <input type="radio" name="mode" id="mode-delegue" value="delegue">
+            <span class="card-inner">
+              <span class="radio-dot"></span>
+              <span>
+                <span class="card-title">Trouvez-moi un freelance</span>
+                <span class="card-type">Assistance Technique</span>
+              </span>
+            </span>
+          </label>
+          <label class="card">
+            <input type="radio" name="mode" id="mode-portage" value="portage">
+            <span class="card-inner">
+              <span class="radio-dot"></span>
+              <span>
+                <span class="card-title">J'ai déjà mon freelance</span>
+                <span class="card-type">Portage salarial</span>
+              </span>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 2 (portage uniquement, cartouche) : votre freelance -->
+      <div class="step step-card hidden" id="section-portage">
+        <div class="step-label">
+          <span class="step-num" id="num-freelance">2</span>
+          <h2>Votre freelance</h2>
+        </div>
+        <div class="grid">
+            <div class="field">
+              <label for="intervenantNom">Nom et prénom <span class="req">*</span></label>
+              <input id="intervenantNom" type="text" placeholder="ex : Jean Dupont" autocomplete="off">
+              <span class="prefill-tag">✦ détecté</span>
+            </div>
+            <div class="field">
+              <label for="intervenantEmail">Email <span class="req" id="email-req">*</span></label>
+              <input id="intervenantEmail" type="email" placeholder="ex : jean@mail.com" autocomplete="off">
+              <span class="prefill-tag">✦ détecté</span>
+            </div>
+            <div class="field">
+              <label for="intervenantTel">Téléphone <span class="req" id="tel-req">*</span></label>
+              <input id="intervenantTel" type="tel" placeholder="ex : 06 12 34 56 78">
+              <span class="prefill-tag">✦ détecté</span>
+            </div>
+        </div>
+      </div>
+
+      <!-- ÉTAPE détails (2 en délégué, 3 en portage, cartouche) -->
+      <div class="step step-card">
+        <div class="step-label">
+          <span class="step-num" id="num-details">2</span>
+          <h2 id="details-title">Vérifiez les détails</h2>
+        </div>
+
+        <div class="grid details-grid">
+          <div class="field">
+            <label for="poste"><span id="label-poste">Intitulé du poste</span> <span class="req">*</span></label>
+            <input id="poste" type="text" placeholder="ex : Architecte Cloud" autocomplete="off"
+              role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="poste-suggest">
+            <span class="prefill-tag">✦ détecté</span>
+            <div class="suggest-box hidden" id="poste-suggest" role="listbox" aria-label="Suggestions de métiers"></div>
+          </div>
+          <div class="field">
+            <label for="localisation"><span id="label-localisation">Localisation</span> <span class="req">*</span></label>
+            <input id="localisation" type="text" placeholder="ex : Paris, remote" autocomplete="off"
+              role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="localisation-suggest">
+            <span class="prefill-tag">✦ détecté</span>
+            <div class="suggest-box hidden" id="localisation-suggest" role="listbox" aria-label="Suggestions de villes"></div>
+          </div>
+          <div class="field" id="field-competences">
+            <label for="competences">Compétences</label>
+            <div class="tags-field" id="competences-box">
+              <input id="competences" type="text" placeholder="ex : Node.js, MongoDB" autocomplete="off"
+                role="combobox" aria-expanded="false" aria-autocomplete="list" aria-controls="competences-suggest">
+            </div>
+            <span class="prefill-tag">✦ détecté</span>
+            <div class="suggest-box hidden" id="competences-suggest" role="listbox" aria-label="Suggestions de compétences"></div>
+          </div>
+          <div class="field" id="field-tjm-single">
+            <label for="tjm"><span id="label-tjm">TJM ou budget</span> <span class="opt" id="tjm-req"></span></label>
+            <input id="tjm" type="number" min="0" step="10" placeholder="ex : 650">
+            <span class="prefill-tag">✦ détecté</span>
+            <!-- ⚠ D-D (non bloquant) : sous le champ TJM, dans le slot des erreurs inline -->
+            <div id="warn-tjm" class="tjm-warn hidden">⚠ TJM inhabituel (&lt; 250 €)</div>
+          </div>
+          <div class="field" id="field-niveau">
+            <label for="niveau">Séniorité</label>
+            <select id="niveau">
+              <!-- Bouton + selectedcontent (select stylable) : le texte tronque en
+                   ellipse au lieu d'occuper tout le champ, l'icône ▼ reste à droite.
+                   Navigateurs sans base-select : balises ignorées par le parseur. -->
+              <button><selectedcontent></selectedcontent></button>
+              <option value="">Sélectionnez un niveau</option>
+              <option value="Débutant (0-2)">Débutant (0-2 ans)</option>
+              <option value="Confirmé (3-5)">Confirmé (3-5 ans)</option>
+              <option value="Senior (6-9)">Senior (6-9 ans)</option>
+              <option value="Expert (10+)">Expert (10 ans+)</option>
+            </select>
+            <span class="prefill-tag">✦ détecté</span>
+          </div>
+          <div class="field" id="field-date">
+            <label for="startDate">Date de démarrage <span class="opt" id="date-req"></span></label>
+            <input id="startDate" type="date">
+            <span class="prefill-tag">✦ détecté</span>
+            <div class="suggest-box hidden" id="date-suggest"></div>
+          </div>
+        </div>
+
+        <!-- Commentaire : visible UNIQUEMENT si le texte contient des éléments
+             au-delà des champs ci-dessus (reliquat de détection, spec §11-12). -->
+        <div class="field commentaire-item hidden" id="commentaire-item">
+          <label for="commentaire">Commentaire <span class="opt">précisions hors champs, extraites de votre texte</span></label>
+          <textarea id="commentaire" rows="2"></textarea>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- FOOTER sticky -->
+    <div class="modal-footer">
+      <span id="status" class="status hidden" role="status" aria-live="polite"></span>
+      <div class="footer-actions">
+        <button type="button" id="btn-cancel" class="btn btn-ghost">Annuler</button>
+        <button type="button" id="btn-submit" class="btn btn-primary" disabled>Envoyer ma demande</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { submitBrief, extraireBrief } from "./briefClient.js";
+    import { extract } from "./briefExtract.js";
+    import { SKILLS } from "./skillsFreework.js";
+    import { METIERS } from "./metiersFreework.js";
+
+    const IN_OVERLAY = window.self !== window.top;
+    if (IN_OVERLAY) document.documentElement.classList.add("in-overlay");
+
+    const $ = (id) => document.getElementById(id);
+    const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // Téléphone FR : +33 ou 0, puis 9 chiffres (espaces, points ou tirets tolérés).
+    const TEL_RE = /^(?:\+33[\s.-]?|0)[1-9](?:[\s.-]?\d{2}){4}$/;
+    const contactPortageOk = () =>
+      EMAIL_RE.test($("intervenantEmail").value.trim()) || TEL_RE.test($("intervenantTel").value.trim());
+
+    /* ================== Registre + validation (v4, maquettes peaufinées) ==================
+       required: true = toujours requis · "portage"/"delegue" = requis dans ce mode.
+       mode: champ n'existant QUE dans ce mode (jamais exigé ni compté ailleurs). */
+    const FIELDS = {
+      objet:            { required: true, min20: true },
+      poste:            { required: true },
+      localisation:     { required: true },
+      startDate:        { required: "portage" },
+
+      niveau:           { mode: "delegue" },
+      competences:      { mode: "delegue" },
+      tjm:              { required: "portage", number: true, positive: true },
+      intervenantNom:   { required: "portage", mode: "portage" },
+      // Contact du freelance : e-mail OU téléphone (l'un des deux suffit) ;
+      // chacun garde son contrôle de format quand il est saisi.
+      intervenantEmail: { email: true, mode: "portage", contactRequis: true },
+      intervenantTel:   { tel: true, mode: "portage" },
+      commentaire:      {},
+    };
+
+    // modeManuelSignal : le mode DÉTECTÉ dans le texte à l'instant où l'utilisateur
+    // a choisi un mode à la main. Sert à distinguer un signal texte FAIBLE (qui ne doit
+    // pas rebasculer le choix — RG4) d'un signal qui a DIVERGÉ depuis le choix (« je
+    // cherche un dev » tapé après avoir cliqué portage → on suit le texte).
+    const state = { mode: "", devise: "EUR", file: null, submitting: false, modeManuelSignal: null };
+
+    // Retourne un message d'erreur ("" si valide). Un champ lié à un AUTRE mode
+    // que le mode courant n'est jamais exigé ni en erreur (il est masqué).
+    function validate(name) {
+      const cfg = FIELDS[name];
+      if (cfg.mode && cfg.mode !== state.mode) return "";
+      const raw = ($(name)?.value ?? "").trim();
+      const requiredHere = cfg.required === true || cfg.required === state.mode;
+      if (requiredHere && raw === "") return "requis";
+      // E-mail requis SEULEMENT si aucun téléphone valide (et réciproquement) :
+      // un des deux contacts suffit pour joindre le freelance.
+      if (cfg.contactRequis && raw === "" && !contactPortageOk()) return "e-mail ou téléphone requis";
+      if (cfg.min20 && raw.length < 20) return "trop court";
+      if (raw === "") return "";
+      if (cfg.number && Number.isNaN(Number(raw))) return "nombre attendu";
+      if (cfg.positive && Number(raw) <= 0) return "doit être > 0";
+      if (cfg.email && !EMAIL_RE.test(raw)) return "e-mail invalide";
+      if (cfg.tel && !TEL_RE.test(raw)) return "téléphone invalide";
+      return "";
+    }
+
+    // « Champs manquants en orange même non obligatoires » (demande Walid) : un champ
+    // OPTIONNEL, visible dans le mode courant et vide, se signale en orange « À compléter »
+    // une fois l'analyse passée. Non bloquant — validate() le laisse valide, il n'entre
+    // JAMAIS dans invalidCount. Exclus : l'objet (bloc à part), le commentaire (masqué
+    // quand vide) et le couple e-mail/téléphone (déjà porté par la règle de contact).
+    function isOptionalEmpty(name) {
+      if (name === "objet" || name === "commentaire") return false;
+      const cfg = FIELDS[name];
+      const requiredHere = cfg.required === true || cfg.required === state.mode;
+      if (requiredHere || cfg.contactRequis || name === "intervenantTel") return false;
+      const el = $(name);
+      if (!el || el.offsetParent === null) return false; // masqué (autre mode) → ignoré
+      if (name === "competences") return skillTags.length === 0; // les chips comptent comme rempli
+      return el.value.trim() === "";
+    }
+
+    const modeMissing = () => state.mode === "";
+    function invalidCount() {
+      return Object.keys(FIELDS).filter((n) => validate(n) !== "").length + (modeMissing() ? 1 : 0);
+    }
+    const isFormValid = () => invalidCount() === 0;
+
+    /* ================== Erreurs inline (audit UX) ==================
+       validate() savait tout mais ne disait rien : messages affichés sous le champ
+       dès que l'utilisateur l'a quitté (blur) ou a tenté d'envoyer. Un champ en
+       erreur se corrige en direct (le message disparaît à la frappe). */
+    const ERR_MSG = {
+      "requis": "Champ requis",
+      "trop court": "Encore quelques mots — 20 caractères minimum.",
+      "e-mail ou téléphone requis": "Renseignez l'e-mail ou le téléphone",
+      "nombre attendu": "Nombre attendu",
+      "doit être > 0": "Doit être supérieur à 0",
+      "e-mail invalide": "Format d'e-mail invalide",
+      "téléphone invalide": "Numéro invalide",
+    };
+    const touched = new Set();
+    function renderError(name) {
+      const el = $(name);
+      const code = touched.has(name) ? validate(name) : "";
+      // L'objet n'affiche pas de message inline (demande Walid) : la règle des
+      // 20 caractères reste, portée par le bouton désactivé + compteur du footer.
+      let message = name === "objet" ? "" : (ERR_MSG[code] || code);
+      // Champ obligatoire manquant → orange (rappel doux) ; format invalide → rouge.
+      let missing = code === "requis" || code === "e-mail ou téléphone requis";
+      // Optionnel vide (après analyse) → même orange, libellé « À compléter », non bloquant.
+      if (!code && name !== "objet" && touched.has(name) && isOptionalEmpty(name)) {
+        message = "À compléter";
+        missing = true;
+      }
+      const isBlock = name === "objet";
+      const host = isBlock ? $("objet-box").parentElement : el.closest(".field");
+      let node = document.getElementById(`err-${name}`);
+      if (!message) {
+        node?.remove();
+        el.removeAttribute("aria-invalid");
+        host?.classList.remove("has-error", "is-missing");
+        return;
+      }
+      if (!node) {
+        node = document.createElement("span");
+        node.id = `err-${name}`;
+        node.className = isBlock ? "block-error" : "field-error";
+        if (isBlock) $("objet-box").after(node);
+        else host.appendChild(node);
+      }
+      node.classList.toggle("missing", missing);
+      if (node.textContent !== message) node.textContent = message;
+      el.setAttribute("aria-invalid", "true");
+      el.setAttribute("aria-describedby", `err-${name}`);
+      if (!isBlock) {
+        host.classList.toggle("has-error", !missing);
+        host.classList.toggle("is-missing", missing);
+      }
+    }
+    function renderModeError() {
+      const show = touched.has("mode") && modeMissing();
+      let node = document.getElementById("err-mode");
+      if (!show) { node?.remove(); return; }
+      if (!node) {
+        node = document.createElement("p");
+        node.id = "err-mode";
+        node.className = "block-error missing";
+        node.textContent = "Choisissez une option";
+        document.querySelector(".cards").after(node);
+      }
+    }
+    function renderAllErrors() {
+      Object.keys(FIELDS).forEach(renderError);
+      renderModeError();
+    }
+
+    /* ================== Pastilles d'étapes + footer (maquette) ================== */
+    function paintStep(id, num, done) {
+      const el = $(id);
+      el.classList.toggle("done", done);
+      el.textContent = done ? "✓" : String(num);
+    }
+    function refresh() {
+      const objetOk = $("objet").value.trim().length >= 20;
+      paintStep("num1", 1, objetOk && !modeMissing());
+      const portage = state.mode === "portage";
+      if (portage) {
+        paintStep("num-freelance", 2, Boolean($("intervenantNom").value.trim()) && contactPortageOk());
+        // L'astérisque suit la règle « e-mail OU téléphone » : dès qu'un des deux
+        // est valide, l'autre n'est plus marqué requis.
+        $("email-req").style.visibility = contactPortageOk() ? "hidden" : "visible";
+        $("tel-req").style.visibility = contactPortageOk() ? "hidden" : "visible";
+        paintStep("num-details", 3, ["poste", "tjm", "localisation", "startDate"]
+          .every((n) => ($(n).value ?? "").trim() !== "" && validate(n) === ""));
+      } else {
+        paintStep("num-details", 2, ["poste", "localisation"]
+          .every((n) => ($(n).value ?? "").trim() !== "" && validate(n) === ""));
+      }
+      // Gabarit jj/mm/aaaa : couleur placeholder tant que la date est vide.
+      $("startDate").classList.toggle("is-empty", !$("startDate").value);
+      $("btn-submit").disabled = state.submitting || !isFormValid();
+      renderAllErrors();
+      updateScrollCue();
+    }
+
+    /* ================== Mode : cartes, sections, libellés, numérotation ================== */
+    const TEXTS = {
+      delegue: {
+        step1Title: "Décrivez votre besoin",
+        placeholder: "ex : « Je recherche un développeur Node.js senior à Paris, démarrage dès que possible, TJM entre 500 et 700 € »",
+        detailsTitle: "Vérifiez les détails",
+        poste: "Intitulé du poste",
+        loc: "Localisation",
+      },
+      portage: {
+        step1Title: "Décrivez la mission",
+        placeholder: "ex : « Mission de refonte de notre API avec Jean Dupont, développeur Node.js. Démarrage au 1er septembre pour 6 mois, TJM convenu à 650 €, 2 jours sur site à Paris. »",
+        detailsTitle: "Conditions convenues",
+        poste: "Intitulé de la mission",
+        loc: "Lieu d'exécution",
+      },
+    };
+    function applyMode() {
+      const portage = state.mode === "portage";
+      document.querySelector(".modal").classList.toggle("is-portage", portage);
+      const t = TEXTS[portage ? "portage" : "delegue"];
+      $("section-portage").classList.toggle("hidden", !portage);
+      $("label-tjm").textContent = portage ? "TJM convenu" : "TJM ou budget";
+      const tjmReq = $("tjm-req");
+      tjmReq.textContent = portage ? "*" : "";
+      tjmReq.className = portage ? "req" : "opt";
+      $("field-niveau").classList.toggle("hidden", portage);
+      $("field-competences").classList.toggle("hidden", portage);
+      $("num-details").textContent = $("num-details").classList.contains("done") ? "✓" : (portage ? "3" : "2");
+      $("step1-title").textContent = t.step1Title;
+      $("objet").placeholder = t.placeholder;
+      $("details-title").textContent = t.detailsTitle;
+      $("label-poste").textContent = t.poste;
+      $("label-localisation").textContent = t.loc;
+      const dateReq = $("date-req");
+      dateReq.textContent = portage ? "*" : "";
+      dateReq.className = portage ? "req" : "opt";
+    }
+    document.querySelectorAll('input[name="mode"]').forEach((r) => {
+      r.addEventListener("change", () => {
+        state.mode = r.value;
+        dirty.add("mode");
+        // On mémorise le signal du texte AU MOMENT du choix : tant que le texte
+        // continue de dire la même chose (ou rien), le choix manuel est sacré.
+        state.modeManuelSignal = detected.mode;
+        applyMode();
+        refresh();
+      });
+    });
+
+    /* ================== Bindings champs ================== */
+    Object.keys(FIELDS).forEach((name) => {
+      const el = $(name);
+      const onEdit = () => {
+        dirty.add(name);
+        el.classList.remove("prefilled");
+        updateTjmWarn();
+        refresh();
+      };
+      el.addEventListener("input", onEdit);
+      el.addEventListener("change", onEdit);
+      // Inline-validation : l'erreur apparaît quand on QUITTE le champ (pas à la frappe),
+      // puis se met à jour en direct tant que le champ reste en erreur. Un champ jamais
+      // engagé (ni saisie, ni contenu — ex : l'objet autofocusé qu'on quitte aussitôt)
+      // ne se fait pas gronder : l'astérisque et le compteur suffisent.
+      el.addEventListener("blur", () => {
+        if (!dirty.has(name) && el.value.trim() === "") return;
+        touched.add(name);
+        renderError(name);
+      });
+    });
+
+    /* ================== Clavier dans les autocomplétions (audit UX) ==================
+       ↓/↑ surlignent, Entrée choisit — même geste que la souris (on redéclenche le
+       mousedown de l'item, chaque liste garde sa logique de sélection). L'aria-expanded
+       suit l'ouverture/fermeture de la liste via un MutationObserver (une seule source
+       de vérité : la classe .hidden). Déclaré AVANT le handler Entrée des chips pour
+       pouvoir le court-circuiter quand une suggestion est active. */
+    function wireCombobox(inputId, boxId) {
+      const input = $(inputId), box = $(boxId);
+      new MutationObserver(() => {
+        const open = !box.classList.contains("hidden");
+        input.setAttribute("aria-expanded", String(open));
+        if (!open) input.removeAttribute("aria-activedescendant");
+      }).observe(box, { attributes: true, attributeFilter: ["class"] });
+      input.addEventListener("keydown", (e) => {
+        if (box.classList.contains("hidden")) return;
+        const items = [...box.querySelectorAll(".suggest-item")];
+        if (!items.length) return;
+        let i = items.findIndex((el) => el.classList.contains("active"));
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+          e.preventDefault();
+          i = e.key === "ArrowDown" ? (i + 1) % items.length : (i - 1 + items.length) % items.length;
+          items.forEach((el, j) => {
+            if (!el.id) el.id = `${boxId}-o${j}`;
+            el.setAttribute("role", "option");
+            el.classList.toggle("active", j === i);
+            el.setAttribute("aria-selected", String(j === i));
+          });
+          items[i].scrollIntoView({ block: "nearest" });
+          input.setAttribute("aria-activedescendant", items[i].id);
+        } else if (e.key === "Enter" && i >= 0) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          items[i].dispatchEvent(new MouseEvent("mousedown", { bubbles: true, cancelable: true }));
+        }
+      });
+    }
+    wireCombobox("competences", "competences-suggest");
+    wireCombobox("poste", "poste-suggest");
+    wireCombobox("localisation", "localisation-suggest");
+
+    /* ================== Pièce jointe : glisser-déposer PDF ================== */
+    const MAX_PDF_BYTES = 5_000_000; // aligné sur le backend (MAX_ATTACHMENT_BYTES) : échouer ici, pas à l'envoi
+    function fileError(nameBox, message) {
+      state.file = null;
+      $("file-input").value = "";
+      nameBox.textContent = message;
+      nameBox.classList.add("is-error");
+      nameBox.setAttribute("role", "alert");
+      nameBox.classList.remove("hidden");
+    }
+    function handleFile(f) {
+      const nameBox = $("file-name");
+      nameBox.classList.remove("is-error");
+      nameBox.removeAttribute("role");
+      if (!f) { state.file = null; nameBox.classList.add("hidden"); return; }
+      const isPdf = f.type === "application/pdf" || /\.pdf$/i.test(f.name);
+      if (!isPdf) return fileError(nameBox, "Le fichier doit être un PDF.");
+      if (f.size > MAX_PDF_BYTES) return fileError(nameBox, "PDF trop volumineux — 5 Mo maximum.");
+      state.file = f;
+      nameBox.innerHTML = "";
+      nameBox.append("Pièce jointe : " + f.name + " ");
+      const rm = document.createElement("button");
+      rm.type = "button"; rm.textContent = "retirer";
+      rm.addEventListener("click", () => {
+        state.file = null; $("file-input").value = ""; nameBox.classList.add("hidden");
+      });
+      nameBox.appendChild(rm);
+      nameBox.classList.remove("hidden");
+    }
+    $("file-input").addEventListener("change", () => handleFile($("file-input").files[0]));
+    $("btn-attach").addEventListener("click", () => $("file-input").click());
+    // Le glisser-déposer reste possible sur tout le champ de description.
+    const dz = $("objet-box");
+    dz.addEventListener("dragover", (e) => { e.preventDefault(); dz.classList.add("is-dragover"); });
+    dz.addEventListener("dragleave", () => dz.classList.remove("is-dragover"));
+    dz.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dz.classList.remove("is-dragover");
+      handleFile(e.dataTransfer.files[0]);
+    });
+
+    /* ================== Payload (v4) ==================
+       Poste (et durée estimée en portage) n'ont pas de champ contrat : annexés à
+       l'objet s'ils ne sont pas déjà dans le texte. Durée/rythme numériques
+       viennent de la détection ; le commentaire part dans `contraintes`. */
+    function buildBrief() {
+      const v = (id) => $(id).value.trim();
+      const texte = v("objet");
+      const dansTexte = (val) => texte.toLowerCase().includes(val.toLowerCase());
+      const annexes = [];
+      if (v("poste") && !dansTexte(v("poste"))) annexes.push(`Poste : ${v("poste")}`);
+      const brief = {
+        objet: annexes.length ? `${texte}\n\n${annexes.join(" · ")}` : texte,
+        rythme: detected.fields.rythme || "",
+        localisation: v("localisation"),
+        contraintes: v("commentaire"),
+      };
+      if (v("startDate")) brief.startDate = v("startDate");
+      if (detected.fields.duree) {
+        brief.duree = detected.fields.duree;
+        brief.unite = detected.fields.unite || "mois";
+      }
+      if (state.mode === "delegue") {
+        Object.assign(brief, { devise: state.devise });
+        if (competencesValue()) brief.competences = competencesValue();
+        if (v("niveau")) brief.niveau = v("niveau");
+        // Plus de fourchette : un TJM/budget unique part en bornes égales.
+        if (v("tjm")) { brief.tjmMin = Number(v("tjm")); brief.tjmMax = Number(v("tjm")); }
+      } else {
+        Object.assign(brief, { tjm: Number(v("tjm")), devise: state.devise });
+        // Champs intervenant : seulement s'ils sont renseignés — un champ vide
+        // n'est pas une valeur invalide (le contrat exige un format si présent).
+        if (v("intervenantNom")) brief.intervenantNom = v("intervenantNom");
+        if (v("intervenantEmail")) brief.intervenantEmail = v("intervenantEmail");
+        if (v("intervenantTel")) brief.intervenantTel = v("intervenantTel");
+      }
+      return brief;
+    }
+
+    /* ================== États d'UI + soumission ================== */
+    function setStatus(cls, node) {
+      const s = $("status");
+      s.className = "status " + cls;
+      // Une erreur doit être annoncée immédiatement au lecteur d'écran (alert),
+      // les autres états restent polis (status).
+      s.setAttribute("role", cls.includes("is-error") ? "alert" : "status");
+      s.innerHTML = "";
+      if (typeof node === "string") s.textContent = node;
+      else if (node) s.appendChild(node);
+    }
+    function setLoading(on) {
+      state.submitting = on;
+      $("btn-submit").disabled = on || !isFormValid();
+      if (on) {
+        const wrap = document.createElement("span");
+        const sp = document.createElement("span"); sp.className = "spinner";
+        wrap.appendChild(sp); wrap.append(" Envoi en cours…");
+        setStatus("is-loading", wrap);
+      } else if ($("status").classList.contains("is-loading")) {
+        // Fin d'envoi sans erreur (succès) : « Envoi en cours… » n'a plus rien à
+        // dire — un message d'erreur posé par le catch, lui, reste affiché.
+        setStatus("hidden");
+      }
+    }
+    // --- Écran de succès « Prochaines étapes » (remplace le formulaire après dépôt) ---
+    // Proposition B validée par Walid (2026-07-02), portée depuis l'ancienne modale au
+    // merge de la refonte : coche verte + les 3 étapes à venir + lien de suivi vers
+    // Projets. Aucun détail technique à l'écran.
+    function showSuccessScreen() {
+      document.querySelector(".modal-scroll").classList.add("hidden");
+      document.querySelector(".footer-actions").classList.add("hidden");
+      const screen = document.createElement("div");
+      screen.id = "success-screen";
+      screen.setAttribute("role", "status");
+      screen.style.cssText = "flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;padding:3rem 2.5rem;text-align:center";
+
+      const disque = document.createElement("div");
+      disque.style.cssText = "width:64px;height:64px;border-radius:50%;background:var(--vert-pale);display:flex;align-items:center;justify-content:center";
+      disque.innerHTML = '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0e9f6e" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12.5l5 5 10-11"/></svg>';
+
+      const titre = document.createElement("h2");
+      titre.style.cssText = "margin:.5rem 0 0;font-size:1.25rem;font-weight:700;color:var(--encre)";
+      titre.textContent = "Votre besoin a bien été déposé";
+
+      const intro = document.createElement("p");
+      intro.style.cssText = "margin:0;font-size:.9375rem;line-height:1.6;color:var(--gris)";
+      intro.textContent = "Voici ce qu'il se passe maintenant :";
+
+      const etapes = document.createElement("ol");
+      etapes.style.cssText = "list-style:none;margin:1rem 0 0;padding:0;display:flex;flex-direction:column;gap:.65rem;text-align:left";
+      [
+        "Analyse de votre besoin par notre équipe",
+        "Sélection des meilleurs profils disponibles",
+        "Prise de contact sous 24 h ouvrées",
+      ].forEach((label, idx) => {
+        const li = document.createElement("li");
+        li.style.cssText = "display:flex;align-items:center;gap:.75rem;font-size:.875rem;color:var(--gris)";
+        const num = document.createElement("span");
+        num.style.cssText = "width:22px;height:22px;border-radius:50%;background:var(--bleu-pale);color:var(--bleu);font-size:.75rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0";
+        num.textContent = String(idx + 1);
+        li.append(num, label);
+        etapes.appendChild(li);
+      });
+
+      const fermer = document.createElement("button");
+      fermer.type = "button";
+      fermer.id = "btn-success-close";
+      fermer.className = "btn btn-primary";
+      fermer.style.marginTop = "1.1rem";
+      fermer.textContent = "Fermer";
+      fermer.addEventListener("click", () => closeModal());
+
+      const suivre = document.createElement("button");
+      suivre.type = "button";
+      suivre.id = "lnk-success-projets";
+      suivre.style.cssText = "margin-top:.25rem;border:0;background:none;cursor:pointer;font-size:.8125rem;color:var(--bleu);text-decoration:underline;padding:0";
+      suivre.textContent = "Suivre mon besoin dans Projets";
+      suivre.addEventListener("click", () => {
+        if (IN_OVERLAY) window.parent.postMessage({ type: "brief:projets" }, window.location.origin);
+        else location.href = "./projets.html";
+      });
+
+      screen.append(disque, titre, intro, etapes, fermer, suivre);
+      document.querySelector(".modal").appendChild(screen);
+      fermer.focus();
+    }
+
+    async function onSubmit() {
+      if (!isFormValid() || state.submitting) return;
+      setLoading(true);
+      try {
+        const { leadId, mocked } = await submitBrief({
+          mode: state.mode, brief: buildBrief(), file: state.file,
+        });
+        showSuccessScreen();
+        if (IN_OVERLAY) {
+          window.parent.postMessage(
+            { type: "brief:success", leadId, mocked: Boolean(mocked) },
+            window.location.origin
+          );
+        }
+      } catch (e) {
+        setStatus("is-error", e.message || "Échec de l'envoi");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    /* ================== Pré-remplissage live depuis le texte ================== */
+    // `dirty` : champs édités à la main — la détection ne les réécrase JAMAIS.
+    const dirty = new Set();
+    let detected = { mode: null, fields: {}, residual: "" };
+    let prefilledSomething = false;
+
+    // Un champ pré-rempli (jamais touché à la main) SUIT le texte : il se met à
+    // jour, et se vide si la détection ne le trouve plus. Un champ dirty est sacré.
+    function prefill(name, value) {
+      if (dirty.has(name)) return;
+      const el = $(name);
+      if (value === undefined || value === "") {
+        if (el.classList.contains("prefilled")) {
+          el.value = "";
+          el.classList.remove("prefilled");
+        }
+        return;
+      }
+      if (el.value === String(value)) return;
+      el.value = String(value);
+      el.classList.add("prefilled");
+      prefilledSomething = true;
+    }
+
+    // ⚠ D-D (non bloquant) : un TJM < 250 € ressemble à une faute de frappe.
+    // L'alerte vit sous le champ TJM (slot des erreurs inline) ; elle y remplace
+    // le tag ✓ DÉTECTÉ le temps d'être visible (même emplacement absolu).
+    function updateTjmWarn() {
+      const suspect = (id) => { const v = Number($(id).value); return v > 0 && v < 250; };
+      const warn = suspect("tjm");
+      $("warn-tjm").classList.toggle("hidden", !warn);
+      $("field-tjm-single").classList.toggle("has-warn", warn);
+    }
+
+    // Le champ Commentaire n'apparaît que s'il a quelque chose à dire : reliquat
+    // de détection (éléments du texte hors champs) ou saisie manuelle.
+    function updateCommentaire() {
+      $("commentaire-item").classList.toggle("hidden", !$("commentaire").value.trim());
+    }
+
+    // Le texte libre EST l'objet (RG3) ; chaque frappe re-détecte et alimente les
+    // champs non-dirty. Le mode détecté coche sa carte tant que l'utilisateur n'a
+    // pas choisi lui-même.
+    function applyDetection(d) {
+      detected = d;
+      prefilledSomething = false;
+      // Le choix manuel du mode reste sacré face à un signal FAIBLE (RG4). MAIS si le
+      // texte exprime désormais un mode différent de celui présent au moment du choix
+      // (ex. clic « J'ai déjà mon freelance » puis « je cherche un dev python »), le
+      // signal a DIVERGÉ : on suit le texte — sinon l'utilisateur reste bloqué sur la
+      // rubrique Intervenant (nom/e-mail exigés) alors qu'il décrit une recherche.
+      // detected.mode n'est jamais renseigné sans un signal explicite (verbes de
+      // recherche → délégué ; intervenant nommé/e-mail → portage), donc une divergence
+      // est toujours un signal fort, jamais une signature ou du bruit.
+      if (detected.mode) {
+        const signalADivergé = detected.mode !== state.modeManuelSignal;
+        if (!dirty.has("mode") || signalADivergé) {
+          $(detected.mode === "portage" ? "mode-portage" : "mode-delegue").checked = true;
+          if (state.mode !== detected.mode) { state.mode = detected.mode; applyMode(); }
+        }
+      }
+      prefill("poste", detected.fields.poste);
+      prefill("localisation", detected.fields.localisation);
+      prefill("niveau", detected.fields.niveau);
+      if (!dirty.has("competences")) {
+        // Audit UX : chips alignées sur le référentiel (casse canonique), sans
+        // doublon, et sans répéter l'intitulé du poste (déjà porté par son champ).
+        const posteRef = (detected.fields.poste || $("poste").value || "").trim().toLowerCase();
+        const next = [];
+        for (const brut of detected.fields.competences ? detected.fields.competences.split(", ") : []) {
+          const canon = SKILLS.find((s) => s.toLowerCase() === brut.toLowerCase()) || brut;
+          if (canon.toLowerCase() === posteRef) continue;
+          if (!next.some((v) => v.toLowerCase() === canon.toLowerCase())) next.push(canon);
+        }
+        if (JSON.stringify(next) !== JSON.stringify(skillTags)) {
+          skillTags = next;
+          renderTags();
+          $("competences-box").classList.toggle("prefilled", skillTags.length > 0);
+          if (skillTags.length) prefilledSomething = true;
+        }
+      }
+      prefill("startDate", detected.fields.startDate);
+      prefill("tjm", detected.fields.tjm);
+      prefill("intervenantNom", detected.fields.intervenantNom);
+      prefill("intervenantEmail", detected.fields.intervenantEmail);
+      prefill("intervenantTel", detected.fields.intervenantTel);
+      prefill("commentaire", detected.residual);
+      if (detected.fields.devise) state.devise = detected.fields.devise;
+      if (prefilledSomething) {
+        $("ia-hint").classList.add("done");
+        $("ia-hint-txt").textContent = "Détails pré-remplis — vérifiez-les ci-dessous.";
+      }
+      updateCommentaire();
+      updateTjmWarn();
+      refresh();
+    }
+
+    /* IA en surcouche : les règles locales répondent à CHAQUE frappe (latence zéro),
+       l'extraction serveur (Claude, plus solide — noms, intitulés, dates) repasse
+       derrière quand la frappe se pose. Champs dirty toujours sacrés (prefill).
+       extraction:null, texte modifié entre-temps ou erreur → les règles restent :
+       la démo ne casse jamais. */
+    let iaTimer = 0, iaSeq = 0;
+
+    // « Analyse en cours… » pendant que l'IA réfléchit (2-4 s) : le remplissage
+    // tardif est annoncé, pas subi. Si l'IA ne rapporte rien, on restaure l'état
+    // précédent du bandeau — jamais de promesse non tenue.
+    let iaHintAvant = null;
+    function iaEnCours(on) {
+      const hint = $("ia-hint"), txt = $("ia-hint-txt");
+      if (on) {
+        if (!iaHintAvant) iaHintAvant = { done: hint.classList.contains("done"), texte: txt.textContent };
+        hint.classList.add("thinking");
+        hint.classList.remove("done");
+        txt.textContent = "Analyse de votre description en cours…";
+      } else {
+        hint.classList.remove("thinking");
+        if (iaHintAvant && txt.textContent === "Analyse de votre description en cours…") {
+          hint.classList.toggle("done", iaHintAvant.done);
+          txt.textContent = iaHintAvant.texte;
+        }
+        iaHintAvant = null;
+      }
+    }
+
+    // Fin d'analyse IA : les obligatoires restés vides passent orange d'emblée
+    // (demande Walid) — l'utilisateur voit tout de suite ce qui manque, sans
+    // avoir à visiter les champs.
+    function signaleManquants() {
+      Object.keys(FIELDS).forEach((n) => {
+        const code = validate(n);
+        // Obligatoire manquant OU optionnel vide (nudge orange, demande Walid) → signalé.
+        if (code === "requis" || code === "e-mail ou téléphone requis" || isOptionalEmpty(n)) touched.add(n);
+      });
+      if (modeMissing()) touched.add("mode");
+      renderAllErrors();
+    }
+
+    function scheduleIaDetection() {
+      clearTimeout(iaTimer);
+      const texte = $("objet").value;
+      if (texte.trim().length < 20) return; // sous le minimum de l'objet : rien à extraire
+      iaTimer = setTimeout(async () => {
+        const seq = ++iaSeq;
+        iaEnCours(true);
+        try {
+          const { extraction } = await extraireBrief({ texte });
+          // Réponse périmée (frappe reprise ou requête plus récente) : on l'ignore.
+          if (seq !== iaSeq || $("objet").value !== texte || !extraction) return;
+          applyDetection({
+            mode: extraction.mode || null,
+            fields: extraction.fields || {},
+            residual: extraction.residual || "",
+          });
+          signaleManquants();
+        } catch { /* IA indisponible : les règles locales ont déjà rempli */ }
+        finally { if (seq === iaSeq) iaEnCours(false); }
+      }, 800);
+    }
+
+    function runDetection() {
+      applyDetection(extract($("objet").value));
+      scheduleIaDetection();
+    }
+    $("objet").addEventListener("input", runDetection);
+    $("commentaire").addEventListener("input", updateCommentaire);
+
+    /* ============ Compétences en tags supprimables (chips) ============ */
+    let skillTags = [];
+    function renderTags() {
+      const box = $("competences-box");
+      box.querySelectorAll(".skill-chip").forEach((c) => c.remove());
+      const input = $("competences");
+      for (const skill of skillTags) {
+        const chip = document.createElement("span");
+        chip.className = "skill-chip";
+        chip.append(skill);
+        const x = document.createElement("button");
+        x.type = "button"; x.className = "chip-x"; x.textContent = "×";
+        x.setAttribute("aria-label", `Retirer ${skill}`);
+        x.addEventListener("click", () => {
+          skillTags = skillTags.filter((v) => v !== skill);
+          dirty.add("competences");
+          box.classList.remove("prefilled");
+          renderTags(); refresh();
+        });
+        chip.appendChild(x);
+        box.insertBefore(chip, input);
+      }
+    }
+    function competencesValue() {
+      const typed = $("competences").value.trim();
+      return [...skillTags, ...(typed && !skillTags.some((v) => v.toLowerCase() === typed.toLowerCase()) ? [typed] : [])].join(", ");
+    }
+    function addTag(skill) {
+      const v = (skill || "").trim();
+      if (v && !skillTags.some((t) => t.toLowerCase() === v.toLowerCase())) skillTags.push(v);
+      $("competences").value = "";
+      $("competences-box").classList.remove("prefilled");
+      dirty.add("competences");
+      renderTags(); refresh();
+    }
+    $("competences").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === ",") { e.preventDefault(); addTag($("competences").value); hideSuggest(); }
+      else if (e.key === "Backspace" && !$("competences").value && skillTags.length) {
+        skillTags.pop(); dirty.add("competences"); renderTags(); refresh();
+      }
+    });
+
+    /* ============ Autocomplétion Compétences (référentiel FreeWork, 1569 skills) ============ */
+    // Suggestions sur le segment après la dernière virgule ; un choix = édition
+    // manuelle (dirty) — la détection ne le réécrasera pas.
+    const sbox = $("competences-suggest");
+    function hideSuggest() { sbox.classList.add("hidden"); sbox.innerHTML = ""; }
+    $("competences").addEventListener("input", () => {
+      const q = $("competences").value.trim().toLowerCase();
+      if (q.length < 2) return hideSuggest();
+      const starts = [], contains = [];
+      for (const skill of SKILLS) {
+        const k = skill.toLowerCase();
+        if (k === q) continue;
+        if (k.startsWith(q)) { if (starts.length < 8) starts.push(skill); }
+        else if (contains.length < 8 && k.includes(q)) contains.push(skill);
+        if (starts.length >= 8) break;
+      }
+      const matches = [...starts, ...contains].slice(0, 8);
+      if (!matches.length) return hideSuggest();
+      sbox.innerHTML = "";
+      for (const skill of matches) {
+        const item = document.createElement("div");
+        item.className = "suggest-item";
+        item.textContent = skill;
+        item.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          addTag(skill);
+          hideSuggest();
+        });
+        sbox.appendChild(item);
+      }
+      sbox.classList.remove("hidden");
+    });
+    $("competences").addEventListener("blur", () => setTimeout(hideSuggest, 150));
+    $("competences").addEventListener("keydown", (e) => { if (e.key === "Escape") hideSuggest(); });
+
+    /* ============ Autocomplétion Intitulé du poste (référentiel FreeWork, 137 métiers) ============ */
+    // Même pattern que les compétences : suggestions dès 2 caractères, 8 max,
+    // insensible aux accents ; un choix = édition manuelle (dirty).
+    const pbox = $("poste-suggest");
+    const posteNorm = (s) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    function hidePosteSuggest() { pbox.classList.add("hidden"); pbox.innerHTML = ""; }
+    $("poste").addEventListener("input", () => {
+      const q = posteNorm($("poste").value.trim());
+      if (q.length < 2) return hidePosteSuggest();
+      const starts = [], contains = [];
+      for (const metier of METIERS) {
+        const k = posteNorm(metier);
+        if (k === q) continue;
+        if (k.startsWith(q)) { if (starts.length < 8) starts.push(metier); }
+        else if (contains.length < 8 && k.includes(q)) contains.push(metier);
+        if (starts.length >= 8) break;
+      }
+      const matches = [...starts, ...contains].slice(0, 8);
+      if (!matches.length) return hidePosteSuggest();
+      pbox.innerHTML = "";
+      for (const metier of matches) {
+        const item = document.createElement("div");
+        item.className = "suggest-item";
+        item.textContent = metier;
+        item.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          $("poste").value = metier;
+          $("poste").dispatchEvent(new Event("input", { bubbles: true }));
+          hidePosteSuggest();
+        });
+        pbox.appendChild(item);
+      }
+      pbox.classList.remove("hidden");
+    });
+    $("poste").addEventListener("blur", () => setTimeout(hidePosteSuggest, 150));
+    $("poste").addEventListener("keydown", (e) => { if (e.key === "Escape") hidePosteSuggest(); });
+
+    /* ============ Autocomplétion Localisation (villes, façon freelance.com) ============ */
+    // Dropdown custom (le <datalist> natif rend une popup système hors charte) :
+    // « Télétravail (France) » en tête, puis « Ville, France », saisie libre conservée.
+    const LOC_REMOTE = "Télétravail (France)";
+    const VILLES = ["Paris", "Marseille", "Lyon", "Toulouse", "Nice", "Nantes",
+      "Montpellier", "Strasbourg", "Bordeaux", "Lille", "Rennes", "Toulon", "Reims",
+      "Saint-Étienne", "Dijon", "Grenoble", "Angers", "Nîmes", "Clermont-Ferrand",
+      "Aix-en-Provence", "Le Havre", "Le Mans", "Brest", "Tours", "Amiens", "Annecy",
+      "Limoges", "Perpignan", "Besançon", "Metz", "Orléans", "Rouen", "Mulhouse",
+      "Caen", "Nancy", "Avignon", "Poitiers", "La Rochelle", "Pau", "Bayonne"];
+    const LOC_OPTIONS = [LOC_REMOTE, ...VILLES.map((v) => `${v}, France`), "France"];
+    const HOUSE_SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>';
+    const lbox = $("localisation-suggest");
+    const locNorm = (s) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    function hideLocSuggest() { lbox.classList.add("hidden"); lbox.innerHTML = ""; }
+    function showLocSuggest() {
+      const q = locNorm($("localisation").value.trim());
+      const matches = q
+        ? LOC_OPTIONS.filter((o) => locNorm(o).includes(q) && locNorm(o) !== q)
+        : LOC_OPTIONS;
+      if (!matches.length) return hideLocSuggest();
+      lbox.innerHTML = "";
+      for (const opt of matches) {
+        const item = document.createElement("div");
+        item.className = "suggest-item";
+        if (opt === LOC_REMOTE) {
+          item.classList.add("suggest-remote");
+          item.innerHTML = HOUSE_SVG;
+          item.appendChild(document.createTextNode(opt));
+        } else {
+          item.textContent = opt;
+        }
+        item.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          $("localisation").value = opt;
+          // Passe par le binding générique : marque le champ dirty + refresh.
+          $("localisation").dispatchEvent(new Event("input", { bubbles: true }));
+          hideLocSuggest();
+        });
+        lbox.appendChild(item);
+      }
+      lbox.classList.remove("hidden");
+    }
+    $("localisation").addEventListener("focus", showLocSuggest);
+    $("localisation").addEventListener("input", showLocSuggest);
+    $("localisation").addEventListener("blur", () => setTimeout(hideLocSuggest, 150));
+    $("localisation").addEventListener("keydown", (e) => { if (e.key === "Escape") hideLocSuggest(); });
+
+    /* ============ Calendrier custom Date de démarrage (harmonisé suggest-box) ============ */
+    // Le picker natif de l'input date n'est ni stylable ni positionnable : on le
+    // neutralise (pointer-events sur l'icône, en CSS) et on ouvre ce panneau à la
+    // place. La saisie clavier segment par segment reste native.
+    const dbox = $("date-suggest");
+    const DATE_MIN = new Date(); DATE_MIN.setHours(0, 0, 0, 0);
+    const MOIS = ["janvier", "février", "mars", "avril", "mai", "juin",
+      "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+    const toISO = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    let calMonth = new Date(DATE_MIN.getFullYear(), DATE_MIN.getMonth(), 1);
+    function hideCal() { dbox.classList.add("hidden"); dbox.innerHTML = ""; }
+    function renderCal() {
+      dbox.innerHTML = "";
+      const head = document.createElement("div"); head.className = "cal-head";
+      const title = document.createElement("span"); title.className = "cal-title";
+      title.textContent = `${MOIS[calMonth.getMonth()]} ${calMonth.getFullYear()}`;
+      const nav = (delta, label) => {
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "cal-nav"; b.textContent = label;
+        b.setAttribute("aria-label", delta < 0 ? "Mois précédent" : "Mois suivant");
+        if (delta < 0 && calMonth <= new Date(DATE_MIN.getFullYear(), DATE_MIN.getMonth(), 1)) b.disabled = true;
+        // mousedown + preventDefault : le champ garde le focus, pas de blur.
+        b.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() + delta, 1);
+          renderCal();
+        });
+        return b;
+      };
+      head.append(nav(-1, "‹"), title, nav(1, "›"));
+      const grid = document.createElement("div"); grid.className = "cal-grid";
+      for (const j of ["L", "M", "M", "J", "V", "S", "D"]) {
+        const h = document.createElement("span"); h.className = "cal-dow"; h.textContent = j;
+        grid.appendChild(h);
+      }
+      const offset = (new Date(calMonth).getDay() + 6) % 7; // semaine commençant lundi
+      for (let i = 0; i < offset; i++) grid.appendChild(document.createElement("span"));
+      const nbJours = new Date(calMonth.getFullYear(), calMonth.getMonth() + 1, 0).getDate();
+      const selected = $("startDate").value;
+      for (let d = 1; d <= nbJours; d++) {
+        const date = new Date(calMonth.getFullYear(), calMonth.getMonth(), d);
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "cal-day"; b.textContent = String(d);
+        if (date < DATE_MIN) b.disabled = true;
+        if (selected === toISO(date)) b.classList.add("is-selected");
+        b.addEventListener("mousedown", (e) => {
+          e.preventDefault();
+          $("startDate").value = toISO(date);
+          // Passe par le binding générique : dirty + refresh (comme la localisation).
+          $("startDate").dispatchEvent(new Event("input", { bubbles: true }));
+          hideCal();
+        });
+        grid.appendChild(b);
+      }
+      dbox.append(head, grid);
+      dbox.classList.remove("hidden");
+      positionCal();
+    }
+    // Panneau en position: fixed (échappe au clipping de .modal-scroll, comme le
+    // picker des selects) : sous le champ, glisse pour rester à l'écran (pas de flip).
+    function positionCal() {
+      const r = $("startDate").getBoundingClientRect();
+      let x = r.left + r.width / 2 - dbox.offsetWidth / 2;
+      x = Math.max(8, Math.min(x, window.innerWidth - dbox.offsetWidth - 8));
+      let y = r.bottom + 4;
+      if (y + dbox.offsetHeight > window.innerHeight - 8) y = window.innerHeight - dbox.offsetHeight - 8;
+      dbox.style.left = `${x}px`;
+      dbox.style.top = `${y}px`;
+    }
+    document.querySelector(".modal-scroll").addEventListener("scroll", hideCal, { passive: true });
+    function showCal() {
+      const v = $("startDate").value;
+      const base = v ? new Date(`${v}T00:00:00`) : DATE_MIN;
+      calMonth = new Date(base.getFullYear(), base.getMonth(), 1);
+      renderCal();
+    }
+    $("startDate").addEventListener("focus", showCal);
+    $("startDate").addEventListener("click", showCal);
+    $("startDate").addEventListener("blur", () => setTimeout(hideCal, 150));
+    $("startDate").addEventListener("keydown", (e) => { if (e.key === "Escape") hideCal(); });
+
+    /* ================== Boutons transverses ================== */
+    function closeModal() {
+      if (IN_OVERLAY) {
+        window.parent.postMessage({ type: "brief:close" }, window.location.origin);
+        return;
+      }
+      document.querySelector(".modal").classList.add("hidden");
+      document.querySelector(".v-modal").classList.add("hidden");
+    }
+    $("btn-close").addEventListener("click", closeModal);
+    $("btn-cancel").addEventListener("click", closeModal);
+    $("btn-submit").addEventListener("click", onSubmit);
+
+    // Échap ferme la modale (audit : standard des dialogs). En phase capture :
+    // si une liste/calendrier est ouvert, c'est LUI que cet Échap ferme (via son
+    // propre handler) — le suivant fermera la modale. Fermer = repartir de zéro :
+    // pas de brouillon conservé (demande Walid — l'essai du brouillon a été retiré).
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape") return;
+      if (document.querySelector(".suggest-box:not(.hidden)")) return;
+      closeModal();
+    }, true);
+
+    /* ============ Indice de scroll : ombre au-dessus du footer (audit) ============ */
+    const scroller = document.querySelector(".modal-scroll");
+    function updateScrollCue() {
+      document.querySelector(".modal").classList.toggle("has-more-below",
+        scroller.scrollTop + scroller.clientHeight < scroller.scrollHeight - 4);
+    }
+    scroller.addEventListener("scroll", updateScrollCue, { passive: true });
+    window.addEventListener("resize", updateScrollCue);
+
+    // Init
+    $("startDate").min = new Date().toISOString().split("T")[0];
+    applyMode();
+    refresh();
+    runDetection();
+    $("objet").focus();
+  </script>
+</body>
+</html>
