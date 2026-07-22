@@ -31,8 +31,8 @@ function signGuestToken(secret) {
 }
 
 module.exports = (req, res) => {
-  if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
+  if (req.method !== "GET" && req.method !== "POST") {
+    res.setHeader("Allow", "GET, POST");
     return res.status(405).json({ error: "Method not allowed" });
   }
 
@@ -43,7 +43,10 @@ module.exports = (req, res) => {
 
   // The browser never chooses which Metabase resource is signed.
   const { entityType, entityId } = req.body || {};
-  if (entityType !== "dashboard" || Number(entityId) !== DASHBOARD_ID) {
+  if (
+    req.method === "POST" &&
+    (entityType !== "dashboard" || Number(entityId) !== DASHBOARD_ID)
+  ) {
     return res.status(400).json({ error: "Dashboard not allowed" });
   }
 
