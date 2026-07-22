@@ -67,7 +67,9 @@ function withMetabaseDashboard(html){
   <script>(function(){
     var container=document.getElementById('embed-tdb');
     function showError(){container.innerHTML='<p class="metabase-dashboard__message">Le tableau de bord est momentanément indisponible.</p>';}
-    window.metabaseConfig={theme:{preset:'light'},isGuest:true,instanceUrl:'https://metabase.plateforme.freelance.com',guestEmbedProviderUri:'/api/metabase-guest-token'};
+    var portalOrigin=window.location.origin;
+    try{portalOrigin=window.parent.location.origin;}catch(error){}
+    window.metabaseConfig={theme:{preset:'light'},isGuest:true,instanceUrl:'https://metabase.plateforme.freelance.com',guestEmbedProviderUri:portalOrigin+'/api/metabase-guest-token'};
     var loader=document.createElement('script');
     loader.defer=true;loader.src='https://metabase.plateforme.freelance.com/app/embed.js';
     loader.onerror=showError;
