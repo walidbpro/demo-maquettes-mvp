@@ -57,6 +57,12 @@ async function decrypt(pw){
   return new TextDecoder().decode(plain);
 }
 const f=document.getElementById('f'),msg=document.getElementById('msg'),go=document.getElementById('go'),pw=document.getElementById('pw');
+function withPortalAssets(html){
+  return html.replace(
+    'background:url(login-visuel.webp)',
+    'background:url('+window.location.origin+'/login-visuel.webp)',
+  );
+}
 function withMetabaseDashboard(html){
   const dashboard = `<style>
     .metabase-dashboard{min-height:720px;padding:18px;border:1px solid #e2e8f0;border-radius:14px;background:#fff}
@@ -85,7 +91,7 @@ function withMetabaseDashboard(html){
 f.addEventListener('submit',async(e)=>{
   e.preventDefault();msg.textContent='';go.disabled=true;go.textContent='…';
   try{
-    const html=withMetabaseDashboard(await decrypt(pw.value));
+    const html=withMetabaseDashboard(withPortalAssets(await decrypt(pw.value)));
     const blob=new Blob([html],{type:'text/html'});
     const url=URL.createObjectURL(blob);
     const v=document.getElementById('view');
