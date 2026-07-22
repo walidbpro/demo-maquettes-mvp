@@ -1953,9 +1953,9 @@
       <section class="vue" id="v-tdb" tabindex="-1" hidden>
         <section class="card">
           <style>
-  .metabase-dashboard{min-height:720px;padding:18px;border:1px solid #e2e8f0;border-radius:14px;background:#fff}
+  .metabase-dashboard{height:calc(100vh - 128px);min-height:720px;padding:18px;border:1px solid #e2e8f0;border-radius:14px;background:#fff;overflow:hidden}
   .metabase-dashboard__message{margin:0;color:#475569;font:500 14px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
-  .metabase-dashboard metabase-dashboard{display:block;min-height:1100px}
+  .metabase-dashboard metabase-dashboard{display:block;width:100%;height:100%;min-height:0}
 </style>
 <div id="embed-tdb" class="metabase-dashboard" aria-live="polite" aria-label="Tableau de bord Metabase"><p class="metabase-dashboard__message">Chargement du tableau de bord…</p></div>
 <script>(function(){
@@ -1967,6 +1967,7 @@
   loader.onerror=showError;
   loader.onload=function(){try{
     var embed=document.createElement('metabase-dashboard');
+    embed.style.height='100%';
     embed.setAttribute('dashboard-id','33');embed.setAttribute('with-title','true');embed.setAttribute('with-downloads','true');
     container.replaceChildren(embed);
   }catch(error){showError();}};
