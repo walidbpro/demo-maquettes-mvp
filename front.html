@@ -1206,13 +1206,14 @@
   #v-besoins #f-actions{margin-left:auto}
   @media(max-width:880px){#v-besoins .barre-besoins{padding:10px}#v-besoins .outils-besoins{flex-wrap:wrap;width:100%}#v-besoins .barre-besoins .champ-rech{max-width:none}}
   #v-besoins .twrap{border:1px solid #e8e6e0;border-radius:14px;background:#fff;overflow-x:auto;overflow-y:hidden}
-  #v-besoins .candidature-table{min-width:1180px}
+  #v-besoins .candidature-table{min-width:1320px}
   #v-besoins .candidature-table th{white-space:nowrap}
   #v-besoins .candidate-name{display:flex;align-items:center;gap:9px;min-width:178px}
   #v-besoins .candidate-name .avatar{display:none}
-  #v-besoins .candidate-name b,#v-besoins .candidate-name small{display:block;line-height:1.25}
+  #v-besoins .candidate-name b{display:block;line-height:1.25}
   #v-besoins .candidate-name b{font-size:13px;color:var(--t-900)}
-  #v-besoins .candidate-name small{margin-top:2px;font-size:11px;color:var(--t-600)}
+  #v-besoins .candidate-name small{display:none}
+  #v-besoins .candidate-role{min-width:145px;font-size:12px;color:var(--t-600)}
   #v-besoins .cv-link{display:inline-flex;align-items:center;color:var(--brand);font-size:12px;font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
   #v-besoins .candidate-actions{display:flex;gap:7px;min-width:174px}
   #v-besoins .btn-candidate{min-height:32px;padding:0 10px;border:1px solid;border-radius:7px;background:#fff;font-family:inherit;font-size:11.5px;font-weight:800;cursor:pointer;transition:.15s}
@@ -2023,9 +2024,9 @@
           <div id="pb-ta" role="tabpanel" aria-labelledby="tb-ta">
             <div class="twrap" role="region" aria-label="Tableau des candidatures associées aux besoins" tabindex="0">
             <table class="candidature-table">
-              <thead><tr><th>Besoin</th><th>Candidat</th><th>Marché</th><th>Localisation</th><th class="num">TJM</th><th>Statut</th><th>CV</th><th>Décision</th></tr></thead>
+              <thead><tr><th>Besoin</th><th>Marché</th><th>Localisation</th><th class="num">TJM</th><th>Candidat</th><th>Poste</th><th>Statut</th><th>Voir le CV</th><th>Décision</th></tr></thead>
               <tbody>
-                <tr class="ligne-attendu"><td><div class="c-nom">Développeur mobile Flutter — app agents terrain</div></td><td><div class="candidate-name"><span class="avatar">LM</span><span><b>Léa Morel</b><small>Développeuse mobile</small></span></div></td><td>AT Prestations SI 2024-28</td><td>Lyon</td><td class="num">540 €</td><td><span class="badge ok">Démarrage de la mission</span></td><td><a class="cv-link" href="cv.html?candidate=L%C3%A9a%20Morel&amp;role=D%C3%A9veloppeuse%20mobile" target="_blank" rel="noopener">Voir le CV</a></td><td class="candidate-actions"><button type="button" class="btn-candidate refuse" data-candidature-action="refuse">Refuser</button><button type="button" class="btn-candidate accept" data-candidature-action="accept">Accepter</button></td></tr>
+                <tr><td><div class="c-nom">Développeur mobile Flutter — app agents terrain</div></td><td><div class="candidate-name"><span class="avatar">LM</span><span><b>Léa Morel</b><small>Développeuse mobile</small></span></div></td><td>AT Prestations SI 2024-28</td><td>Lyon</td><td class="num">540 €</td><td><span class="badge ok">Démarrage de la mission</span></td><td><a class="cv-link" href="cv.html?candidate=L%C3%A9a%20Morel&amp;role=D%C3%A9veloppeuse%20mobile" target="_blank" rel="noopener">Voir le CV</a></td><td class="candidate-actions"><button type="button" class="btn-candidate refuse" disabled>Refuser</button><button type="button" class="btn-candidate accept" disabled>Accepter</button></td></tr>
                 <tr><td><div class="c-nom">UX designer — parcours de souscription</div></td><td><div class="candidate-name"><span class="avatar">ML</span><span><b>Marta Lopez</b><small>Product designer</small></span></div></td><td>AT Prestations SI 2024-28</td><td>Paris</td><td class="num">520 €</td><td><span class="badge b-neutre">Analyse du besoin</span></td><td><a class="cv-link" href="cv.html?candidate=Marta%20Lopez&amp;role=Product%20designer" target="_blank" rel="noopener">Voir le CV</a></td><td class="candidate-actions"><button type="button" class="btn-candidate refuse" disabled>Refuser</button><button type="button" class="btn-candidate accept" disabled>Accepter</button></td></tr>
                 <tr><td><div class="c-nom">UX designer — parcours de souscription</div></td><td><div class="candidate-name"><span class="avatar">CN</span><span><b>Chi N'Guyen</b><small>UX designer</small></span></div></td><td>AT Prestations SI 2024-28</td><td>Paris</td><td class="num">510 €</td><td><span class="badge b-neutre">Analyse du besoin</span></td><td><a class="cv-link" href="cv.html?candidate=Chi%20N%27Guyen&amp;role=UX%20designer" target="_blank" rel="noopener">Voir le CV</a></td><td class="candidate-actions"><button type="button" class="btn-candidate refuse" disabled>Refuser</button><button type="button" class="btn-candidate accept" disabled>Accepter</button></td></tr>
                 <tr class="ligne-attendu"><td><div class="c-nom">Consultant cybersécurité — audit ISO 27001</div></td><td><div class="candidate-name"><span class="avatar">EW</span><span><b>Elsa Weber</b><small>Consultante cybersécurité</small></span></div></td><td>Cybersécurité</td><td>Paris</td><td class="num">700 €</td><td><span class="badge b-violet">Validation du candidat</span></td><td><a class="cv-link" href="cv.html?candidate=Elsa%20Weber&amp;role=Consultante%20cybers%C3%A9curit%C3%A9" target="_blank" rel="noopener">Voir le CV</a></td><td class="candidate-actions"><button type="button" class="btn-candidate refuse" data-candidature-action="refuse">Refuser</button><button type="button" class="btn-candidate accept" data-candidature-action="accept">Accepter</button></td></tr>
@@ -3283,6 +3284,17 @@
     document.querySelectorAll('#v-besoins [role="tab"]').forEach(function(t){
       t.addEventListener('click',function(){rech.value='';act.setAttribute('aria-pressed','false');setTimeout(majOptions,0);});});
     majOptions();
+  })();
+  (function(){
+    var table=document.querySelector('#v-besoins .candidature-table');
+    if(!table)return;
+    table.tBodies[0].querySelectorAll('tr').forEach(function(row){
+      var cells=[].slice.call(row.cells);
+      if(cells.length!==8)return;
+      var role=(cells[1].querySelector('small')||{}).textContent||'—',roleCell=document.createElement('td');
+      roleCell.className='candidate-role';roleCell.textContent=role.trim()||'—';
+      row.append(cells[0],cells[2],cells[3],cells[4],cells[1],roleCell,cells[5],cells[6],cells[7]);
+    });
   })();
   (function(){
     document.querySelectorAll('#v-besoins [data-candidature-action]').forEach(function(button){
