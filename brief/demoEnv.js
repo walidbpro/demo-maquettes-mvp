@@ -3,7 +3,7 @@
 // La clé anon Supabase est publique par design — la sécurité vit dans RLS (ADR-017).
 export const SUPABASE_URL = "https://sahprooloaxzmvbjmwlx.supabase.co";
 export const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNhaHByb29sb2F4em12Ymptd2x4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI5ODY2OTEsImV4cCI6MjA5ODU2MjY5MX0.sSl8N0-MPydOEylMHunZschQ_Mh44Kml_Mx6_wiidEE";
+  "sb_publishable_1-FfpHxCCpQVY6P7giXhXQ_p-rNaCQN";
 
 // Local (dev + jour J) → backend Fastify ; déployé (GitHub Pages) → Supabase.
 export const IS_LOCAL = ["localhost", "127.0.0.1"].includes(location.hostname);
