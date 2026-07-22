@@ -2024,7 +2024,7 @@
           <div id="pb-ta" role="tabpanel" aria-labelledby="tb-ta">
             <div class="twrap" role="region" aria-label="Tableau des candidatures associées aux besoins" tabindex="0">
             <table class="candidature-table">
-              <thead><tr><th>Candidat</th><th>Poste</th><th>Besoin</th><th>Localisation</th><th class="num">TJM</th><th>Statut</th><th>Voir le CV</th><th>Décision</th><th>Marché</th></tr></thead>
+              <thead><tr><th>Besoin</th><th>Marché</th><th>Localisation</th><th class="num">TJM</th><th>Candidat</th><th>Poste</th><th>Statut</th><th>Voir le CV</th><th>Décision</th></tr></thead>
               <tbody>
                 <tr><td><div class="c-nom">Développeur mobile Flutter — app agents terrain</div></td><td><div class="candidate-name"><span class="avatar">LM</span><span><b>Léa Morel</b><small>Développeuse mobile</small></span></div></td><td>AT Prestations SI 2024-28</td><td>Lyon</td><td class="num">540 €</td><td><span class="badge ok">Démarrage de la mission</span></td><td><a class="cv-link" href="cv.html?candidate=L%C3%A9a%20Morel&amp;role=D%C3%A9veloppeuse%20mobile" target="_blank" rel="noopener">Voir le CV</a></td><td class="candidate-actions"><button type="button" class="btn-candidate refuse" disabled>Refuser</button><button type="button" class="btn-candidate accept" disabled>Accepter</button></td></tr>
                 <tr><td><div class="c-nom">UX designer — parcours de souscription</div></td><td><div class="candidate-name"><span class="avatar">ML</span><span><b>Marta Lopez</b><small>Product designer</small></span></div></td><td>AT Prestations SI 2024-28</td><td>Paris</td><td class="num">520 €</td><td><span class="badge b-neutre">Analyse du besoin</span></td><td><a class="cv-link" href="cv.html?candidate=Marta%20Lopez&amp;role=Product%20designer" target="_blank" rel="noopener">Voir le CV</a></td><td class="candidate-actions"><button type="button" class="btn-candidate refuse" disabled>Refuser</button><button type="button" class="btn-candidate accept" disabled>Accepter</button></td></tr>
@@ -3293,7 +3293,7 @@
       if(cells.length!==8)return;
       var role=(cells[1].querySelector('small')||{}).textContent||'—',roleCell=document.createElement('td');
       roleCell.className='candidate-role';roleCell.textContent=role.trim()||'—';
-      row.append(cells[1],roleCell,cells[0],cells[3],cells[4],cells[5],cells[6],cells[7],cells[2]);
+      row.append(cells[0],cells[2],cells[3],cells[4],cells[1],roleCell,cells[5],cells[6],cells[7]);
     });
   })();
   (function(){
