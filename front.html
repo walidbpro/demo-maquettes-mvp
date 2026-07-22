@@ -3296,6 +3296,17 @@
       row.append(cells[0],cells[2],cells[3],cells[4],cells[1],roleCell,cells[5],cells[6],cells[7]);
     });
   })();
+  window.__trierCandidatures=function(){
+    var body=document.querySelector('#v-besoins .candidature-table tbody');
+    if(!body)return;
+    var rows=[].slice.call(body.rows);
+    rows.sort(function(a,b){
+      var actifA=!!a.querySelector('[data-candidature-action]:not(:disabled)'),actifB=!!b.querySelector('[data-candidature-action]:not(:disabled)');
+      return Number(actifB)-Number(actifA);
+    });
+    rows.forEach(function(row){body.appendChild(row);});
+  };
+  window.__trierCandidatures();
   (function(){
     document.querySelectorAll('#v-besoins .cv-link').forEach(function(link){
       link.href='cv-demo.pdf';
@@ -3309,6 +3320,7 @@
         badge.textContent=accepted?'Acceptée':'Refusée';
         row.classList.remove('ligne-attendu');
         cell.innerHTML='<span class="decision-done '+(accepted?'accepted':'refused')+'">'+(accepted?'Candidature acceptée':'Candidature refusée')+'</span>';
+        window.__trierCandidatures();
       });
     });
   })();
