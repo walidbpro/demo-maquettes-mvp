@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/metabase-guest-token.js": {
+      "maxDuration": 10
+    }
+  }
+}
