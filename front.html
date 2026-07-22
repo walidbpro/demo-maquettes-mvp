@@ -3010,14 +3010,14 @@
   }
   function etape(n){['l-etape1','l-etape3','l-etape4'].forEach(function(id){
     document.getElementById(id).hidden=(id!=='l-etape'+n);});}
-  document.getElementById('l-magique').addEventListener('click',function(){connexionReussie();});
+  document.getElementById('l-magique').addEventListener('click',function(){etape(4);});
   document.getElementById('l-lien-magique').addEventListener('click',function(){
     document.getElementById('l-conf2').hidden=false;
     setTimeout(function(){document.getElementById('l-conf2').hidden=true;
       etape(2);document.getElementById('l-code').focus();},1600);});
   document.getElementById('l-retour3').addEventListener('click',function(e){e.preventDefault();
     document.getElementById('l-conf2').hidden=true;etape(1);});
-  document.getElementById('l-connecter').addEventListener('click',function(){connexionReussie();});
+  document.getElementById('l-connecter').addEventListener('click',function(e){ouvrirMfa(e.currentTarget);});
   document.getElementById('l-oublie').addEventListener('click',function(e){e.preventDefault();etape(3);});
   document.getElementById('l-retour2').addEventListener('click',function(e){e.preventDefault();
     document.getElementById('l-conf').hidden=true;etape(1);});
