@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CV candidat — Portail client</title>
+  <style>
+    :root{--blue:#1746c8;--ink:#172238;--muted:#69758a;--line:#e5eaf3;--wash:#f5f7fb}*{box-sizing:border-box}body{margin:0;background:var(--wash);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink)}.bar{height:64px;padding:0 max(26px,calc((100vw - 960px)/2));display:flex;align-items:center;justify-content:space-between;background:#fff;border-bottom:1px solid var(--line)}.brand{font-size:15px;font-weight:800;color:var(--blue)}.tag{font-size:12px;color:var(--muted)}main{max-width:960px;margin:34px auto;padding:0 24px}.document{background:#fff;border:1px solid var(--line);border-radius:16px;padding:48px 54px;box-shadow:0 12px 28px rgba(31,48,83,.07)}.intro{display:flex;align-items:center;gap:24px;padding-bottom:32px;border-bottom:1px solid var(--line)}.avatar{display:grid;place-items:center;width:84px;height:84px;border-radius:50%;background:#eaf0ff;color:var(--blue);font-size:26px;font-weight:850}.intro h1{margin:0;font-size:30px;letter-spacing:-.03em}.intro p{margin:7px 0 0;color:var(--muted);font-size:16px}.contact{margin-left:auto;text-align:right;font-size:13px;line-height:1.8;color:var(--muted)}.grid{display:grid;grid-template-columns:1fr 280px;gap:46px;margin-top:36px}h2{margin:0 0 14px;font-size:14px;letter-spacing:.06em;text-transform:uppercase;color:var(--blue)}p{font-size:14px;line-height:1.65;color:#41506a}.job{padding:18px 0;border-bottom:1px solid var(--line)}.job:last-child{border:0}.job b{font-size:15px}.job span{display:block;margin-top:5px;color:var(--muted);font-size:13px}.skills{display:flex;flex-wrap:wrap;gap:8px}.skills span{padding:6px 9px;border-radius:7px;background:#edf2ff;color:#3152a7;font-size:12px;font-weight:700}.notice{margin-top:30px;padding:13px 16px;border-radius:9px;background:#fff9e8;color:#725800;font-size:12px;line-height:1.45}@media(max-width:700px){.document{padding:30px 24px}.intro{align-items:flex-start;flex-wrap:wrap}.contact{margin-left:0;text-align:left}.grid{grid-template-columns:1fr;gap:30px}}
+  </style>
+</head>
+<body>
+  <header class="bar"><span class="brand">freelance.com · Portail client</span><span class="tag">Aperçu candidature</span></header>
+  <main><article class="document">
+    <header class="intro"><div class="avatar" id="initials">CV</div><div><h1 id="name">Candidat</h1><p id="role">Profil professionnel</p></div><div class="contact">Profil préqualifié<br>Disponible sous 3 semaines<br>Références sur demande</div></header>
+    <div class="grid"><section><h2>Profil</h2><p id="summary">Professionnel expérimenté, sélectionné pour son adéquation avec le besoin et son expérience sur des environnements comparables.</p><h2 style="margin-top:32px">Expériences récentes</h2><div class="job"><b id="jobTitle">Mission de conseil</b><span>2023 — aujourd’hui · Secteur services</span><p>Conception et réalisation de projets à fort enjeu, en lien direct avec les équipes métiers et techniques.</p></div><div class="job"><b>Consultant confirmé</b><span>2020 — 2023 · Environnement agile</span><p>Pilotage de livrables, coordination des parties prenantes et amélioration continue.</p></div></section><aside><h2>Compétences</h2><div class="skills"><span>Gestion de projet</span><span>Agile</span><span>Communication</span><span>Analyse</span><span>Autonomie</span><span>Anglais professionnel</span></div><h2 style="margin-top:32px">Formation</h2><p>Master spécialisé<br>Certification professionnelle</p></aside></div>
+    <div class="notice">Document de démonstration : les informations affichées sont volontairement synthétiques et ne constituent pas un CV réel.</div>
+  </article></main>
+  <script>
+    const query=new URLSearchParams(location.search),name=query.get('candidate')||'Candidat',role=query.get('role')||'Profil professionnel',initials=name.split(' ').map(p=>p[0]).join('').slice(0,2).toUpperCase();
+    document.title='CV — '+name;document.getElementById('name').textContent=name;document.getElementById('role').textContent=role;document.getElementById('initials').textContent=initials;document.getElementById('jobTitle').textContent=role;
+  </script>
+</body>
+</html>

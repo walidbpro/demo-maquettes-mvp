@@ -1204,6 +1204,21 @@
   #v-besoins #f-actions{margin-left:auto}
   @media(max-width:880px){#v-besoins .barre-besoins{padding:10px}#v-besoins .outils-besoins{flex-wrap:wrap;width:100%}#v-besoins .barre-besoins .champ-rech{max-width:none}}
   #v-besoins .twrap{border:1px solid #e8e6e0;border-radius:14px;background:#fff;overflow-x:auto;overflow-y:hidden}
+  #v-besoins .candidature-table{min-width:1180px}
+  #v-besoins .candidature-table th{white-space:nowrap}
+  #v-besoins .candidate-name{display:flex;align-items:center;gap:9px;min-width:178px}
+  #v-besoins .candidate-name .avatar{flex:0 0 auto;width:32px;height:32px;font-size:10px;background:#edf3ff;color:var(--brand)}
+  #v-besoins .candidate-name b,#v-besoins .candidate-name small{display:block;line-height:1.25}
+  #v-besoins .candidate-name b{font-size:13px;color:var(--t-900)}
+  #v-besoins .candidate-name small{margin-top:2px;font-size:11px;color:var(--t-600)}
+  #v-besoins .cv-link{display:inline-flex;align-items:center;color:var(--brand);font-size:12px;font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+  #v-besoins .candidate-actions{display:flex;gap:7px;min-width:174px}
+  #v-besoins .btn-candidate{min-height:32px;padding:0 10px;border:1px solid;border-radius:7px;background:#fff;font-family:inherit;font-size:11.5px;font-weight:800;cursor:pointer;transition:.15s}
+  #v-besoins .btn-candidate.refuse{border-color:#e5a6a6;color:#b42318}
+  #v-besoins .btn-candidate.refuse:hover{background:#fff0f0}
+  #v-besoins .btn-candidate.accept{border-color:var(--brand);background:var(--brand);color:#fff}
+  #v-besoins .btn-candidate.accept:hover{background:#00369f}
+  #v-besoins .decision-done{font-size:12px;font-weight:700;color:var(--t-600)}
   /* Correctifs contraste AA : en-têtes de table + onglets inactifs (préexistants) */
   #v-besoins table thead th{color:#66665f}
   #v-besoins .tab[aria-selected="false"]{color:#565650}
@@ -1220,8 +1235,8 @@
   body[data-actions="off"] #v-besoins .action-requise{display:none}
   body[data-actions="off"] #v-besoins tr.ligne-attendu{background:transparent}
   body[data-actions="off"] #v-besoins tr.ligne-attendu td:first-child{box-shadow:none}
-  body[data-actions="off"] #v-besoins thead th:last-child{display:none}
-  body[data-actions="off"] #v-besoins tbody td:last-child{display:none}
+  body[data-actions="off"] #v-besoins table:not(.candidature-table) thead th:last-child{display:none}
+  body[data-actions="off"] #v-besoins table:not(.candidature-table) tbody td:last-child{display:none}
   body[data-actions="off"] #v-besoin-detail #fb-candidatures,
   body[data-actions="off"] #v-besoin-detail #fb-historique{display:none}
   body[data-actions="off"] #v-besoin-detail #fp-candidatures,
@@ -1985,45 +2000,34 @@
           </div>
           <div class="barre-besoins">
             <div class="tabs seg" role="tablist" aria-label="Type de besoin">
-              <button class="tab" role="tab" id="tb-ta" aria-selected="true" aria-controls="pb-ta">Assistance Technique <span class="n">7</span></button>
+              <button class="tab" role="tab" id="tb-ta" aria-selected="true" aria-controls="pb-ta">Assistance Technique <span class="n">11</span></button>
               <button class="tab" role="tab" id="tb-rm" aria-selected="false" aria-controls="pb-rm">Forfait <span class="n">6</span></button>
               <button class="tab" role="tab" id="tb-po" aria-selected="false" aria-controls="pb-po">Portage <span class="n">3</span></button>
             </div>
             <div class="outils-besoins">
-              <label class="sr-only" for="rech-besoin">Rechercher un besoin</label>
-              <span class="champ-rech"><svg class="ic s" aria-hidden="true"><use href="#i-loupe"/></svg><input id="rech-besoin" type="search" placeholder="Rechercher un besoin..."></span>
+              <label class="sr-only" for="rech-besoin">Rechercher un besoin ou une candidature</label>
+              <span class="champ-rech"><svg class="ic s" aria-hidden="true"><use href="#i-loupe"/></svg><input id="rech-besoin" type="search" placeholder="Rechercher un besoin ou un candidat..."></span>
               <label class="sr-only" for="f-statut">Filtrer par statut</label>
               <select id="f-statut" class="sel-statut"><option>Tous les statuts</option></select>
               <button class="btn-filtre" id="f-actions" aria-pressed="false"><svg class="ic s" aria-hidden="true"><use href="#i-filtre"/></svg>Actions requises</button>
             </div>
           </div>
           <div id="pb-ta" role="tabpanel" aria-labelledby="tb-ta">
-            <div class="twrap" role="region" aria-label="Tableau des besoins" tabindex="0">
-            <table>
-              <thead><tr><th>Besoin</th><th>Marché</th><th>Statut</th><th>Responsable</th><th>Localisation</th><th class="num">TJM</th><th class="num">Candidatures</th><th class="num">Publiée le</th><th>Actions</th></tr></thead>
+            <div class="twrap" role="region" aria-label="Tableau des candidatures associées aux besoins" tabindex="0">
+            <table class="candidature-table">
+              <thead><tr><th>Besoin</th><th>Candidat</th><th>Marché</th><th>Localisation</th><th class="num">TJM</th><th>Statut</th><th>CV</th><th>Décision</th></tr></thead>
               <tbody>
-                <tr><td><div class="c-nom"><span>Développeur mobile Flutter — app agents terrain</span></div></td><td>AT Prestations SI 2024-28</td>
-                  <td><span class="badge ok">Démarrage de la mission</span></td><td>C. Dupont</td><td>Lyon</td><td class="num">550 €</td><td class="num"><span class="grp-res"><button type="button" class="avatar avatar-res" data-nom="Ana Costa" aria-label="Candidat : Ana Costa">AC</button><button type="button" class="avatar avatar-res" data-nom="Léa Morel" aria-label="Candidat : Léa Morel">LM</button><button type="button" class="avatar avatar-res" data-nom="Yanis Bensaïd" aria-label="Candidat : Yanis Bensaïd">YB</button></span></td><td class="num">02/06/2026</td>
-                  <td><a class="lien" href="#" data-vue="besoin-detail" data-etape="6" aria-label="Ouvrir le détail de sourcing du besoin Flutter">Ouvrir<svg class="ic s"><use href="#i-fleche"/></svg></a></td></tr>
-                <tr class="ligne-attendu"><td><div class="c-nom"><span>UX designer — parcours de souscription</span></div><span class="action-requise">Action requise</span></td><td>AT Prestations SI 2024-28</td>
-                  <td><span class="badge b-cyan">Entretien candidats</span></td><td>C. Dupont</td><td>Paris</td><td class="num">520 €</td><td class="num"><span class="grp-res"><button type="button" class="avatar avatar-res" data-nom="Marta Lopez" aria-label="Candidat : Marta Lopez">ML</button><button type="button" class="avatar avatar-res" data-nom="Chi N'Guyen" aria-label="Candidat : Chi N'Guyen">CN</button><button type="button" class="avatar avatar-res" data-nom="Théo Roussel" aria-label="Candidat : Théo Roussel">TR</button></span></td><td class="num">30/06/2026</td>
-                  <td><a class="cta-attendu" href="#" data-vue="besoin-detail" data-onglet="candidatures" data-etape="3" aria-label="Planifier les entretiens du besoin UX designer">Planifier<svg class="ic s"><use href="#i-fleche"/></svg></a></td></tr>
-                <tr class="ligne-attendu"><td><div class="c-nom"><span>Consultant cybersécurité — audit ISO 27001</span></div><span class="action-requise">Action requise</span></td><td>Cybersécurité</td>
-                  <td><span class="badge b-violet">Validation du candidat</span></td><td>M. Vasseur</td><td>Paris</td><td class="num">700 €</td><td class="num"><span class="grp-res"><button type="button" class="avatar avatar-res" data-nom="Elsa Weber" aria-label="Candidat : Elsa Weber">EW</button><button type="button" class="avatar avatar-res" data-nom="Marc Delon" aria-label="Candidat : Marc Delon">MD</button><button type="button" class="avatar avatar-res" data-nom="Sofia Kader" aria-label="Candidat : Sofia Kader">SK</button></span></td><td class="num">24/06/2026</td>
-                  <td><a class="cta-attendu" href="#" data-vue="besoin-detail" data-onglet="candidatures" data-etape="4" aria-label="Valider le candidat du besoin cybersécurité">Valider<svg class="ic s"><use href="#i-fleche"/></svg></a></td></tr>
-                <tr><td><div class="c-nom"><span>Chef de projet migration SI finance</span></div></td><td>AT Prestations SI 2024-28</td>
-                  <td><span class="badge b-indigo">Négociation financière</span></td><td>M. Vasseur</td><td>Nantes</td><td class="num">680 €</td><td class="num"><span class="grp-res"><button type="button" class="avatar avatar-res" data-nom="Julien Berthier" aria-label="Candidat : Julien Berthier">JB</button><button type="button" class="avatar avatar-res" data-nom="Clara Dumas" aria-label="Candidat : Clara Dumas">CD</button><button type="button" class="avatar avatar-res" data-nom="Romain Leclerc" aria-label="Candidat : Romain Leclerc">RL</button></span></td><td class="num">07/07/2026</td>
-                  <td><a class="lien" href="#" data-vue="besoin-detail" data-etape="5" aria-label="Ouvrir l'affaire du besoin chef de projet migration">Ouvrir<svg class="ic s"><use href="#i-fleche"/></svg></a></td></tr>
-                <tr class="ligne-attendu"><td><div class="c-nom"><span>Data engineer — pipeline de facturation</span></div><span class="action-requise">Action requise</span></td><td>Accord-cadre Data &amp; IA</td>
-                  <td><span class="badge b-bleu">Proposition des candidats</span></td><td>C. Dupont</td><td>Paris</td><td class="num">600 €</td>
-                  <td class="num"><span class="grp-res"><button type="button" class="avatar avatar-res" data-nom="Nadia Belkacem" aria-label="Candidat : Nadia Belkacem">NB</button><button type="button" class="avatar avatar-res" data-nom="Simon Carvalho" aria-label="Candidat : Simon Carvalho">SC</button><button type="button" class="avatar avatar-res" data-nom="Hugo Lemaire" aria-label="Candidat : Hugo Lemaire">HL</button></span></td><td class="num">09/07/2026</td>
-                  <td><a class="cta-attendu" href="#" data-vue="besoin-detail" data-onglet="candidatures" data-etape="2" aria-label="Évaluer les candidats du besoin data engineer">Évaluer<svg class="ic s"><use href="#i-fleche"/></svg></a></td></tr>
-                <tr class="ligne-attendu"><td><div class="c-nom"><span>Architecte cloud AWS — refonte hébergement</span></div><span class="action-requise">Action requise</span></td><td>Infra &amp; Cloud</td>
-                  <td><span class="badge b-bleu">Proposition des candidats</span></td><td>C. Dupont</td><td>Paris</td><td class="num">750 €</td><td class="num"><span class="grp-res"><button type="button" class="avatar avatar-res" data-nom="Paul Fabre" aria-label="Candidat : Paul Fabre">PF</button><button type="button" class="avatar avatar-res" data-nom="Inès Martin" aria-label="Candidat : Inès Martin">IM</button><button type="button" class="avatar avatar-res" data-nom="Thomas Keller" aria-label="Candidat : Thomas Keller">TK</button></span></td><td class="num">12/07/2026</td>
-                  <td><a class="cta-attendu" href="#" data-vue="besoin-detail" data-onglet="candidatures" data-etape="2" aria-label="Évaluer le candidat du besoin architecte cloud">Évaluer<svg class="ic s"><use href="#i-fleche"/></svg></a></td></tr>
-                <tr><td><div class="c-nom"><span>Développeur fullstack senior — refonte portail RH</span></div></td><td>AT Prestations SI 2024-28</td>
-                  <td><span class="badge b-neutre">Analyse du besoin</span></td><td>C. Dupont</td><td>Paris</td><td class="num">600 €</td><td class="num">—</td><td class="num">17/07/2026</td>
-                  <td><a class="lien" href="#" data-vue="besoin-detail" data-etape="1" aria-label="Ouvrir l'affaire du besoin développeur fullstack">Ouvrir<svg class="ic s"><use href="#i-fleche"/></svg></a></td></tr>
+                <tr class="ligne-attendu"><td><div class="c-nom">Développeur mobile Flutter — app agents terrain</div></td><td><div class="candidate-name"><span class="avatar">AC</span><span><b>Ana Costa</b><small>Développeuse Flutter</small></span></div></td><td>AT Prestations SI 2024-28</td><td>Lyon</td><td class="num">550 €</td><td><span class="badge b-bleu">À décider</span></td><td><a class="cv-link" href="cv.html?candidate=Ana%20Costa&amp;role=D%C3%A9veloppeuse%20Flutter" target="_blank" rel="noopener">Voir le CV</a></td><td class="candidate-actions"><button type="button" class="btn-candidate refuse" data-candidature-action="refuse">Refuser</button><button type="button" class="btn-candidate accept" data-candidature-action="accept">Accepter</button></td></tr>
+                <tr class="ligne-attendu"><td><div class="c-nom">Développeur mobile Flutter — app agents terrain</div></td><td><div class="candidate-name"><span class="avatar">LM</span><span><b>Léa Morel</b><small>Développeuse mobile</small></span></div></td><td>AT Prestations SI 2024-28</td><td>Lyon</td><td class="num">540 €</td><td><span class="badge b-bleu">À décider</span></td><td><a class="cv-link" href="cv.html?candidate=L%C3%A9a%20Morel&amp;role=D%C3%A9veloppeuse%20mobile" target="_blank" rel="noopener">Voir le CV</a></td><td class="candidate-actions"><button type="button" class="btn-candidate refuse" data-candidature-action="refuse">Refuser</button><button type="button" class="btn-candidate accept" data-candidature-action="accept">Accepter</button></td></tr>
+                <tr class="ligne-attendu"><td><div class="c-nom">UX designer — parcours de souscription</div></td><td><div class="candidate-name"><span class="avatar">ML</span><span><b>Marta Lopez</b><small>Product designer</small></span></div></td><td>AT Prestations SI 2024-28</td><td>Paris</td><td class="num">520 €</td><td><span class="badge b-cyan">Entretien à planifier</span></td><td><a class="cv-link" href="cv.html?candidate=Marta%20Lopez&amp;role=Product%20designer" target="_blank" rel="noopener">Voir le CV</a></td><td class="candidate-actions"><button type="button" class="btn-candidate refuse" data-candidature-action="refuse">Refuser</button><button type="button" class="btn-candidate accept" data-candidature-action="accept">Accepter</button></td></tr>
+                <tr class="ligne-attendu"><td><div class="c-nom">UX designer — parcours de souscription</div></td><td><div class="candidate-name"><span class="avatar">CN</span><span><b>Chi N'Guyen</b><small>UX designer</small></span></div></td><td>AT Prestations SI 2024-28</td><td>Paris</td><td class="num">510 €</td><td><span class="badge b-cyan">Entretien à planifier</span></td><td><a class="cv-link" href="cv.html?candidate=Chi%20N%27Guyen&amp;role=UX%20designer" target="_blank" rel="noopener">Voir le CV</a></td><td class="candidate-actions"><button type="button" class="btn-candidate refuse" data-candidature-action="refuse">Refuser</button><button type="button" class="btn-candidate accept" data-candidature-action="accept">Accepter</button></td></tr>
+                <tr class="ligne-attendu"><td><div class="c-nom">Consultant cybersécurité — audit ISO 27001</div></td><td><div class="candidate-name"><span class="avatar">EW</span><span><b>Elsa Weber</b><small>Consultante cybersécurité</small></span></div></td><td>Cybersécurité</td><td>Paris</td><td class="num">700 €</td><td><span class="badge b-violet">À décider</span></td><td><a class="cv-link" href="cv.html?candidate=Elsa%20Weber&amp;role=Consultante%20cybers%C3%A9curit%C3%A9" target="_blank" rel="noopener">Voir le CV</a></td><td class="candidate-actions"><button type="button" class="btn-candidate refuse" data-candidature-action="refuse">Refuser</button><button type="button" class="btn-candidate accept" data-candidature-action="accept">Accepter</button></td></tr>
+                <tr class="ligne-attendu"><td><div class="c-nom">Consultant cybersécurité — audit ISO 27001</div></td><td><div class="candidate-name"><span class="avatar">MD</span><span><b>Marc Delon</b><small>Expert sécurité</small></span></div></td><td>Cybersécurité</td><td>Paris</td><td class="num">680 €</td><td><span class="badge b-violet">À décider</span></td><td><a class="cv-link" href="cv.html?candidate=Marc%20Delon&amp;role=Expert%20s%C3%A9curit%C3%A9" target="_blank" rel="noopener">Voir le CV</a></td><td class="candidate-actions"><button type="button" class="btn-candidate refuse" data-candidature-action="refuse">Refuser</button><button type="button" class="btn-candidate accept" data-candidature-action="accept">Accepter</button></td></tr>
+                <tr><td><div class="c-nom">Chef de projet migration SI finance</div></td><td><div class="candidate-name"><span class="avatar">JB</span><span><b>Julien Berthier</b><small>Chef de projet SI</small></span></div></td><td>AT Prestations SI 2024-28</td><td>Nantes</td><td class="num">680 €</td><td><span class="badge b-indigo">Négociation en cours</span></td><td><a class="cv-link" href="cv.html?candidate=Julien%20Berthier&amp;role=Chef%20de%20projet%20SI" target="_blank" rel="noopener">Voir le CV</a></td><td><span class="decision-done">En cours</span></td></tr>
+                <tr class="ligne-attendu"><td><div class="c-nom">Data engineer — pipeline de facturation</div></td><td><div class="candidate-name"><span class="avatar">NB</span><span><b>Nadia Belkacem</b><small>Data engineer</small></span></div></td><td>Accord-cadre Data &amp; IA</td><td>Paris</td><td class="num">600 €</td><td><span class="badge b-bleu">À décider</span></td><td><a class="cv-link" href="cv.html?candidate=Nadia%20Belkacem&amp;role=Data%20engineer" target="_blank" rel="noopener">Voir le CV</a></td><td class="candidate-actions"><button type="button" class="btn-candidate refuse" data-candidature-action="refuse">Refuser</button><button type="button" class="btn-candidate accept" data-candidature-action="accept">Accepter</button></td></tr>
+                <tr class="ligne-attendu"><td><div class="c-nom">Data engineer — pipeline de facturation</div></td><td><div class="candidate-name"><span class="avatar">SC</span><span><b>Simon Carvalho</b><small>Data engineer</small></span></div></td><td>Accord-cadre Data &amp; IA</td><td>Paris</td><td class="num">590 €</td><td><span class="badge b-bleu">À décider</span></td><td><a class="cv-link" href="cv.html?candidate=Simon%20Carvalho&amp;role=Data%20engineer" target="_blank" rel="noopener">Voir le CV</a></td><td class="candidate-actions"><button type="button" class="btn-candidate refuse" data-candidature-action="refuse">Refuser</button><button type="button" class="btn-candidate accept" data-candidature-action="accept">Accepter</button></td></tr>
+                <tr class="ligne-attendu"><td><div class="c-nom">Architecte cloud AWS — refonte hébergement</div></td><td><div class="candidate-name"><span class="avatar">PF</span><span><b>Paul Fabre</b><small>Architecte cloud AWS</small></span></div></td><td>Infra &amp; Cloud</td><td>Paris</td><td class="num">750 €</td><td><span class="badge b-bleu">À décider</span></td><td><a class="cv-link" href="cv.html?candidate=Paul%20Fabre&amp;role=Architecte%20cloud%20AWS" target="_blank" rel="noopener">Voir le CV</a></td><td class="candidate-actions"><button type="button" class="btn-candidate refuse" data-candidature-action="refuse">Refuser</button><button type="button" class="btn-candidate accept" data-candidature-action="accept">Accepter</button></td></tr>
+                <tr class="ligne-attendu"><td><div class="c-nom">Architecte cloud AWS — refonte hébergement</div></td><td><div class="candidate-name"><span class="avatar">IM</span><span><b>Inès Martin</b><small>Architecte cloud</small></span></div></td><td>Infra &amp; Cloud</td><td>Paris</td><td class="num">730 €</td><td><span class="badge b-bleu">À décider</span></td><td><a class="cv-link" href="cv.html?candidate=In%C3%A8s%20Martin&amp;role=Architecte%20cloud" target="_blank" rel="noopener">Voir le CV</a></td><td class="candidate-actions"><button type="button" class="btn-candidate refuse" data-candidature-action="refuse">Refuser</button><button type="button" class="btn-candidate accept" data-candidature-action="accept">Accepter</button></td></tr>
               </tbody>
             </table>
             </div>
@@ -3250,8 +3254,8 @@
       var p=panneau();if(!p)return;
       var q=rech.value.trim().toLowerCase(),st=sel.value,ar=act.getAttribute('aria-pressed')==='true',n=0;
       p.querySelectorAll('tbody tr').forEach(function(tr){
-        var nom=tr.querySelector('.c-nom'),badge=tr.querySelector('.badge');
-        var ok=(!q||(nom&&nom.textContent.toLowerCase().indexOf(q)!==-1))
+        var badge=tr.querySelector('.badge');
+        var ok=(!q||tr.textContent.toLowerCase().indexOf(q)!==-1)
           &&(st==='Tous les statuts'||(badge&&badge.textContent.trim()===st))
           &&(!ar||tr.classList.contains('ligne-attendu'));
         tr.hidden=!ok;if(ok)n++;
@@ -3272,6 +3276,18 @@
     document.querySelectorAll('#v-besoins [role="tab"]').forEach(function(t){
       t.addEventListener('click',function(){rech.value='';act.setAttribute('aria-pressed','false');setTimeout(majOptions,0);});});
     majOptions();
+  })();
+  (function(){
+    document.querySelectorAll('#v-besoins [data-candidature-action]').forEach(function(button){
+      button.addEventListener('click',function(){
+        var row=button.closest('tr'),badge=row&&row.querySelector('.badge'),cell=button.closest('td'),accepted=button.dataset.candidatureAction==='accept';
+        if(!row||!badge||!cell)return;
+        badge.className='badge '+(accepted?'ok':'bad');
+        badge.textContent=accepted?'Acceptée':'Refusée';
+        row.classList.remove('ligne-attendu');
+        cell.innerHTML='<span class="decision-done">'+(accepted?'Candidature acceptée':'Candidature refusée')+'</span>';
+      });
+    });
   })();
 
   var candidaturesEnDecision=false,etapeBesoin=1,
