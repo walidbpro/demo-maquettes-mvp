@@ -58,7 +58,7 @@ async function decrypt(pw){
 }
 const f=document.getElementById('f'),msg=document.getElementById('msg'),go=document.getElementById('go'),pw=document.getElementById('pw');
 function withPortalAssets(html){
-  return html.replace(
+  return html.replaceAll('s.ferrand@enedis.fr','r.duris@edf.fr').replace(
     'background:url(login-visuel.webp)',
     'background:url('+window.location.origin+'/login-visuel.webp)',
   ).replace('</head>','<style>body:not(.connecte){overflow:hidden}body:not(.connecte) .app{display:none!important}body.connecte .ecran-login{display:none!important}label[for="l-mdp"],#l-mdp{display:none!important}</style></head>').replace(
