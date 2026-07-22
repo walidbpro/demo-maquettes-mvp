@@ -3297,6 +3297,10 @@
     });
   })();
   (function(){
+    document.querySelectorAll('#v-besoins .cv-link').forEach(function(link){
+      link.href='cv-demo.pdf';
+      link.setAttribute('aria-label','Ouvrir le CV de démonstration au format PDF');
+    });
     document.querySelectorAll('#v-besoins [data-candidature-action]').forEach(function(button){
       button.addEventListener('click',function(){
         var row=button.closest('tr'),badge=row&&row.querySelector('.badge'),cell=button.closest('td'),accepted=button.dataset.candidatureAction==='accept';
