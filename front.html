@@ -1218,7 +1218,11 @@
   #v-besoins .btn-candidate.refuse:hover{background:#fff0f0}
   #v-besoins .btn-candidate.accept{border-color:var(--brand);background:var(--brand);color:#fff}
   #v-besoins .btn-candidate.accept:hover{background:#00369f}
-  #v-besoins .decision-done{font-size:12px;font-weight:700;color:var(--t-600)}
+  #v-besoins .candidature-table .badge.ok{background:#e8f7ee;color:#18713e}
+  #v-besoins .candidature-table .badge.bad{background:#fdecec;color:#b42318}
+  #v-besoins .decision-done{font-size:12px;font-weight:800}
+  #v-besoins .decision-done.accepted{color:#18713e}
+  #v-besoins .decision-done.refused{color:#b42318}
   /* Correctifs contraste AA : en-têtes de table + onglets inactifs (préexistants) */
   #v-besoins table thead th{color:#66665f}
   #v-besoins .tab[aria-selected="false"]{color:#565650}
@@ -3285,7 +3289,7 @@
         badge.className='badge '+(accepted?'ok':'bad');
         badge.textContent=accepted?'Acceptée':'Refusée';
         row.classList.remove('ligne-attendu');
-        cell.innerHTML='<span class="decision-done">'+(accepted?'Candidature acceptée':'Candidature refusée')+'</span>';
+        cell.innerHTML='<span class="decision-done '+(accepted?'accepted':'refused')+'">'+(accepted?'Candidature acceptée':'Candidature refusée')+'</span>';
       });
     });
   })();
