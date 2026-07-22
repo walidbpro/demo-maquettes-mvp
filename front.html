@@ -61,7 +61,7 @@ function withPortalAssets(html){
   return html.replace(
     'background:url(login-visuel.webp)',
     'background:url('+window.location.origin+'/login-visuel.webp)',
-  );
+  ).replace('</head>','<style>body:not(.connecte){overflow:hidden}body:not(.connecte) .app{display:none!important}body.connecte .ecran-login{display:none!important}</style></head>');
 }
 function withMetabaseDashboard(html){
   const dashboard = `<style>
