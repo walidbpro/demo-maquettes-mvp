@@ -1045,6 +1045,11 @@
   #v-prestations .presta-recherche{display:flex;align-items:center;gap:9px;flex:0 1 275px;min-width:230px;height:42px;padding:0 14px;border:1px solid #d8d6cf;border-radius:999px;background:#fff;color:#7a7a76}
   #v-prestations .presta-recherche input{min-width:0;width:100%;border:0;outline:0;background:transparent;color:#182235;font:600 13px Inter,Montserrat,sans-serif}
   #v-prestations .presta-recherche input::placeholder{color:#8a909a}
+  #v-marches .presta-filtres{display:flex;align-items:center;min-height:68px;margin:0 0 14px;padding:12px 14px;border:1px solid #e8e6e0;border-radius:14px;background:#fff;box-shadow:none}
+  #v-marches .presta-recherche{display:flex;align-items:center;gap:9px;width:min(360px,100%);height:42px;padding:0 14px;border:1px solid #d8d6cf;border-radius:999px;background:#fff;color:#7a7a76}
+  #v-marches .presta-recherche input{min-width:0;width:100%;border:0;outline:0;background:transparent;color:#182235;font:600 13px Inter,Montserrat,sans-serif}
+  #v-marches .presta-recherche input::placeholder{color:#8a909a}
+  #v-marches .presta-recherche:focus-within{border-color:#9ca3af;background:#fafaf8}
   #v-prestations .presta-filter{flex:0 1 auto!important;width:auto!important;min-width:0!important;height:42px;min-height:42px;padding:0 34px 0 14px!important;border:1px solid #d8d6cf!important;border-radius:999px!important;background-color:#fff!important;color:#3d4655;font-size:12.5px;font-weight:650}
   #v-prestations .presta-filter:hover,#v-prestations .presta-recherche:focus-within{border-color:#9ca3af!important;background:#fafaf8!important}
   #v-prestations .presta-reset{min-height:42px;margin-left:auto;padding:0 6px 0 14px;border-left:1px solid #e8e6e0;color:#173fae;font-size:12.5px;font-weight:700;white-space:nowrap}
@@ -2442,7 +2447,6 @@
         </div>
         <div class="activites-panneau" id="v-marches" role="tabpanel" aria-labelledby="ta-marches" hidden>
         <section class="card pilotage-liste">
-          <div class="pilotage-tete"><div><p>Les marchés de votre organisation sur lesquels Freelance.com est référencé.</p></div></div>
           <div class="presta-filtres" aria-label="Rechercher un marché"><label class="presta-recherche"><svg class="ic s" aria-hidden="true"><use href="#i-loupe"/></svg><input id="marche-search" type="search" placeholder="Rechercher un marché" aria-label="Rechercher un marché"></label></div>
           <div class="twrap marches-table" role="region" aria-label="Tableau des marchés accessibles" tabindex="0"><table><thead><tr><th>Marché</th><th>Validité</th><th>Types de prestation</th><th>Enveloppe consommée</th><th>Statut</th></tr></thead><tbody>
             <tr><td><div class="m-nom">AT Prestations SI 2024-28</div></td><td>13/12/2027</td><td><span class="badge b-neutre">Assistance technique</span> <span class="badge b-neutre">Portage</span></td><td><div class="conso"><span class="c-track"><span class="c-fill" style="width:70%"></span></span><b>840 k€ / 1,2 M€</b></div></td><td><span class="badge ok">Actif</span></td></tr>
