@@ -2073,7 +2073,7 @@
           <div id="pb-po" role="tabpanel" aria-labelledby="tb-po" hidden>
             <div class="twrap" role="region" aria-label="Tableau des besoins en portage" tabindex="0">
             <table>
-              <thead><tr><th>Besoin</th><th>Marché</th><th>Localisation</th><th class="num">TJM</th><th>Ressource(s)</th><th>Statut</th><th class="num">Publiée le</th></tr></thead>
+              <thead><tr><th>Besoin</th><th>Marché</th><th>Localisation</th><th class="num">TJM</th><th>Ressource</th><th>Poste</th><th>Statut</th><th class="num">Publiée le</th></tr></thead>
               <tbody>
                 <tr><td><div class="c-nom">Consultant SAP FI/CO — bascule TMA finance</div></td><td>AT Prestations SI 2024-28</td>
                   <td><span class="badge b-bleu">Solution identifiée</span></td><td>C. Dupont</td><td>Paris</td><td class="num">650 €</td><td><button type="button" class="avatar avatar-res" data-nom="Pierre Morel" aria-label="Ressource : Pierre Morel">PM</button></td><td class="num">12/07/2026</td>
@@ -3311,7 +3311,11 @@
       if(cells.length!==9)return;
       cells[8].remove();
       cells[3].remove();
-      row.append(cells[0],cells[1],cells[4],cells[5],cells[6],cells[2],cells[7]);
+      var resource=(cells[6].querySelector('[data-nom]')||{}).dataset.nom||cells[6].textContent.trim()||'—',roleCell=document.createElement('td');
+      roleCell.className='candidate-role';
+      roleCell.textContent=(cells[0].textContent.split('—')[0]||'').trim()||'—';
+      cells[6].textContent=resource;
+      row.append(cells[0],cells[1],cells[4],cells[5],cells[6],roleCell,cells[2],cells[7]);
     });
   })();
   window.__trierCandidatures=function(){
