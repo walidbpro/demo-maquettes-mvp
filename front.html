@@ -3260,14 +3260,13 @@
     document.getElementById('l-conf').hidden=true;etape(1);});
   document.getElementById('l-envoyer').addEventListener('click',function(){
     document.getElementById('l-conf').hidden=false;});
-  function connexionReussie(vueCible){
+  function connexionReussie(){
     memoriserSession();
     document.body.classList.add('connecte');
     role('da');
-    /* Après un vrai login on atterrit sur le Tableau de bord (vueCible='tdb') ;
-       la reprise de session au chargement (sans vueCible) garde la vue courante. */
-    if(vueCible)afficher(vueCible);
-    else afficher(vueDepuisHash()||'accueil',true);}
+    /* Après connexion (login ou reprise de session), on atterrit toujours sur l'Accueil,
+       jamais sur la vue du hash courant (évitait un retour sur une fiche, ex. forfait-detail). */
+    afficher('accueil');}
 
   function majSelection(){
     var n=0;
@@ -4235,7 +4234,7 @@
       mfaGroupe.classList.add('mfa-ok');mfaBoutonTexte(false,'Vérifié');
       mfaStatutMaj('Identité vérifiée. Redirection…','ok');
       setTimeout(function(){if(!document.body.classList.contains('mfa-open'))return;
-        fermerMfa(false);mfaEnCours=false;connexionReussie('tdb');},1400);
+        fermerMfa(false);mfaEnCours=false;connexionReussie();},1400);
       },1100);});
   function mfaEchec(){
     mfaEssais--;
