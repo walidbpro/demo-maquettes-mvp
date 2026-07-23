@@ -4342,11 +4342,11 @@
 })();
 </script>
 <script>
-/* Documents de conformité : une colonne d'action explicite et une pièce de démonstration consultable. */
+/* Documents de conformité : seules les actions réellement disponibles sont affichées. */
 (function(){
   document.querySelectorAll('.prestation-compliance table thead th:last-child').forEach(function(cell){cell.textContent='Actions';});
   document.querySelectorAll('.prestation-compliance a.lien').forEach(function(link){
-    if(link.textContent.trim()==='Consulter'){link.href='document-conformite-demo.pdf';link.target='_blank';link.rel='noopener';link.setAttribute('aria-label','Consulter le document de conformité de démonstration');}
+    if(link.textContent.trim()==='Consulter')link.closest('td').textContent='';
   });
 })();
 </script>
