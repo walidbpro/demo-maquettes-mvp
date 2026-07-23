@@ -2277,7 +2277,6 @@
             <button class="tab" role="tab" id="fb-detail" aria-selected="true" aria-controls="fp-detail">Vue d’ensemble</button>
             <button class="tab" role="tab" id="fb-candidatures" aria-selected="false" aria-controls="fp-candidatures">Candidatures</button>
             <button class="tab" role="tab" id="fb-historique" aria-selected="false" aria-controls="fp-historique">Historique</button>
-            <button class="tab" role="tab" id="fb-conformite" aria-selected="false" aria-controls="fp-conformite">Conformité</button>
           </div>
         </section>
         <section class="fiche-sourcing-panel" id="fp-detail" role="tabpanel" aria-labelledby="fb-detail">
@@ -2418,9 +2417,6 @@
               <li><time>10/07/2026 · 09:00</time><i></i><div><b>Analyse du besoin</b><p>Les critères de recherche sont en cours de qualification.</p></div></li>
             </ol>
           </section>
-        </section>
-        <section class="fiche-sourcing-panel" id="fp-conformite" role="tabpanel" aria-labelledby="fb-conformite" hidden>
-          <section class="card prestation-compliance"><div class="prestation-compliance-head"><div><h2>Conformité de la prestation</h2><p>Documents et vérifications associés aux candidats retenus pour ce besoin.</p></div></div><div class="twrap"><table><thead><tr><th>Intervenant</th><th>Document</th><th>Dernière vérification</th><th>Statut</th><th><span class="sr-only">Action</span></th></tr></thead><tbody><tr><td><b>Lucie Martin</b></td><td>Attestation URSSAF</td><td>12/06/2026</td><td><span class="badge ok">Dossier à jour</span></td><td class="num"><a class="lien" href="#">Consulter</a></td></tr><tr><td><b>Sekou Diallo</b></td><td>Assurance RC professionnelle</td><td>12/06/2026</td><td><span class="badge ok">Dossier à jour</span></td><td class="num"><a class="lien" href="#">Consulter</a></td></tr></tbody></table></div></section>
         </section>
       </section>
 
@@ -3591,18 +3587,17 @@
     }
   }
   function afficherOngletBesoin(onglet,avecCandidatures){
-    var detail=document.getElementById('fp-detail'),candidatures=document.getElementById('fp-candidatures'),historique=document.getElementById('fp-historique'),conformite=document.getElementById('fp-conformite'),tabDetail=document.getElementById('fb-detail'),tabCandidatures=document.getElementById('fb-candidatures'),tabHistorique=document.getElementById('fb-historique'),tabConformite=document.getElementById('fb-conformite'),attente=document.getElementById('candidatures-attente'),decision=document.getElementById('decision-candidatures'),tableCandidatures=document.getElementById('table-candidatures-besoin'),statut=document.getElementById('statut-besoin'),estCandidatures=onglet==='candidatures';
+    var detail=document.getElementById('fp-detail'),candidatures=document.getElementById('fp-candidatures'),historique=document.getElementById('fp-historique'),tabDetail=document.getElementById('fb-detail'),tabCandidatures=document.getElementById('fb-candidatures'),tabHistorique=document.getElementById('fb-historique'),attente=document.getElementById('candidatures-attente'),decision=document.getElementById('decision-candidatures'),tableCandidatures=document.getElementById('table-candidatures-besoin'),statut=document.getElementById('statut-besoin'),estCandidatures=onglet==='candidatures';
     if(!detail||!candidatures)return;
     if(avecCandidatures)candidaturesEnDecision=true;
     var montrerDecision=estCandidatures&&candidaturesEnDecision;
-    detail.hidden=onglet!=='detail';candidatures.hidden=!estCandidatures;if(historique)historique.hidden=onglet!=='historique';if(conformite)conformite.hidden=onglet!=='conformite';
-    tabDetail.setAttribute('aria-selected',onglet==='detail'?'true':'false');tabCandidatures.setAttribute('aria-selected',estCandidatures?'true':'false');if(tabHistorique)tabHistorique.setAttribute('aria-selected',onglet==='historique'?'true':'false');if(tabConformite)tabConformite.setAttribute('aria-selected',onglet==='conformite'?'true':'false');
+    detail.hidden=onglet!=='detail';candidatures.hidden=!estCandidatures;if(historique)historique.hidden=onglet!=='historique';
+    tabDetail.setAttribute('aria-selected',onglet==='detail'?'true':'false');tabCandidatures.setAttribute('aria-selected',estCandidatures?'true':'false');if(tabHistorique)tabHistorique.setAttribute('aria-selected',onglet==='historique'?'true':'false');
     if(attente)attente.hidden=montrerDecision;if(tableCandidatures)tableCandidatures.hidden=!montrerDecision;if(decision)decision.hidden=true;
   }
   document.getElementById('fb-detail').addEventListener('click',function(){afficherOngletBesoin('detail',false);});
   document.getElementById('fb-candidatures').addEventListener('click',function(){afficherOngletBesoin('candidatures',false);});
   document.getElementById('fb-historique').addEventListener('click',function(){afficherOngletBesoin('historique',false);});
-  document.getElementById('fb-conformite').addEventListener('click',function(){afficherOngletBesoin('conformite',false);});
   /* Mode démo « Actions à traiter » (Besoins uniquement) : piloté depuis le widget profil, OFF par défaut, persisté. */
   (function(){
     var CLE='demo-actions-besoins',sw=document.getElementById('demo-actions-switch');
