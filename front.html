@@ -3158,15 +3158,9 @@
   });
   document.querySelectorAll('#table-ged a.lien').forEach(function(lien){
     if(lien.textContent.trim()!=='Télécharger')return;
-    lien.addEventListener('click',function(e){
-      e.preventDefault();
-      var ligne=lien.closest('tr'),nom=ligne&&ligne.querySelector('.c-nom');
-      nom=nom?nom.textContent.trim():'document';
-      var contenu='Document de démonstration\n\n'+nom+'\n\nCe fichier simule le téléchargement sécurisé depuis la GED Freelance.com.';
-      var fichier=new Blob([contenu],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(fichier),telechargement=document.createElement('a');
-      telechargement.href=url;telechargement.download=nom.replace(/[^a-z0-9àâçéèêëîïôûùüÿñæœ]+/gi,'-').replace(/^-|-$/g,'')+'.txt';
-      document.body.appendChild(telechargement);telechargement.click();telechargement.remove();URL.revokeObjectURL(url);
-    });
+    lien.href='cv-demo.pdf';
+    lien.download='DEMO.pdf';
+    lien.rel='noopener';
   });
   function role(r){
     document.body.dataset.role=r;
@@ -3378,7 +3372,7 @@
     [marche,entite,statut,periode].forEach(function(filtre){filtre.addEventListener('change',filtrer);});
     reset.addEventListener('click',function(){[marche,entite,statut,periode].forEach(function(filtre){filtre.value='tous';});filtrer();});
     document.querySelectorAll('[data-facture-col]').forEach(function(choix){choix.addEventListener('change',function(){document.querySelectorAll('#table-factures tr').forEach(function(ligne){var cellule=ligne.children[+choix.dataset.factureCol-1];if(cellule)cellule.classList.toggle('masque',!choix.checked);});});});
-    document.querySelectorAll('.facture-download').forEach(function(lien){lien.addEventListener('click',function(e){e.preventDefault();var ligne=lien.closest('tr'),numero=ligne.querySelector('.c-nom').textContent.trim(),contenu='Facture '+numero+' — document de démonstration\\n';var fichier=new Blob([contenu],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(fichier),telechargement=document.createElement('a');telechargement.href=url;telechargement.download=numero+'.txt';document.body.appendChild(telechargement);telechargement.click();telechargement.remove();URL.revokeObjectURL(url);});});
+    document.querySelectorAll('.facture-download').forEach(function(lien){lien.href='cv-demo.pdf';lien.download='DEMO.pdf';lien.rel='noopener';});
   })();
   (function(){
     var rech=document.getElementById('rech-besoin'),sel=document.getElementById('f-statut'),act=document.getElementById('f-actions');
