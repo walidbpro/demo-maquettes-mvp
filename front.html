@@ -1686,6 +1686,10 @@
   #v-besoins .barre-besoins .champ-rech:focus-within,#v-prestations .presta-recherche:focus-within,#v-marches .presta-recherche:focus-within,#v-empreinte-carbone .champ-rech:focus-within,#v-documents .ged-recherche input:focus,#v-notifications .notif-filter-search:focus,#v-partenaires .champ-rech:focus-within{border-color:var(--brand)!important;box-shadow:0 0 0 3px var(--controle-focus)!important;outline:0}
   #v-prestations .presta-recherche input::placeholder,#v-marches .presta-recherche input::placeholder,#v-besoins .champ-rech input::placeholder,#v-empreinte-carbone .champ-rech input::placeholder,#v-documents .ged-recherche input::placeholder,#v-notifications .notif-filter-search::placeholder,#v-partenaires .champ-rech input::placeholder{color:#8a909a;opacity:1}
   #v-besoins .twrap,#v-prestations .presta-table,#v-marches .marches-table,#v-factures .presta-table,#v-documents .twrap,#v-partenaires .twrap,#v-empreinte-carbone .carbon-table{border-color:#e8e6e0;border-radius:14px;background:#fff;box-shadow:none}
+  #v-notifications .notifications-filters{border-color:#e8e6e0;background:#fff;box-shadow:none}
+  #v-notifications .notif-filter-select{min-height:var(--controle-hauteur);border-color:var(--controle-bord);border-radius:12px;box-shadow:none}
+  #v-partenaires .champ-rech,#v-partenaires .partner-search-action{min-height:var(--controle-hauteur)}
+  #v-partenaires .partner-search-action{box-shadow:none}
   @media(max-width:960px){.cont:has(#v-dc4-detail:not([hidden])){padding:18px 16px 48px}#v-dc4-detail .dc4-layout{grid-template-columns:1fr}#v-dc4-detail .dc4-side,#v-dc4-detail .dc4-detail{padding:22px 20px}#v-dc4-detail .dc4-detail-head h2{font-size:25px}}
 </style>
 <style>body:not(.connecte){overflow:hidden}body:not(.connecte) .app{display:none!important}body.connecte .ecran-login{display:none!important}label[for="l-mdp"],#l-mdp{display:none!important}</style></head>
@@ -3417,7 +3421,8 @@
     table.tBodies[0].querySelectorAll('tr').forEach(function(row){
       var cells=[].slice.call(row.cells);
       if(cells.length!==8)return;
-      var role=(cells[1].querySelector('small')||{}).textContent||'—',roleCell=document.createElement('td');
+      var roleNode=cells[1].querySelector('small'),role=(roleNode||{}).textContent||'—',roleCell=document.createElement('td');
+      if(roleNode)roleNode.remove();
       roleCell.className='candidate-role';roleCell.textContent=role.trim()||'—';
       row.append(cells[0],cells[2],cells[3],cells[4],cells[1],roleCell,cells[5],cells[6],cells[7]);
     });
