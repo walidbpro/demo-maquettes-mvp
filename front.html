@@ -1240,7 +1240,6 @@
   #v-partenaires .partenaires-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:25px}
   #v-partenaires .h-vue{font-size:37px;font-weight:800;letter-spacing:-.03em;color:#161616}
   #v-partenaires .partenaires-toolbar p{margin-top:7px;color:var(--t-600);font-size:14px}
-  #v-partenaires .partenaires-count{padding:8px 11px;border-radius:999px;background:#edf3ff;color:var(--brand);font-size:12px;font-weight:800;white-space:nowrap}
   #v-partenaires .partenaires-filtres{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:12px 14px;border:1px solid #e8e6e0;border-radius:14px;background:#fff}
   #v-partenaires .champ-rech{flex:1;max-width:520px;border-radius:999px}
   #v-partenaires .champ-rech input{flex:1;min-width:0;width:100%;padding:0;background:transparent;box-shadow:none;outline:0}
@@ -2724,7 +2723,7 @@
 
       <section class="vue" id="v-partenaires" tabindex="-1" hidden>
         <section class="card partenaires-page">
-          <div class="partenaires-toolbar"><div><h2 class="h-vue">Partenaires</h2><p>Recherchez les fournisseurs référencés et leurs domaines d’expertise.</p></div><span class="partenaires-count" id="partenaires-count">6 partenaires</span></div>
+          <div class="partenaires-toolbar"><div><h2 class="h-vue">Partenaires</h2><p>Recherchez les fournisseurs référencés et leurs domaines d’expertise.</p></div></div>
           <div class="partenaires-filtres"><label class="sr-only" for="partenaires-supplier-search">Rechercher un fournisseur</label><span class="champ-rech"><svg class="ic s" aria-hidden="true"><use href="#i-loupe"/></svg><input id="partenaires-supplier-search" type="search" placeholder="Rechercher un fournisseur ou une expertise..."></span><label class="sr-only" for="partenaires-location-search">Rechercher une localisation</label><span class="champ-rech"><svg class="ic s" aria-hidden="true"><use href="#i-loupe"/></svg><input id="partenaires-location-search" type="search" placeholder="Rechercher une localisation..."></span></div>
           <div class="twrap" role="region" aria-label="Référentiel des partenaires" tabindex="0"><table id="partenaires-table"><thead><tr><th>ID partenaire</th><th>Localisation</th><th>Taille</th><th>Expertises</th><th>Description</th><th>Statut</th></tr></thead><tbody>
             <tr><td><div class="partner-id"><b>Ataraxie Conseil</b><small>PTN-0001</small></div></td><td>Paris</td><td>251 - 500</td><td><div class="partner-expertise"><span>Cloud</span><span>Infra</span></div></td><td class="partner-description">Architecture cloud, modernisation des infrastructures et exploitation.</td><td><span class="partner-tier gold">Gold</span></td></tr>
@@ -3185,12 +3184,11 @@
   })();
 
   (function(){
-    var supplierSearch=document.getElementById('partenaires-supplier-search'),locationSearch=document.getElementById('partenaires-location-search'),table=document.getElementById('partenaires-table'),count=document.getElementById('partenaires-count'),empty=document.getElementById('partenaires-empty');
+    var supplierSearch=document.getElementById('partenaires-supplier-search'),locationSearch=document.getElementById('partenaires-location-search'),table=document.getElementById('partenaires-table'),empty=document.getElementById('partenaires-empty');
     if(!supplierSearch||!locationSearch||!table)return;
     function filtrer(){
       var supplierQuery=supplierSearch.value.trim().toLowerCase(),locationQuery=locationSearch.value.trim().toLowerCase(),visible=0;
       table.tBodies[0].querySelectorAll('tr').forEach(function(row){var cells=row.cells,supplierText=[cells[0],cells[3],cells[4]].map(function(cell){return cell.textContent;}).join(' ').toLowerCase(),locationText=cells[1].textContent.toLowerCase(),show=(!supplierQuery||supplierText.indexOf(supplierQuery)!==-1)&&(!locationQuery||locationText.indexOf(locationQuery)!==-1);row.hidden=!show;if(show)visible++;});
-      if(count)count.textContent=visible+' partenaire'+(visible>1?'s':'');
       if(empty)empty.hidden=visible>0;
     }
     supplierSearch.addEventListener('input',filtrer);locationSearch.addEventListener('input',filtrer);filtrer();
