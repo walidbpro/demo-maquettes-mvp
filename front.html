@@ -2443,6 +2443,7 @@
         <div class="activites-panneau" id="v-marches" role="tabpanel" aria-labelledby="ta-marches" hidden>
         <section class="card pilotage-liste">
           <div class="pilotage-tete"><div><p>Les marchés de votre organisation sur lesquels Freelance.com est référencé.</p></div></div>
+          <div class="presta-filtres" aria-label="Rechercher un marché"><label class="presta-recherche"><svg class="ic s" aria-hidden="true"><use href="#i-loupe"/></svg><input id="marche-search" type="search" placeholder="Rechercher un marché" aria-label="Rechercher un marché"></label></div>
           <div class="twrap marches-table" role="region" aria-label="Tableau des marchés accessibles" tabindex="0"><table><thead><tr><th>Marché</th><th>Validité</th><th>Types de prestation</th><th>Enveloppe consommée</th><th>Statut</th></tr></thead><tbody>
             <tr><td><div class="m-nom">AT Prestations SI 2024-28</div></td><td>13/12/2027</td><td><span class="badge b-neutre">Assistance technique</span> <span class="badge b-neutre">Portage</span></td><td><div class="conso"><span class="c-track"><span class="c-fill" style="width:70%"></span></span><b>840 k€ / 1,2 M€</b></div></td><td><span class="badge ok">Actif</span></td></tr>
             <tr><td><div class="m-nom">Accord-cadre Data &amp; IA</div></td><td>20/06/2028</td><td><span class="badge b-neutre">Assistance technique</span> <span class="badge b-neutre">Forfait</span></td><td><div class="conso"><span class="c-track"><span class="c-fill" style="width:54%"></span></span><b>490 k€ / 900 k€</b></div></td><td><span class="badge ok">Actif</span></td></tr>
@@ -3301,6 +3302,13 @@
         var cible=document.getElementById(map[ordre[j]]);if(cible)cible.focus();
       });
     });
+  })();
+  (function(){
+    var rechercheMarche=document.getElementById('marche-search');
+    if(!rechercheMarche)return;
+    var lignesMarche=[].slice.call(document.querySelectorAll('#v-marches tbody tr'));
+    function normaliser(texte){return texte.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
+    rechercheMarche.addEventListener('input',function(){var requete=normaliser(rechercheMarche.value.trim());lignesMarche.forEach(function(ligne){ligne.hidden=requete!==''&&normaliser(ligne.textContent).indexOf(requete)===-1;});});
   })();
   (function(){
     var logo=document.querySelector('.side .logo'),accueil=document.querySelector('.side a[data-vue="accueil"]');
