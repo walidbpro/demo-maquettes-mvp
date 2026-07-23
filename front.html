@@ -1745,6 +1745,35 @@
     :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .presta-reperes{grid-template-columns:1fr}
   }
   @media(max-width:960px){.cont:has(#v-dc4-detail:not([hidden])){padding:18px 16px 48px}#v-dc4-detail .dc4-layout{grid-template-columns:1fr}#v-dc4-detail .dc4-side,#v-dc4-detail .dc4-detail{padding:22px 20px}#v-dc4-detail .dc4-detail-head h2{font-size:25px}}
+  /* Gabarit commun des détails affaire : la fiche ne déborde jamais de la zone
+     centrale. Les spécificités métier (DC4, conformité, phases...) restent intactes. */
+  .cont:has(:is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail):not([hidden])){
+    width:100%;min-width:0;max-width:none;margin:0;padding:32px clamp(24px,3vw,48px) 64px;
+  }
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail){width:100%;min-width:0;max-width:100%}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) :is(.fiche-header,.prestation-panel,.fiche-sourcing-panel,.card,.twrap,.forfait-phases-table){min-width:0;max-width:100%}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-header{padding:28px 30px}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-status>div:first-child{min-width:0}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-status .h-vue{font-size:31px;line-height:1.2}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .presta-reperes{grid-template-columns:repeat(3,minmax(0,1fr));min-width:0}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .presta-repere{min-width:0}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .presta-repere>div{min-width:0}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-tabs{display:flex;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;flex-wrap:nowrap}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-tabs .tab{flex:none}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) :is(.twrap,.forfait-phases-table){width:100%;overflow-x:auto;overscroll-behavior-x:contain}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) :is(.twrap,.forfait-phases-table) table{width:100%;max-width:none}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .prestation-panel>.card>h2,
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-sourcing-panel>.card>h2,
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .prestation-panel .prestation-compliance-head h2{
+    margin:0;color:var(--detail-texte);font-size:18px;font-weight:800;letter-spacing:-.02em;line-height:1.25;
+  }
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .sourcing-detail-head h2{font-size:18px;line-height:1.25}
+  @media(max-width:960px){
+    .cont:has(:is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail):not([hidden])){padding:20px 20px 48px}
+    :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-header{padding:22px 20px}
+    :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-status .h-vue{font-size:25px}
+    :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .presta-reperes{grid-template-columns:1fr}
+  }
 </style>
 <style>
   body:not(.acces-ok){overflow:hidden}
