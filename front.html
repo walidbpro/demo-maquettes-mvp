@@ -1296,6 +1296,8 @@
   #table-candidatures-besoin .btn-candidate{min-height:32px;padding:0 10px;border:1px solid;border-radius:7px;background:#fff;font-family:inherit;font-size:11.5px;font-weight:800;cursor:pointer}
   #table-candidatures-besoin .btn-candidate.refuse{border-color:#e5a6a6;color:#b42318}
   #table-candidatures-besoin .btn-candidate.accept{border-color:var(--brand);background:var(--brand);color:#fff}
+  #table-candidatures-besoin .btn-candidate:disabled{border-color:#d9dee8;background:#eef1f5;color:#9aa4b5;cursor:not-allowed}
+  #table-candidatures-besoin .candidate-cv .cv-link{gap:5px;min-height:32px;padding:4px 2px}
   @media(max-width:700px){#v-partenaires .partenaires-toolbar{align-items:flex-start;flex-direction:column}#v-partenaires .partenaires-filtres{padding:14px;grid-template-columns:1fr}#v-partenaires .champ-rech{max-width:none;min-width:100%}#v-partenaires .partner-search-action{width:100%}}
   /* Correctifs contraste AA : en-têtes de table + onglets inactifs (préexistants) */
   #v-besoins table thead th{color:#66665f}
@@ -2325,7 +2327,7 @@
             <div><h2>L’analyse du besoin est en cours</h2><p>Camille Moreau prépare la recherche des profils correspondant à votre besoin. Les candidatures proposées apparaîtront ici dès leur validation.</p></div>
           </section>
           <section class="card prestation-compliance" id="table-candidatures-besoin" hidden>
-            <div class="twrap"><table class="candidature-table"><thead><tr><th>Candidat</th><th>Poste</th><th>Localisation</th><th class="num">TJM</th><th>Statut</th><th class="num">Décision</th></tr></thead><tbody></tbody></table></div>
+            <div class="twrap"><table class="candidature-table"><thead><tr><th>Candidat</th><th>Poste</th><th>Localisation</th><th class="num">TJM</th><th>Statut</th><th>Voir le CV</th><th class="num">Décision</th></tr></thead><tbody></tbody></table></div>
           </section>
         <section class="card decision-space" id="decision-candidatures" hidden>
           <div class="decision-layout">
@@ -3638,11 +3640,11 @@
   })();
   function texteCellule(ligne,index){return ligne&&ligne.cells[index]?ligne.cells[index].textContent.trim():'';}
   function renseigner(selecteur,texte){var cible=document.querySelector(selecteur);if(cible&&texte)cible.textContent=texte;}
-  function renseignerTableCandidatures(candidats){
+  function renseignerTableCandidatures(candidats,gele,libelleStatut){
     var corps=document.querySelector('#table-candidatures-besoin tbody'),fiches=window.__candidatFiches||{};
     if(!corps)return;
     corps.innerHTML='';
-    candidats.forEach(function(nom){var fiche=fiches[nom]||{},ligne=document.createElement('tr');ligne.innerHTML='<td><b></b></td><td></td><td></td><td class="num"></td><td><span class="badge b-bleu">Proposée</span></td><td class="candidate-actions"><button class="btn-candidate refuse" type="button" data-candidature-decision="refuse">Refuser</button><button class="btn-candidate accept" type="button" data-candidature-decision="accept">Valider</button></td>';ligne.cells[0].querySelector('b').textContent=nom;ligne.cells[1].textContent=fiche.role||'Candidat proposé';ligne.cells[2].textContent=(fiche.meta||'').split(' · ')[0]||'—';ligne.cells[3].textContent=fiche.tjm||'—';corps.appendChild(ligne);});
+    candidats.forEach(function(nom){var fiche=fiches[nom]||{},ligne=document.createElement('tr');ligne.innerHTML='<td><b></b></td><td></td><td></td><td class="num"></td><td><span class="badge b-bleu">Proposée</span></td><td class="candidate-cv"><a class="cv-link" href="cv-demo.pdf" target="_blank" rel="noopener"><svg class="ic s" aria-hidden="true"><use href="#i-doc"/></svg>CV</a></td><td class="candidate-actions"><button class="btn-candidate refuse" type="button" data-candidature-decision="refuse">Refuser</button><button class="btn-candidate accept" type="button" data-candidature-decision="accept">Valider</button></td>';ligne.cells[0].querySelector('b').textContent=nom;ligne.cells[1].textContent=fiche.role||'Candidat proposé';ligne.cells[2].textContent=(fiche.meta||'').split(' · ')[0]||'—';ligne.cells[3].textContent=fiche.tjm||'—';var lienCv=ligne.querySelector('.cv-link');if(lienCv)lienCv.setAttribute('aria-label','Voir le CV de '+nom);if(gele){ligne.querySelectorAll('.btn-candidate').forEach(function(btn){btn.disabled=true;btn.setAttribute('title','Décision indisponible : besoin en « '+(libelleStatut||'')+' »');});}corps.appendChild(ligne);});
     if(!corps.dataset.decisionsLiees){corps.dataset.decisionsLiees='true';corps.addEventListener('click',function(event){var bouton=event.target.closest('[data-candidature-decision]');if(!bouton)return;var ligne=bouton.closest('tr'),badge=ligne.querySelector('.badge'),accepte=bouton.dataset.candidatureDecision==='accept';badge.className='badge '+(accepte?'ok':'bad');badge.textContent=accepte?'Validée':'Refusée';bouton.closest('td').innerHTML='<span class="decision-done '+(accepte?'accepted':'refused')+'">Candidature '+(accepte?'validée':'refusée')+'</span>';});}
   }
   function renseignerBesoin(lien){
@@ -3652,7 +3654,8 @@
     renseigner('#v-besoin-detail .sourcing-infos div:nth-child(1) dd',titre.split('—')[0].trim());renseigner('#v-besoin-detail .sourcing-infos div:nth-child(2) dd',lieu);renseigner('#v-besoin-detail .sourcing-infos div:nth-child(6) dd',tjm+' HT / jour');
     renseigner('#v-besoin-detail .decision-criteria div:nth-child(1) dd',titre.split('—')[0].trim());renseigner('#v-besoin-detail .decision-criteria div:nth-child(2) dd',lieu);renseigner('#v-besoin-detail .decision-criteria div:nth-child(4) dd',tjm+' HT / jour');
     document.querySelectorAll('#v-besoin-detail .sourcing-description p,#v-besoin-detail .description-besoin p').forEach(function(p){p.textContent='Besoin rattaché au marché '+marche+' et suivi par '+responsable+'.';});
-    candidaturesEnDecision=candidats.length>0;renseignerTableCandidatures(candidats);
+    var statutObj=statutsBesoins[titre],libelleStatut=statutObj?statutObj.libelle:libellesEtapes[Math.max(1,Math.min(6,Number(ligne.dataset.etape)||1))],geleDecision=(libelleStatut==='Démarrage de la mission'||libelleStatut==='Analyse du besoin');
+    candidaturesEnDecision=candidats.length>0;renseignerTableCandidatures(candidats,geleDecision,libelleStatut);
   }
   function renseignerForfait(lien){
     var ligne=lien.closest('tr'),titre=texteCellule(ligne,0),marche=texteCellule(ligne,1),statut=texteCellule(ligne,2),responsable=texteCellule(ligne,3),partenaire=texteCellule(ligne,5),montant=texteCellule(ligne,6);
