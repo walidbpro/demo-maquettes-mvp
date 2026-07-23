@@ -1235,6 +1235,32 @@
   #v-besoins .decision-done{font-size:12px;font-weight:800}
   #v-besoins .decision-done.accepted{color:#18713e}
   #v-besoins .decision-done.refused{color:#b42318}
+  /* ── Référentiel fournisseurs ── */
+  #v-partenaires > .card{background:transparent;border:0;box-shadow:none;padding:34px 0 48px}
+  #v-partenaires .partenaires-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:25px}
+  #v-partenaires .h-vue{font-size:37px;font-weight:800;letter-spacing:-.03em;color:#161616}
+  #v-partenaires .partenaires-toolbar p{margin-top:7px;color:var(--t-600);font-size:14px}
+  #v-partenaires .partenaires-count{padding:8px 11px;border-radius:999px;background:#edf3ff;color:var(--brand);font-size:12px;font-weight:800;white-space:nowrap}
+  #v-partenaires .partenaires-filtres{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:12px 14px;border:1px solid #e8e6e0;border-radius:14px;background:#fff}
+  #v-partenaires .champ-rech{flex:1;max-width:520px;border-radius:999px}
+  #v-partenaires .champ-rech input{flex:1;min-width:0;width:100%;padding:0;background:transparent;box-shadow:none;outline:0}
+  #v-partenaires .champ-rech input:focus{border-color:transparent;box-shadow:none;outline:0}
+  #v-partenaires .twrap{border:1px solid #e8e6e0;border-radius:14px;background:#fff;overflow-x:auto}
+  #v-partenaires table{min-width:1050px}
+  #v-partenaires table thead th{color:#66665f;white-space:nowrap}
+  #v-partenaires tbody tr:hover{background:#f7f9fd}
+  #v-partenaires tbody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--brand)}
+  #v-partenaires .partner-id b,#v-partenaires .partner-id small{display:block}
+  #v-partenaires .partner-id b{font-size:13px;color:var(--t-900)}
+  #v-partenaires .partner-id small{margin-top:3px;font-size:11px;color:var(--t-600);font-weight:700;letter-spacing:.04em}
+  #v-partenaires .partner-expertise{display:flex;flex-wrap:wrap;gap:5px;min-width:170px}
+  #v-partenaires .partner-expertise span{padding:4px 7px;border-radius:6px;background:#edf3ff;color:#3152a7;font-size:11px;font-weight:700}
+  #v-partenaires .partner-description{max-width:280px;color:var(--t-600);font-size:12px;line-height:1.45}
+  #v-partenaires .partner-tier{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;font-size:11px;font-weight:800}
+  #v-partenaires .partner-tier.gold{background:#fff5d9;color:#986700}
+  #v-partenaires .partner-tier.silver{background:#edf1f5;color:#586577}
+  #v-partenaires .partner-tier.bronze{background:#fff0e6;color:#a54c16}
+  @media(max-width:700px){#v-partenaires .partenaires-toolbar{align-items:flex-start;flex-direction:column}#v-partenaires .partenaires-filtres{padding:10px}#v-partenaires .champ-rech{max-width:none}}
   /* Correctifs contraste AA : en-têtes de table + onglets inactifs (préexistants) */
   #v-besoins table thead th{color:#66665f}
   #v-besoins .tab[aria-selected="false"]{color:#565650}
@@ -1713,6 +1739,7 @@
     <a href="#" data-vue="activites"><svg class="ic"><use href="#i-couches"/></svg>Activités</a>
     <a href="#" data-vue="factures"><svg class="ic"><use href="#i-doc"/></svg>Factures</a>
     <a href="#" data-vue="documents"><svg class="ic"><use href="#i-doc"/></svg>Documents</a>
+    <a href="#" data-vue="partenaires"><svg class="ic"><use href="#i-gens"/></svg>Partenaires</a>
     </nav>
     <nav class="side-secondary" aria-label="Navigation secondaire">
     <a href="#" data-vue="intervenants"><svg class="ic"><use href="#i-gens"/></svg>Vivier</a>
@@ -2695,6 +2722,22 @@
         </section>
       </section>
 
+      <section class="vue" id="v-partenaires" tabindex="-1" hidden>
+        <section class="card partenaires-page">
+          <div class="partenaires-toolbar"><div><h2 class="h-vue">Partenaires</h2><p>Recherchez les fournisseurs référencés et leurs domaines d’expertise.</p></div><span class="partenaires-count" id="partenaires-count">6 partenaires</span></div>
+          <div class="partenaires-filtres"><label class="sr-only" for="partenaires-search">Rechercher un fournisseur</label><span class="champ-rech"><svg class="ic s" aria-hidden="true"><use href="#i-loupe"/></svg><input id="partenaires-search" type="search" placeholder="Rechercher un fournisseur, une expertise ou une localisation..."></span></div>
+          <div class="twrap" role="region" aria-label="Référentiel des partenaires" tabindex="0"><table id="partenaires-table"><thead><tr><th>ID partenaire</th><th>Localisation</th><th>Taille</th><th>Expertises</th><th>Description</th><th>Statut</th></tr></thead><tbody>
+            <tr><td><div class="partner-id"><b>Ataraxie Conseil</b><small>PTN-0001</small></div></td><td>Paris</td><td>251 - 500</td><td><div class="partner-expertise"><span>Cloud</span><span>Infra</span></div></td><td class="partner-description">Architecture cloud, modernisation des infrastructures et exploitation.</td><td><span class="partner-tier gold">Gold</span></td></tr>
+            <tr><td><div class="partner-id"><b>Data Praxis</b><small>PTN-0002</small></div></td><td>Lyon</td><td>51 - 200</td><td><div class="partner-expertise"><span>Data</span><span>IA</span></div></td><td class="partner-description">Data engineering, gouvernance de la donnée et industrialisation IA.</td><td><span class="partner-tier gold">Gold</span></td></tr>
+            <tr><td><div class="partner-id"><b>SecuNord</b><small>PTN-0003</small></div></td><td>Lille</td><td>51 - 200</td><td><div class="partner-expertise"><span>Cybersécurité</span><span>Audit</span></div></td><td class="partner-description">Conseil cyber, audit de conformité et sécurisation des SI.</td><td><span class="partner-tier silver">Argent</span></td></tr>
+            <tr><td><div class="partner-id"><b>Nexworks</b><small>PTN-0004</small></div></td><td>Nantes</td><td>13 - 50</td><td><div class="partner-expertise"><span>UX</span><span>Produit</span></div></td><td class="partner-description">Conception de produits numériques et expérience utilisateur.</td><td><span class="partner-tier silver">Argent</span></td></tr>
+            <tr><td><div class="partner-id"><b>Novatim</b><small>PTN-0005</small></div></td><td>Paris</td><td>1 - 12</td><td><div class="partner-expertise"><span>SAP</span><span>Finance</span></div></td><td class="partner-description">Expertise SAP FI/CO et accompagnement des transformations finance.</td><td><span class="partner-tier bronze">Bronze</span></td></tr>
+            <tr><td><div class="partner-id"><b>Xdemat</b><small>PTN-0006</small></div></td><td>Bordeaux</td><td>13 - 50</td><td><div class="partner-expertise"><span>RGPD</span><span>Conformité</span></div></td><td class="partner-description">Conformité réglementaire, dématérialisation et protection des données.</td><td><span class="partner-tier bronze">Bronze</span></td></tr>
+          </tbody></table></div>
+          <p class="vide-filtre" id="partenaires-empty" aria-live="polite" hidden>Aucun partenaire ne correspond à votre recherche.</p>
+        </section>
+      </section>
+
       <section class="vue" id="v-intervenants" tabindex="-1" hidden>
         <section class="card pool-page">
           <div class="pool-header">
@@ -3141,7 +3184,19 @@
     document.querySelectorAll('#side-account-menu a[aria-disabled="true"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();});});
   })();
 
-  var titres={accueil:'Vos marchés',tdb:'Tableau de bord',besoins:'Besoins','besoin-detail':'Besoins','forfait-detail':'Prestations','portage-detail':'Besoins','portage-prestation-detail':'Prestations',prestations:'Prestations','empreinte-carbone':'Empreinte carbone',factures:'Factures',marches:'Marchés','marche-detail':'Marchés','activite-detail':'Prestations',
+  (function(){
+    var search=document.getElementById('partenaires-search'),table=document.getElementById('partenaires-table'),count=document.getElementById('partenaires-count'),empty=document.getElementById('partenaires-empty');
+    if(!search||!table)return;
+    function filtrer(){
+      var query=search.value.trim().toLowerCase(),visible=0;
+      table.tBodies[0].querySelectorAll('tr').forEach(function(row){var show=!query||row.textContent.toLowerCase().indexOf(query)!==-1;row.hidden=!show;if(show)visible++;});
+      if(count)count.textContent=visible+' partenaire'+(visible>1?'s':'');
+      if(empty)empty.hidden=visible>0;
+    }
+    search.addEventListener('input',filtrer);filtrer();
+  })();
+
+  var titres={accueil:'Vos marchés',tdb:'Tableau de bord',besoins:'Besoins','besoin-detail':'Besoins','forfait-detail':'Prestations','portage-detail':'Besoins','portage-prestation-detail':'Prestations',prestations:'Prestations','empreinte-carbone':'Empreinte carbone',factures:'Factures',marches:'Marchés','marche-detail':'Marchés','activite-detail':'Prestations',partenaires:'Partenaires',
     intervenants:'Vivier',conformite:'Conformité','conformite-detail':'Conformité','dc4-detail':'Conformité',documents:'Documents',notifications:'Notifications',activites:'Activités'};
   function vueDepuisHash(){
     var nom=location.hash.slice(1);
