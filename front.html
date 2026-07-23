@@ -1678,6 +1678,14 @@
   #v-dc4-detail .dc4-document b{color:#141414}
   #v-dc4-detail .dc4-document span{color:#7a7a76}
   #v-dc4-detail .dc4-document .lien{padding:9px 12px;border-color:#d8d6cf;border-radius:10px;color:var(--brand);font-weight:700}
+  /* ═══ Passe d'harmonisation globale : filtres, recherches et tableaux ═══ */
+  :root{--controle-hauteur:44px;--controle-bord:#d8d6cf;--controle-focus:#edf3ff}
+  #v-prestations .presta-filtres,#v-marches .presta-filtres,#v-factures .presta-filtres,#v-documents .presta-filtres,#v-empreinte-carbone .presta-filtres{border-color:#e8e6e0;background:#fff;box-shadow:none}
+  #v-besoins .barre-besoins .champ-rech,#v-prestations .presta-recherche,#v-marches .presta-recherche,#v-empreinte-carbone .champ-rech,#v-documents .ged-recherche input,#v-notifications .notif-filter-search{min-height:var(--controle-hauteur);border-color:var(--controle-bord);border-radius:999px;box-shadow:none}
+  #v-besoins .barre-besoins .champ-rech,#v-prestations .presta-recherche,#v-marches .presta-recherche,#v-empreinte-carbone .champ-rech{height:var(--controle-hauteur)}
+  #v-besoins .barre-besoins .champ-rech:focus-within,#v-prestations .presta-recherche:focus-within,#v-marches .presta-recherche:focus-within,#v-empreinte-carbone .champ-rech:focus-within,#v-documents .ged-recherche input:focus,#v-notifications .notif-filter-search:focus,#v-partenaires .champ-rech:focus-within{border-color:var(--brand)!important;box-shadow:0 0 0 3px var(--controle-focus)!important;outline:0}
+  #v-prestations .presta-recherche input::placeholder,#v-marches .presta-recherche input::placeholder,#v-besoins .champ-rech input::placeholder,#v-empreinte-carbone .champ-rech input::placeholder,#v-documents .ged-recherche input::placeholder,#v-notifications .notif-filter-search::placeholder,#v-partenaires .champ-rech input::placeholder{color:#8a909a;opacity:1}
+  #v-besoins .twrap,#v-prestations .presta-table,#v-marches .marches-table,#v-factures .presta-table,#v-documents .twrap,#v-partenaires .twrap,#v-empreinte-carbone .carbon-table{border-color:#e8e6e0;border-radius:14px;background:#fff;box-shadow:none}
   @media(max-width:960px){.cont:has(#v-dc4-detail:not([hidden])){padding:18px 16px 48px}#v-dc4-detail .dc4-layout{grid-template-columns:1fr}#v-dc4-detail .dc4-side,#v-dc4-detail .dc4-detail{padding:22px 20px}#v-dc4-detail .dc4-detail-head h2{font-size:25px}}
 </style>
 <style>body:not(.connecte){overflow:hidden}body:not(.connecte) .app{display:none!important}body.connecte .ecran-login{display:none!important}label[for="l-mdp"],#l-mdp{display:none!important}</style></head>
