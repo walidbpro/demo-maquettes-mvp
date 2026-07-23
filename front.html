@@ -3589,7 +3589,7 @@
     el.addEventListener('click',function(e){
       e.preventDefault();
       if(el.dataset.vue==='besoin-detail')renseignerBesoin(el);
-      if(el.dataset.vue==='forfait-detail')renseignerForfait(el);
+      if(el.dataset.vue==='forfait-detail'&&el.closest('tr'))renseignerForfait(el);
       if(el.dataset.vue==='forfait-detail'&&window.__afficherOngletForfait)window.__afficherOngletForfait('detail');
       if(el.dataset.vue==='portage-prestation-detail'&&window.__afficherOngletPortage)window.__afficherOngletPortage('overview');
       if(el.dataset.vue==='portage-detail')renseignerPortage(el);
