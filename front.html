@@ -3591,6 +3591,18 @@
       statut.className='badge statut-besoin '+couleur;statut.textContent=libellesEtapes[etapeBesoin];
     }
   }
+  var statutsBesoins={
+    'Développeur mobile Flutter — app agents terrain':{libelle:'Démarrage de la mission',classe:'ok'},
+    'UX designer — parcours de souscription':{libelle:'Analyse du besoin',classe:'b-neutre'},
+    'Consultant cybersécurité — audit ISO 27001':{libelle:'Validation du candidat',classe:'b-violet'},
+    'Chef de projet migration SI finance':{libelle:'Négociation financière',classe:'b-indigo'},
+    'Data engineer — pipeline de facturation':{libelle:'Proposition des candidats',classe:'b-bleu'},
+    'Architecte cloud AWS — refonte hébergement':{libelle:'Proposition des candidats',classe:'b-bleu'}
+  };
+  function appliquerStatutBesoin(titre){
+    var statut=statutsBesoins[titre],detail=document.getElementById('statut-besoin');
+    if(statut&&detail){detail.className='badge statut-besoin '+statut.classe;detail.textContent=statut.libelle;}
+  }
   function afficherOngletBesoin(onglet,avecCandidatures){
     var detail=document.getElementById('fp-detail'),candidatures=document.getElementById('fp-candidatures'),historique=document.getElementById('fp-historique'),tabDetail=document.getElementById('fb-detail'),tabCandidatures=document.getElementById('fb-candidatures'),tabHistorique=document.getElementById('fb-historique'),attente=document.getElementById('candidatures-attente'),decision=document.getElementById('decision-candidatures'),tableCandidatures=document.getElementById('table-candidatures-besoin'),statut=document.getElementById('statut-besoin'),estCandidatures=onglet==='candidatures';
     if(!detail||!candidatures)return;
@@ -3634,7 +3646,7 @@
   function renseignerBesoin(lien){
     var ligne=lien.closest('tr'),titre=texteCellule(ligne,0).replace('Action requise','').trim(),marche=texteCellule(ligne,1),lieu=texteCellule(ligne,2),tjm=texteCellule(ligne,3),responsable=ligne.dataset.responsable||'C. Dupont',date=ligne.dataset.date||texteCellule(ligne,6),candidats=(ligne.dataset.candidats||'').split('|').filter(Boolean);
     renseigner('#v-besoin-detail .fiche-status h2',titre);renseigner('#v-besoin-detail .fiche-status .card-sub','Besoin déposé par '+responsable+' le '+date);
-    mettreEtapeBesoin(ligne.dataset.etape||1);
+    mettreEtapeBesoin(ligne.dataset.etape||1);appliquerStatutBesoin(titre);
     renseigner('#v-besoin-detail .sourcing-infos div:nth-child(1) dd',titre.split('—')[0].trim());renseigner('#v-besoin-detail .sourcing-infos div:nth-child(2) dd',lieu);renseigner('#v-besoin-detail .sourcing-infos div:nth-child(6) dd',tjm+' HT / jour');
     renseigner('#v-besoin-detail .decision-criteria div:nth-child(1) dd',titre.split('—')[0].trim());renseigner('#v-besoin-detail .decision-criteria div:nth-child(2) dd',lieu);renseigner('#v-besoin-detail .decision-criteria div:nth-child(4) dd',tjm+' HT / jour');
     document.querySelectorAll('#v-besoin-detail .sourcing-description p,#v-besoin-detail .description-besoin p').forEach(function(p){p.textContent='Besoin rattaché au marché '+marche+' et suivi par '+responsable+'.';});
@@ -3749,6 +3761,7 @@
         afficherOngletBesoin(el.dataset.onglet||'detail',el.dataset.onglet==='candidatures');
         var ligneBesoin=el.closest('tr'),etapeLien=ligneBesoin?ligneBesoin.dataset.etape:el.dataset.etape;
         mettreEtapeBesoin(etapeLien||1);
+        appliquerStatutBesoin(texteCellule(ligneBesoin,0));
       }
     });
   });
