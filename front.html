@@ -1240,16 +1240,17 @@
   #v-partenaires .partenaires-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:25px}
   #v-partenaires .h-vue{font-size:37px;font-weight:800;letter-spacing:-.03em;color:#161616}
   #v-partenaires .partenaires-toolbar p{margin-top:7px;color:var(--t-600);font-size:14px}
-  #v-partenaires .partenaires-filtres{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;margin-bottom:14px;padding:16px 18px;border:1px solid #e8e6e0;border-radius:14px;background:#fff}
+  #v-partenaires .partenaires-filtres{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) auto;gap:16px;margin-bottom:18px;padding:18px 20px;border:1px solid #e1e6f0;border-radius:16px;background:linear-gradient(135deg,#fff 0%,#f8faff 100%);box-shadow:0 4px 14px rgba(24,46,95,.04)}
   #v-partenaires .partner-filter{min-width:0}
   #v-partenaires .partner-filter-label{display:block;margin:0 0 7px 2px;color:var(--t-800);font-size:12px;font-weight:800}
-  #v-partenaires .champ-rech{width:100%;border-radius:999px;border:1px solid var(--t-200);transition:border-color .18s,box-shadow .18s}
+  #v-partenaires .champ-rech{width:100%;min-height:52px;border-radius:12px;border:1px solid #dce3ef;background:#fff;transition:border-color .18s,box-shadow .18s}
   #v-partenaires .champ-rech:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px #edf3ff}
   #v-partenaires .champ-rech input{flex:1;min-width:0;width:100%;padding:0;background:transparent;box-shadow:none;outline:0}
   #v-partenaires .champ-rech input:focus{border-color:transparent;box-shadow:none;outline:0}
   #v-partenaires .partner-suggestions{display:flex;gap:6px;flex-wrap:wrap;margin:9px 2px 0}
   #v-partenaires .partner-suggestion{border:0;border-radius:999px;padding:4px 8px;background:#f0f4fc;color:#49617f;font:700 10.5px inherit;cursor:pointer}
   #v-partenaires .partner-suggestion:hover{background:#e2ebff;color:var(--brand)}
+  #v-partenaires .partner-search-action{align-self:end;min-height:52px;padding:0 20px;white-space:nowrap;border-radius:11px;box-shadow:0 6px 14px rgba(36,75,212,.18)}
   #v-partenaires .twrap{border:1px solid #e8e6e0;border-radius:14px;background:#fff;overflow-x:auto}
   #v-partenaires table{min-width:1050px}
   #v-partenaires table thead th{color:#66665f;white-space:nowrap}
@@ -1281,7 +1282,7 @@
   .partner-camille small{display:block;margin-top:3px;color:var(--t-600);font-size:12px;line-height:1.4}
   .partner-modal .partner-modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px;flex-wrap:wrap}
   .partner-modal-confirm{margin-top:18px;padding:13px 15px;border-radius:10px;background:#e8f7ee;color:#18713e;font-size:13px;font-weight:700;line-height:1.45}
-  @media(max-width:700px){#v-partenaires .partenaires-toolbar{align-items:flex-start;flex-direction:column}#v-partenaires .partenaires-filtres{padding:12px;grid-template-columns:1fr}#v-partenaires .champ-rech{max-width:none;min-width:100%}}
+  @media(max-width:700px){#v-partenaires .partenaires-toolbar{align-items:flex-start;flex-direction:column}#v-partenaires .partenaires-filtres{padding:14px;grid-template-columns:1fr}#v-partenaires .champ-rech{max-width:none;min-width:100%}#v-partenaires .partner-search-action{width:100%}}
   /* Correctifs contraste AA : en-têtes de table + onglets inactifs (préexistants) */
   #v-besoins table thead th{color:#66665f}
   #v-besoins .tab[aria-selected="false"]{color:#565650}
@@ -2746,7 +2747,7 @@
       <section class="vue" id="v-partenaires" tabindex="-1" hidden>
         <section class="card partenaires-page">
           <div class="partenaires-toolbar"><div><h2 class="h-vue">Partenaires</h2><p>Recherchez les fournisseurs référencés et leurs domaines d’expertise.</p></div></div>
-          <div class="partenaires-filtres" aria-label="Recherche de partenaires"><div class="partner-filter"><label class="partner-filter-label" for="partenaires-supplier-search">Expertise ou identifiant partenaire</label><span class="champ-rech"><svg class="ic s" aria-hidden="true"><use href="#i-loupe"/></svg><input id="partenaires-supplier-search" type="search" list="partenaires-expertises" placeholder="Ex. Cloud, Data, cybersécurité..."></span></div><div class="partner-filter"><label class="partner-filter-label" for="partenaires-location-search">Localisation</label><span class="champ-rech"><svg class="ic s" aria-hidden="true"><use href="#i-loupe"/></svg><input id="partenaires-location-search" type="search" list="partenaires-localisations" placeholder="Ex. Paris, Lyon, Lille..."></span></div></div><datalist id="partenaires-expertises"><option value="Cloud"><option value="Infra"><option value="Data"><option value="IA"><option value="Cybersécurité"><option value="Audit"><option value="UX"><option value="Produit"><option value="SAP"><option value="Finance"><option value="RGPD"><option value="Conformité"></datalist><datalist id="partenaires-localisations"><option value="Paris"><option value="Lyon"><option value="Lille"><option value="Nantes"><option value="Bordeaux"></datalist>
+          <div class="partenaires-filtres" aria-label="Recherche de partenaires"><div class="partner-filter"><label class="partner-filter-label" for="partenaires-supplier-search">Expertise ou identifiant partenaire</label><span class="champ-rech"><svg class="ic s" aria-hidden="true"><use href="#i-loupe"/></svg><input id="partenaires-supplier-search" type="search" list="partenaires-expertises" placeholder="Ex. Cloud, Data, cybersécurité..."></span></div><div class="partner-filter"><label class="partner-filter-label" for="partenaires-location-search">Localisation</label><span class="champ-rech"><svg class="ic s" aria-hidden="true"><use href="#i-loupe"/></svg><input id="partenaires-location-search" type="search" list="partenaires-localisations" placeholder="Ex. Paris, Lyon, Lille..."></span></div><button class="btn partner-search-action" id="partenaires-search-button" type="button"><svg class="ic s" aria-hidden="true"><use href="#i-loupe"/></svg>Rechercher</button></div><datalist id="partenaires-expertises"><option value="Cloud"><option value="Infra"><option value="Data"><option value="IA"><option value="Cybersécurité"><option value="Audit"><option value="UX"><option value="Produit"><option value="SAP"><option value="Finance"><option value="RGPD"><option value="Conformité"></datalist><datalist id="partenaires-localisations"><option value="Paris"><option value="Lyon"><option value="Lille"><option value="Nantes"><option value="Bordeaux"></datalist>
           <div class="twrap" role="region" aria-label="Référentiel des partenaires" tabindex="0"><table id="partenaires-table"><thead><tr><th>ID partenaire</th><th>Localisation</th><th>Taille</th><th>Expertises</th><th>Description</th><th>Statut</th><th>Voir le détail</th></tr></thead><tbody>
             <tr><td><div class="partner-id"><b>PTN-0001</b></div></td><td>Paris</td><td>251 - 500</td><td><div class="partner-expertise"><span>Cloud</span><span>Infra</span></div></td><td class="partner-description">Architecture cloud, modernisation des infrastructures et exploitation.</td><td><span class="partner-tier gold">Gold</span></td><td><button class="btn ghost partner-detail" type="button">Voir le détail</button></td></tr>
             <tr><td><div class="partner-id"><b>PTN-0002</b></div></td><td>Lyon</td><td>51 - 200</td><td><div class="partner-expertise"><span>Data</span><span>IA</span></div></td><td class="partner-description">Data engineering, gouvernance de la donnée et industrialisation IA.</td><td><span class="partner-tier gold">Gold</span></td><td><button class="btn ghost partner-detail" type="button">Voir le détail</button></td></tr>
@@ -3225,7 +3226,7 @@
   })();
 
   (function(){
-    var supplierSearch=document.getElementById('partenaires-supplier-search'),locationSearch=document.getElementById('partenaires-location-search'),table=document.getElementById('partenaires-table'),empty=document.getElementById('partenaires-empty');
+    var supplierSearch=document.getElementById('partenaires-supplier-search'),locationSearch=document.getElementById('partenaires-location-search'),searchButton=document.getElementById('partenaires-search-button'),table=document.getElementById('partenaires-table'),empty=document.getElementById('partenaires-empty');
     if(!supplierSearch||!locationSearch||!table)return;
     function filtrer(){
       var supplierQuery=supplierSearch.value.trim().toLowerCase(),locationQuery=locationSearch.value.trim().toLowerCase(),visible=0;
@@ -3233,6 +3234,8 @@
       if(empty)empty.hidden=visible>0;
     }
     supplierSearch.addEventListener('input',filtrer);locationSearch.addEventListener('input',filtrer);
+    if(searchButton)searchButton.addEventListener('click',filtrer);
+    [supplierSearch,locationSearch].forEach(function(champ){champ.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();filtrer();}});});
     document.querySelectorAll('#v-partenaires .partner-suggestion').forEach(function(button){button.addEventListener('click',function(){
       var champ=button.dataset.partnerFilter==='location'?locationSearch:supplierSearch;
       champ.value=button.textContent.trim();filtrer();champ.focus();
