@@ -2309,9 +2309,9 @@
             <button class="tab" role="tab" id="ff-detail" aria-selected="true" aria-controls="ffp-detail">Vue d’ensemble</button>
             <button class="tab" role="tab" id="ff-phases" aria-selected="false" aria-controls="ffp-phases">Phases</button>
             <button class="tab" role="tab" id="ff-documents" aria-selected="false" aria-controls="ffp-documents">Documents</button>
+            <button class="tab" role="tab" id="ff-conformite" aria-selected="false" aria-controls="ffp-conformite">Conformité</button>
             <button class="tab" role="tab" id="ff-contact" aria-selected="false" aria-controls="ffp-contact">Contact</button>
             <button class="tab" role="tab" id="ff-historique" aria-selected="false" aria-controls="ffp-historique">Historique</button>
-            <button class="tab" role="tab" id="ff-conformite" aria-selected="false" aria-controls="ffp-conformite">Conformité</button>
           </div>
         </section>
         <section class="fiche-sourcing-panel" id="ffp-detail" role="tabpanel" aria-labelledby="ff-detail">
@@ -2613,7 +2613,7 @@
             <div class="presta-repere"><span class="repere-ic"><svg class="ic"><use href="#i-calendrier"/></svg></span><div><small>Date de début</small><strong>01/09/2024</strong></div></div>
             <div class="presta-repere"><span class="repere-ic"><svg class="ic"><use href="#i-calendrier"/></svg></span><div><small>Date de fin</small><strong>31/08/2026</strong></div></div>
           </div>
-          <div class="tabs fiche-tabs" role="tablist" aria-label="Détail de la prestation"><button class="tab" id="tpresta-overview" type="button" role="tab" aria-selected="true" aria-controls="ppresta-overview">Vue d’ensemble</button><button class="tab" id="tpresta-commandes" type="button" role="tab" aria-selected="false" aria-controls="ppresta-commandes">Activités</button><button class="tab" id="tpresta-documents" type="button" role="tab" aria-selected="false" aria-controls="ppresta-documents">Documents</button><button class="tab" id="tpresta-contact" type="button" role="tab" aria-selected="false" aria-controls="ppresta-contact">Contact</button><button class="tab" id="tpresta-historique" type="button" role="tab" aria-selected="false" aria-controls="ppresta-historique">Historique</button><button class="tab" id="tpresta-conformite" type="button" role="tab" aria-selected="false" aria-controls="ppresta-conformite">Conformité</button></div>
+          <div class="tabs fiche-tabs" role="tablist" aria-label="Détail de la prestation"><button class="tab" id="tpresta-overview" type="button" role="tab" aria-selected="true" aria-controls="ppresta-overview">Vue d’ensemble</button><button class="tab" id="tpresta-commandes" type="button" role="tab" aria-selected="false" aria-controls="ppresta-commandes">Activités</button><button class="tab" id="tpresta-documents" type="button" role="tab" aria-selected="false" aria-controls="ppresta-documents">Documents</button><button class="tab" id="tpresta-conformite" type="button" role="tab" aria-selected="false" aria-controls="ppresta-conformite">Conformité</button><button class="tab" id="tpresta-contact" type="button" role="tab" aria-selected="false" aria-controls="ppresta-contact">Contact</button><button class="tab" id="tpresta-historique" type="button" role="tab" aria-selected="false" aria-controls="ppresta-historique">Historique</button></div>
         </section>
         <section id="ppresta-overview" class="prestation-panel" role="tabpanel" aria-labelledby="tpresta-overview">
           <section class="card commandes-overview">
@@ -2710,7 +2710,7 @@
             <div class="presta-repere"><span class="repere-ic"><svg class="ic"><use href="#i-calendrier"/></svg></span><div><small>Date de début</small><strong>01/06/2026</strong></div></div>
             <div class="presta-repere"><span class="repere-ic"><svg class="ic"><use href="#i-calendrier"/></svg></span><div><small>Date de fin</small><strong>31/05/2027</strong></div></div>
           </div>
-          <div class="tabs fiche-tabs" role="tablist" aria-label="Détail de la prestation de portage"><button class="tab" id="ppd-overview" type="button" role="tab" aria-selected="true" aria-controls="ppp-overview">Vue d’ensemble</button><button class="tab" id="ppd-documents" type="button" role="tab" aria-selected="false" aria-controls="ppp-documents">Documents</button><button class="tab" id="ppd-contact" type="button" role="tab" aria-selected="false" aria-controls="ppp-contact">Contact</button><button class="tab" id="ppd-historique" type="button" role="tab" aria-selected="false" aria-controls="ppp-historique">Historique</button><button class="tab" id="ppd-conformite" type="button" role="tab" aria-selected="false" aria-controls="ppp-conformite">Conformité</button></div>
+          <div class="tabs fiche-tabs" role="tablist" aria-label="Détail de la prestation de portage"><button class="tab" id="ppd-overview" type="button" role="tab" aria-selected="true" aria-controls="ppp-overview">Vue d’ensemble</button><button class="tab" id="ppd-documents" type="button" role="tab" aria-selected="false" aria-controls="ppp-documents">Documents</button><button class="tab" id="ppd-conformite" type="button" role="tab" aria-selected="false" aria-controls="ppp-conformite">Conformité</button><button class="tab" id="ppd-contact" type="button" role="tab" aria-selected="false" aria-controls="ppp-contact">Contact</button><button class="tab" id="ppd-historique" type="button" role="tab" aria-selected="false" aria-controls="ppp-historique">Historique</button></div>
         </section>
         <section id="ppp-overview" class="prestation-panel" role="tabpanel" aria-labelledby="ppd-overview">
           <section class="card forfait-overview-card"><div class="forfait-info-columns">
@@ -3566,20 +3566,20 @@
     if(marche){[marche,entite,statut,type].forEach(function(champ){champ.addEventListener('change',filtrerConformite);});if(actions)actions.addEventListener('click',function(){actions.setAttribute('aria-pressed',actions.getAttribute('aria-pressed')==='true'?'false':'true');filtrerConformite();});reset.addEventListener('click',function(){[marche,entite,statut,type].forEach(function(champ){champ.value='tous';});if(actions)actions.setAttribute('aria-pressed','false');filtrerConformite();});}
   })();
   (function(){
-    var tabs=[['overview','tpresta-overview','ppresta-overview'],['commandes','tpresta-commandes','ppresta-commandes'],['documents','tpresta-documents','ppresta-documents'],['contact','tpresta-contact','ppresta-contact'],['historique','tpresta-historique','ppresta-historique'],['conformite','tpresta-conformite','ppresta-conformite']];
+    var tabs=[['overview','tpresta-overview','ppresta-overview'],['commandes','tpresta-commandes','ppresta-commandes'],['documents','tpresta-documents','ppresta-documents'],['conformite','tpresta-conformite','ppresta-conformite'],['contact','tpresta-contact','ppresta-contact'],['historique','tpresta-historique','ppresta-historique']];
     function afficherOngletPrestation(nom){tabs.forEach(function(item){var actif=item[0]===nom;document.getElementById(item[1]).setAttribute('aria-selected',actif?'true':'false');document.getElementById(item[2]).hidden=!actif;});}
     tabs.forEach(function(item){document.getElementById(item[1]).addEventListener('click',function(){afficherOngletPrestation(item[0]);});});
   })();
   (function(){
     /* Même comportement que la maquette détail_projet_forfait : un seul panneau est
        affiché, avec navigation clavier dans les onglets. */
-    var tabs=[['detail','ff-detail','ffp-detail'],['phases','ff-phases','ffp-phases'],['documents','ff-documents','ffp-documents'],['contact','ff-contact','ffp-contact'],['historique','ff-historique','ffp-historique'],['conformite','ff-conformite','ffp-conformite']];
+    var tabs=[['detail','ff-detail','ffp-detail'],['phases','ff-phases','ffp-phases'],['documents','ff-documents','ffp-documents'],['conformite','ff-conformite','ffp-conformite'],['contact','ff-contact','ffp-contact'],['historique','ff-historique','ffp-historique']];
     function afficherOngletForfait(nom){tabs.forEach(function(item){var actif=item[0]===nom,tab=document.getElementById(item[1]),panel=document.getElementById(item[2]);if(tab)tab.setAttribute('aria-selected',actif?'true':'false');if(panel)panel.hidden=!actif;});}
     window.__afficherOngletForfait=afficherOngletForfait;
     tabs.forEach(function(item,index){var tab=document.getElementById(item[1]);if(!tab)return;tab.addEventListener('click',function(){afficherOngletForfait(item[0]);});tab.addEventListener('keydown',function(e){var cible=null;if(e.key==='ArrowRight')cible=(index+1)%tabs.length;if(e.key==='ArrowLeft')cible=(index-1+tabs.length)%tabs.length;if(cible===null)return;e.preventDefault();afficherOngletForfait(tabs[cible][0]);var suivant=document.getElementById(tabs[cible][1]);if(suivant)suivant.focus();});});
   })();
   (function(){
-    var tabs=[['overview','ppd-overview','ppp-overview'],['documents','ppd-documents','ppp-documents'],['contact','ppd-contact','ppp-contact'],['historique','ppd-historique','ppp-historique'],['conformite','ppd-conformite','ppp-conformite']];
+    var tabs=[['overview','ppd-overview','ppp-overview'],['documents','ppd-documents','ppp-documents'],['conformite','ppd-conformite','ppp-conformite'],['contact','ppd-contact','ppp-contact'],['historique','ppd-historique','ppp-historique']];
     function afficherOngletPortage(nom){tabs.forEach(function(item){var actif=item[0]===nom,tab=document.getElementById(item[1]),panel=document.getElementById(item[2]);if(tab)tab.setAttribute('aria-selected',actif?'true':'false');if(panel)panel.hidden=!actif;});}
     window.__afficherOngletPortage=afficherOngletPortage;
     tabs.forEach(function(item,index){var tab=document.getElementById(item[1]);if(!tab)return;tab.addEventListener('click',function(){afficherOngletPortage(item[0]);});tab.addEventListener('keydown',function(e){var cible=null;if(e.key==='ArrowRight')cible=(index+1)%tabs.length;if(e.key==='ArrowLeft')cible=(index-1+tabs.length)%tabs.length;if(cible===null)return;e.preventDefault();afficherOngletPortage(tabs[cible][0]);var suivant=document.getElementById(tabs[cible][1]);if(suivant)suivant.focus();});});
@@ -4339,6 +4339,15 @@
     widgets.forEach(function(widget){if(widget.vue&&widget.vue.id==='v-tdb')basculer(widget,true);});
   }
   majEtat();
+})();
+</script>
+<script>
+/* Documents de conformité : une colonne d'action explicite et une pièce de démonstration consultable. */
+(function(){
+  document.querySelectorAll('.prestation-compliance table thead th:last-child').forEach(function(cell){cell.textContent='Actions';});
+  document.querySelectorAll('.prestation-compliance a.lien').forEach(function(link){
+    if(link.textContent.trim()==='Consulter'){link.href='document-conformite-demo.pdf';link.target='_blank';link.rel='noopener';link.setAttribute('aria-label','Consulter le document de conformité de démonstration');}
+  });
 })();
 </script>
 </body>
