@@ -2309,7 +2309,7 @@
             <button class="tab" role="tab" id="ff-detail" aria-selected="true" aria-controls="ffp-detail">Vue d’ensemble</button>
             <button class="tab" role="tab" id="ff-phases" aria-selected="false" aria-controls="ffp-phases">Phases</button>
             <button class="tab" role="tab" id="ff-documents" aria-selected="false" aria-controls="ffp-documents">Documents</button>
-            <button class="tab" role="tab" id="ff-conformite" aria-selected="false" aria-controls="ffp-conformite">Conformité</button>
+            <button class="tab" role="tab" id="ff-dc4" aria-selected="false" aria-controls="ffp-dc4">Activité / DC4</button>
             <button class="tab" role="tab" id="ff-contact" aria-selected="false" aria-controls="ffp-contact">Contact</button>
             <button class="tab" role="tab" id="ff-historique" aria-selected="false" aria-controls="ffp-historique">Historique</button>
           </div>
@@ -2363,8 +2363,8 @@
             <ol class="sourcing-historique"><li><time>01/08/2026</time><i></i><div><b>Forfait démarré</b><p>La phase de cadrage et de collecte des éléments est lancée.</p></div></li><li><time>18/07/2026</time><i></i><div><b>Mémoire technique transmis</b><p>Le document de référence du forfait a été ajouté.</p></div></li></ol>
           </section>
         </section>
-        <section class="fiche-sourcing-panel" id="ffp-conformite" role="tabpanel" aria-labelledby="ff-conformite" hidden>
-          <section class="card prestation-compliance"><div class="prestation-compliance-head"><div><h2>Conformité</h2><p>Suivi des pièces de conformité du partenaire et de la prestation.</p></div></div><div class="twrap"><table><thead><tr><th>Document</th><th>Émis le</th><th>Validité</th><th>Statut</th><th><span class="sr-only">Action</span></th></tr></thead><tbody><tr><td><b>Extrait Kbis</b></td><td>30/05/2026</td><td>30/11/2026</td><td><span class="badge ok">À jour</span></td><td class="num"><a class="lien" href="#">Consulter</a></td></tr><tr><td><b>Attestation URSSAF</b></td><td>03/06/2026</td><td>03/12/2026</td><td><span class="badge ok">À jour</span></td><td class="num"><a class="lien" href="#">Consulter</a></td></tr><tr><td><b>Assurance RC professionnelle</b></td><td>01/01/2026</td><td>31/12/2026</td><td><span class="badge ok">À jour</span></td><td class="num"><a class="lien" href="#">Consulter</a></td></tr></tbody></table></div></section>
+        <section class="fiche-sourcing-panel" id="ffp-dc4" role="tabpanel" aria-labelledby="ff-dc4" hidden>
+          <section class="card"><h2 class="h-vue">Activité / DC4</h2><p class="card-sub">Suivi de la déclaration de sous-traitance associée au forfait.</p><div class="twrap"><table><thead><tr><th>Document</th><th>Partenaire</th><th>Envoyé le</th><th>Statut</th><th class="num">Action</th></tr></thead><tbody><tr><td><b>DC4 de sous-traitance</b></td><td>Xdemat</td><td>18/07/2026</td><td><span class="badge warn">Signature attendue</span></td><td class="num"><button class="btn js-signer-dc4" type="button" data-partenaire="Xdemat">Signer le DC4</button></td></tr></tbody></table></div></section>
         </section>
       </section>
 
@@ -3573,7 +3573,7 @@
   (function(){
     /* Même comportement que la maquette détail_projet_forfait : un seul panneau est
        affiché, avec navigation clavier dans les onglets. */
-    var tabs=[['detail','ff-detail','ffp-detail'],['phases','ff-phases','ffp-phases'],['documents','ff-documents','ffp-documents'],['conformite','ff-conformite','ffp-conformite'],['contact','ff-contact','ffp-contact'],['historique','ff-historique','ffp-historique']];
+    var tabs=[['detail','ff-detail','ffp-detail'],['phases','ff-phases','ffp-phases'],['documents','ff-documents','ffp-documents'],['dc4','ff-dc4','ffp-dc4'],['contact','ff-contact','ffp-contact'],['historique','ff-historique','ffp-historique']];
     function afficherOngletForfait(nom){tabs.forEach(function(item){var actif=item[0]===nom,tab=document.getElementById(item[1]),panel=document.getElementById(item[2]);if(tab)tab.setAttribute('aria-selected',actif?'true':'false');if(panel)panel.hidden=!actif;});}
     window.__afficherOngletForfait=afficherOngletForfait;
     tabs.forEach(function(item,index){var tab=document.getElementById(item[1]);if(!tab)return;tab.addEventListener('click',function(){afficherOngletForfait(item[0]);});tab.addEventListener('keydown',function(e){var cible=null;if(e.key==='ArrowRight')cible=(index+1)%tabs.length;if(e.key==='ArrowLeft')cible=(index-1+tabs.length)%tabs.length;if(cible===null)return;e.preventDefault();afficherOngletForfait(tabs[cible][0]);var suivant=document.getElementById(tabs[cible][1]);if(suivant)suivant.focus();});});
