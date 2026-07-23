@@ -1877,12 +1877,12 @@
         <div class="alerte critique" data-scope="hors">
           <span class="a-ic r"><svg class="ic"><use href="#i-alerte"/></svg></span>
           <div class="tx"><b>1 écart DC4 à régulariser avant le 02/08/2026</b></div>
-          <a class="lien" href="#conformite" data-vue="conformite">Voir la conformité<svg class="ic s"><use href="#i-fleche"/></svg></a>
+          <a class="lien" href="#forfait-detail" data-vue="forfait-detail" data-onglet="dc4">Voir la conformité<svg class="ic s"><use href="#i-fleche"/></svg></a>
         </div>
         <div class="alerte attention" data-scope="hors">
           <span class="a-ic o"><svg class="ic"><use href="#i-jauge"/></svg></span>
           <div class="tx"><b>Le marché Accord-cadre Data &amp; IA approche son enveloppe (92 %)</b></div>
-          <a class="lien" href="#marche-detail" data-vue="marche-detail">Voir le marché<svg class="ic s"><use href="#i-fleche"/></svg></a>
+          <a class="lien" href="#marches" data-vue="marches">Voir le marché<svg class="ic s"><use href="#i-fleche"/></svg></a>
         </div>
         <div class="alerte role-cm" style="border-left:3px solid #16a34a">
           <span class="a-ic g"><svg class="ic"><use href="#i-coche"/></svg></span>
@@ -3629,6 +3629,7 @@
         if(classe==='bad'){urssafEtat.className='badge bad';urssafEtat.textContent='Expirée';}else{urssafEtat.className='badge ok';urssafEtat.textContent='À jour';}
       }
       window.__navSurligne=el.dataset.nav||'';afficher(el.dataset.vue);
+      if(el.dataset.vue==='forfait-detail'&&el.dataset.onglet&&window.__afficherOngletForfait)window.__afficherOngletForfait(el.dataset.onglet);
       if(el.dataset.docFilter){var typeDocument=document.getElementById('ged-type');if(typeDocument){typeDocument.value=el.dataset.docFilter;majGedFiltres();}}
       if(el.dataset.vue==='besoin-detail'){
         afficherOngletBesoin(el.dataset.onglet||'detail',el.dataset.onglet==='candidatures');
