@@ -1259,6 +1259,22 @@
   #v-partenaires .partner-tier.gold{background:#fff5d9;color:#986700}
   #v-partenaires .partner-tier.silver{background:#edf1f5;color:#586577}
   #v-partenaires .partner-tier.bronze{background:#fff0e6;color:#a54c16}
+  #v-partenaires .partner-detail{white-space:nowrap;padding:8px 12px;font-size:12px;min-height:36px}
+  .partner-modal-scrim{position:fixed;inset:0;z-index:80;background:rgba(15,23,42,.52);display:grid;place-items:center;padding:20px}
+  .partner-modal-scrim[hidden]{display:none}
+  .partner-modal{position:relative;width:min(100%,620px);padding:32px;border-radius:20px;background:#fff;box-shadow:0 24px 70px rgba(15,23,42,.35)}
+  .partner-modal-close{position:absolute;right:18px;top:18px;width:40px;height:40px;border:1px solid var(--t-200);border-radius:10px;background:#fff;color:var(--t-600);font-size:25px;line-height:1;cursor:pointer}
+  .partner-modal .partner-modal-id{font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--brand);text-transform:uppercase}
+  .partner-modal h2{margin:7px 52px 8px 0;font-size:24px;color:var(--t-900)}
+  .partner-modal .partner-modal-description{margin:0;color:var(--t-600);line-height:1.55}
+  .partner-modal .partner-modal-meta{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0}
+  .partner-modal .partner-modal-meta span{padding:6px 9px;border-radius:7px;background:var(--t-50);color:var(--t-700);font-size:12px;font-weight:700}
+  .partner-camille{display:flex;align-items:center;gap:14px;margin-top:22px;padding:16px;border-radius:14px;background:#f6f8fc}
+  .partner-camille img{width:58px;height:58px;border-radius:50%;object-fit:cover;background:#e7edf8}
+  .partner-camille b{display:block;color:var(--t-900);font-size:15px}
+  .partner-camille small{display:block;margin-top:3px;color:var(--t-600);font-size:12px;line-height:1.4}
+  .partner-modal .partner-modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px;flex-wrap:wrap}
+  .partner-modal-confirm{margin-top:18px;padding:13px 15px;border-radius:10px;background:#e8f7ee;color:#18713e;font-size:13px;font-weight:700;line-height:1.45}
   @media(max-width:700px){#v-partenaires .partenaires-toolbar{align-items:flex-start;flex-direction:column}#v-partenaires .partenaires-filtres{padding:10px;flex-wrap:wrap}#v-partenaires .champ-rech{max-width:none;min-width:100%}}
   /* Correctifs contraste AA : en-têtes de table + onglets inactifs (préexistants) */
   #v-besoins table thead th{color:#66665f}
@@ -2725,13 +2741,13 @@
         <section class="card partenaires-page">
           <div class="partenaires-toolbar"><div><h2 class="h-vue">Partenaires</h2><p>Recherchez les fournisseurs référencés et leurs domaines d’expertise.</p></div></div>
           <div class="partenaires-filtres"><label class="sr-only" for="partenaires-supplier-search">Rechercher un ID partenaire ou une expertise</label><span class="champ-rech"><svg class="ic s" aria-hidden="true"><use href="#i-loupe"/></svg><input id="partenaires-supplier-search" type="search" placeholder="Rechercher un ID partenaire ou une expertise..."></span><label class="sr-only" for="partenaires-location-search">Rechercher une localisation</label><span class="champ-rech"><svg class="ic s" aria-hidden="true"><use href="#i-loupe"/></svg><input id="partenaires-location-search" type="search" placeholder="Rechercher une localisation..."></span></div>
-          <div class="twrap" role="region" aria-label="Référentiel des partenaires" tabindex="0"><table id="partenaires-table"><thead><tr><th>ID partenaire</th><th>Localisation</th><th>Taille</th><th>Expertises</th><th>Description</th><th>Statut</th></tr></thead><tbody>
-            <tr><td><div class="partner-id"><b>PTN-0001</b></div></td><td>Paris</td><td>251 - 500</td><td><div class="partner-expertise"><span>Cloud</span><span>Infra</span></div></td><td class="partner-description">Architecture cloud, modernisation des infrastructures et exploitation.</td><td><span class="partner-tier gold">Gold</span></td></tr>
-            <tr><td><div class="partner-id"><b>PTN-0002</b></div></td><td>Lyon</td><td>51 - 200</td><td><div class="partner-expertise"><span>Data</span><span>IA</span></div></td><td class="partner-description">Data engineering, gouvernance de la donnée et industrialisation IA.</td><td><span class="partner-tier gold">Gold</span></td></tr>
-            <tr><td><div class="partner-id"><b>PTN-0003</b></div></td><td>Lille</td><td>51 - 200</td><td><div class="partner-expertise"><span>Cybersécurité</span><span>Audit</span></div></td><td class="partner-description">Conseil cyber, audit de conformité et sécurisation des SI.</td><td><span class="partner-tier silver">Argent</span></td></tr>
-            <tr><td><div class="partner-id"><b>PTN-0004</b></div></td><td>Nantes</td><td>13 - 50</td><td><div class="partner-expertise"><span>UX</span><span>Produit</span></div></td><td class="partner-description">Conception de produits numériques et expérience utilisateur.</td><td><span class="partner-tier silver">Argent</span></td></tr>
-            <tr><td><div class="partner-id"><b>PTN-0005</b></div></td><td>Paris</td><td>1 - 12</td><td><div class="partner-expertise"><span>SAP</span><span>Finance</span></div></td><td class="partner-description">Expertise SAP FI/CO et accompagnement des transformations finance.</td><td><span class="partner-tier bronze">Bronze</span></td></tr>
-            <tr><td><div class="partner-id"><b>PTN-0006</b></div></td><td>Bordeaux</td><td>13 - 50</td><td><div class="partner-expertise"><span>RGPD</span><span>Conformité</span></div></td><td class="partner-description">Conformité réglementaire, dématérialisation et protection des données.</td><td><span class="partner-tier bronze">Bronze</span></td></tr>
+          <div class="twrap" role="region" aria-label="Référentiel des partenaires" tabindex="0"><table id="partenaires-table"><thead><tr><th>ID partenaire</th><th>Localisation</th><th>Taille</th><th>Expertises</th><th>Description</th><th>Statut</th><th>Voir le détail</th></tr></thead><tbody>
+            <tr><td><div class="partner-id"><b>PTN-0001</b></div></td><td>Paris</td><td>251 - 500</td><td><div class="partner-expertise"><span>Cloud</span><span>Infra</span></div></td><td class="partner-description">Architecture cloud, modernisation des infrastructures et exploitation.</td><td><span class="partner-tier gold">Gold</span></td><td><button class="btn ghost partner-detail" type="button">Voir le détail</button></td></tr>
+            <tr><td><div class="partner-id"><b>PTN-0002</b></div></td><td>Lyon</td><td>51 - 200</td><td><div class="partner-expertise"><span>Data</span><span>IA</span></div></td><td class="partner-description">Data engineering, gouvernance de la donnée et industrialisation IA.</td><td><span class="partner-tier gold">Gold</span></td><td><button class="btn ghost partner-detail" type="button">Voir le détail</button></td></tr>
+            <tr><td><div class="partner-id"><b>PTN-0003</b></div></td><td>Lille</td><td>51 - 200</td><td><div class="partner-expertise"><span>Cybersécurité</span><span>Audit</span></div></td><td class="partner-description">Conseil cyber, audit de conformité et sécurisation des SI.</td><td><span class="partner-tier silver">Argent</span></td><td><button class="btn ghost partner-detail" type="button">Voir le détail</button></td></tr>
+            <tr><td><div class="partner-id"><b>PTN-0004</b></div></td><td>Nantes</td><td>13 - 50</td><td><div class="partner-expertise"><span>UX</span><span>Produit</span></div></td><td class="partner-description">Conception de produits numériques et expérience utilisateur.</td><td><span class="partner-tier silver">Argent</span></td><td><button class="btn ghost partner-detail" type="button">Voir le détail</button></td></tr>
+            <tr><td><div class="partner-id"><b>PTN-0005</b></div></td><td>Paris</td><td>1 - 12</td><td><div class="partner-expertise"><span>SAP</span><span>Finance</span></div></td><td class="partner-description">Expertise SAP FI/CO et accompagnement des transformations finance.</td><td><span class="partner-tier bronze">Bronze</span></td><td><button class="btn ghost partner-detail" type="button">Voir le détail</button></td></tr>
+            <tr><td><div class="partner-id"><b>PTN-0006</b></div></td><td>Bordeaux</td><td>13 - 50</td><td><div class="partner-expertise"><span>RGPD</span><span>Conformité</span></div></td><td class="partner-description">Conformité réglementaire, dématérialisation et protection des données.</td><td><span class="partner-tier bronze">Bronze</span></td><td><button class="btn ghost partner-detail" type="button">Voir le détail</button></td></tr>
           </tbody></table></div>
           <p class="vide-filtre" id="partenaires-empty" aria-live="polite" hidden>Aucun partenaire ne correspond à votre recherche.</p>
         </section>
@@ -2947,6 +2963,25 @@
     </section>
   </div>
 </dialog>
+
+<div class="partner-modal-scrim" id="partner-modal-scrim" hidden>
+  <section class="partner-modal" role="dialog" aria-modal="true" aria-labelledby="partner-modal-title" aria-describedby="partner-modal-description">
+    <button class="partner-modal-close" id="partner-modal-close" type="button" aria-label="Fermer la fenêtre">×</button>
+    <p class="partner-modal-id" id="partner-modal-id">PTN-0001</p>
+    <h2 id="partner-modal-title">Détail du partenaire</h2>
+    <p class="partner-modal-description" id="partner-modal-description"></p>
+    <div class="partner-modal-meta" id="partner-modal-meta"></div>
+    <div class="partner-camille">
+      <img id="partner-camille-photo" alt="Camille Moreau">
+      <div><b>Camille Moreau</b><small>Votre ingénieure d’affaires est là pour qualifier votre besoin et organiser la mise en relation.</small></div>
+    </div>
+    <div class="partner-modal-confirm" id="partner-modal-confirm" role="status" hidden></div>
+    <div class="partner-modal-actions">
+      <button class="btn ghost" id="partner-modal-cancel" type="button">Fermer</button>
+      <button class="btn" id="partner-modal-request" type="button">Demander à être recontacté</button>
+    </div>
+  </section>
+</div>
 
 <div class="mscrim" id="mscrim"></div>
 <div class="modale" id="modale" role="dialog" aria-modal="true" aria-labelledby="m-titre" aria-describedby="m-dpo">
@@ -4161,6 +4196,32 @@
   scrim.addEventListener('click',fermer);
   document.addEventListener('keydown',function(e){if(e.key==='Escape')fermer();});
 })();
+</script>
+<script>
+/* Référentiel partenaires : le client exprime un intérêt, la mise en relation reste pilotée par Camille. */
+(function(){
+  var scrim=document.getElementById('partner-modal-scrim'),close=document.getElementById('partner-modal-close'),cancel=document.getElementById('partner-modal-cancel'),request=document.getElementById('partner-modal-request'),confirm=document.getElementById('partner-modal-confirm'),id=document.getElementById('partner-modal-id'),title=document.getElementById('partner-modal-title'),description=document.getElementById('partner-modal-description'),meta=document.getElementById('partner-modal-meta'),photo=document.getElementById('partner-camille-photo'),activeButton=null,currentPartner='';
+  if(!scrim)return;
+  var sourcePhoto=document.querySelector('.sourcing-contact-head .contact-photo');
+  if(sourcePhoto&&sourcePhoto.src)photo.src=sourcePhoto.src;
+  function fermer(){scrim.hidden=true;document.body.style.overflow='';if(activeButton)activeButton.focus();}
+  function ouvrir(button){
+    var cells=button.closest('tr').cells,expertises=[].slice.call(cells[3].querySelectorAll('span')).map(function(el){return el.textContent;}).join(' · ');
+    activeButton=button;currentPartner=cells[0].textContent.trim();id.textContent=currentPartner;title.textContent='Partenaire '+currentPartner;description.textContent=cells[4].textContent.trim();
+    meta.innerHTML='<span>'+cells[1].textContent.trim()+'</span><span>'+cells[2].textContent.trim()+' collaborateurs</span><span>'+expertises+'</span><span>'+cells[5].textContent.trim()+'</span>';
+    confirm.hidden=true;request.hidden=false;request.disabled=false;request.textContent='Demander à être recontacté';scrim.hidden=false;document.body.style.overflow='hidden';close.focus();
+  }
+  document.querySelectorAll('#partenaires-table .partner-detail').forEach(function(button){button.addEventListener('click',function(){ouvrir(button);});});
+  close.addEventListener('click',fermer);cancel.addEventListener('click',fermer);
+  scrim.addEventListener('click',function(e){if(e.target===scrim)fermer();});
+  document.addEventListener('keydown',function(e){if(!scrim.hidden&&e.key==='Escape')fermer();});
+  request.addEventListener('click',function(){
+    confirm.textContent='Votre intérêt pour '+currentPartner+' a été transmis à Camille. Elle vous recontactera pour qualifier votre besoin et organiser la suite.';
+    confirm.hidden=false;request.hidden=true;
+    if(activeButton){activeButton.textContent='Pré-sélectionné';activeButton.disabled=true;activeButton.classList.remove('ghost');}
+  });
+})();
+
 </script>
 <script>
 /* ═══ Mode édition BO (« ?bo-edit=1 ») — découpe les écrans en widgets retirables, pour l'iframe
