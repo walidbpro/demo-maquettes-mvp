@@ -1772,7 +1772,7 @@
     </nav>
     <nav class="side-secondary" aria-label="Navigation secondaire">
     <a href="#" data-vue="intervenants"><svg class="ic"><use href="#i-gens"/></svg>Vivier</a>
-    <a href="#" data-vue="empreinte-carbone"><svg class="ic"><use href="#i-graph"/></svg>Empreinte carbone</a>
+    <a href="#" data-vue="empreinte-carbone"><svg class="ic"><use href="#i-graph"/></svg>RSE</a>
     <a href="#" data-vue="notifications"><svg class="ic"><use href="#i-cloche"/></svg>Notifications</a>
     </nav>
     <div class="side-account" id="side-account">
@@ -2486,13 +2486,12 @@
       <section class="vue" id="v-empreinte-carbone" tabindex="-1" hidden>
         <div class="carbon-page">
           <section class="card carbon-intro">
-            <div><h2>Empreinte carbone</h2></div>
+            <div><h2>RSE</h2></div>
             <span class="badge ok">Données Smartcarbone</span>
           </section>
           <section class="card">
-            <div class="carbon-tabs" role="tablist" aria-label="Périmètre de l’empreinte carbone">
+            <div class="carbon-tabs" role="tablist" aria-label="Périmètre RSE">
               <button class="carbon-tab" id="carbon-tab-missions" type="button" role="tab" aria-selected="true" aria-controls="carbon-panel-missions">Missions en cours</button>
-              <button class="carbon-tab" id="carbon-tab-candidats" type="button" role="tab" aria-selected="false" aria-controls="carbon-panel-candidats">Candidats proposés</button>
             </div>
             <div class="presta-filtres" aria-label="Rechercher et filtrer les émissions">
               <span class="presta-filtre-label">Filtres</span>
@@ -3249,7 +3248,7 @@
     filtrer();
   })();
 
-  var titres={accueil:'Vos marchés',tdb:'Tableau de bord',besoins:'Besoins','besoin-detail':'Besoins','forfait-detail':'Prestations','portage-detail':'Besoins','portage-prestation-detail':'Prestations',prestations:'Prestations','empreinte-carbone':'Empreinte carbone',factures:'Factures',marches:'Marchés','marche-detail':'Marchés','activite-detail':'Prestations',partenaires:'Partenaires',
+  var titres={accueil:'Vos marchés',tdb:'Tableau de bord',besoins:'Besoins','besoin-detail':'Besoins','forfait-detail':'Prestations','portage-detail':'Besoins','portage-prestation-detail':'Prestations',prestations:'Prestations','empreinte-carbone':'RSE',factures:'Factures',marches:'Marchés','marche-detail':'Marchés','activite-detail':'Prestations',partenaires:'Partenaires',
     intervenants:'Vivier',conformite:'Conformité','conformite-detail':'Conformité','dc4-detail':'Conformité',documents:'Documents',notifications:'Notifications',activites:'Activités'};
   function vueDepuisHash(){
     var nom=location.hash.slice(1);
