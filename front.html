@@ -2423,7 +2423,6 @@
         <div class="activites-tabs" role="tablist" aria-label="Domaines d'activité">
           <button class="tab" role="tab" id="ta-prestations" aria-selected="true" aria-controls="v-prestations" data-vue="prestations">Prestations</button>
           <button class="tab" role="tab" id="ta-marches" aria-selected="false" aria-controls="v-marches" data-vue="marches">Marchés</button>
-          <button class="tab" role="tab" id="ta-conformite" aria-selected="false" aria-controls="v-conformite" data-vue="conformite">Conformité</button>
         </div>
         <div class="activites-panneau" id="v-prestations" role="tabpanel" aria-labelledby="ta-prestations">
         <section class="card presta-page">
@@ -3278,7 +3277,7 @@
   }
   window.__afficher=afficher;
   (function(){
-    var map={prestations:'ta-prestations',marches:'ta-marches',conformite:'ta-conformite'};
+    var map={prestations:'ta-prestations',marches:'ta-marches'};
     window.__afficherOngletActivite=function(nom){
       Object.keys(map).forEach(function(k){
         var actif=(k===nom),tab=document.getElementById(map[k]),panneau=document.getElementById('v-'+k);
@@ -3287,7 +3286,7 @@
       });
     };
     /* Navigation clavier des onglets Activités (← → Home End), cohérente avec les autres tablists. */
-    var ordre=['prestations','marches','conformite'];
+    var ordre=['prestations','marches'];
     ordre.forEach(function(nom,i){
       var tab=document.getElementById(map[nom]);if(!tab)return;
       tab.addEventListener('keydown',function(e){
