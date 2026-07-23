@@ -3634,6 +3634,7 @@
   function renseignerBesoin(lien){
     var ligne=lien.closest('tr'),titre=texteCellule(ligne,0).replace('Action requise','').trim(),marche=texteCellule(ligne,1),lieu=texteCellule(ligne,2),tjm=texteCellule(ligne,3),responsable=ligne.dataset.responsable||'C. Dupont',date=ligne.dataset.date||texteCellule(ligne,6),candidats=(ligne.dataset.candidats||'').split('|').filter(Boolean);
     renseigner('#v-besoin-detail .fiche-status h2',titre);renseigner('#v-besoin-detail .fiche-status .card-sub','Besoin déposé par '+responsable+' le '+date);
+    mettreEtapeBesoin(ligne.dataset.etape||1);
     renseigner('#v-besoin-detail .sourcing-infos div:nth-child(1) dd',titre.split('—')[0].trim());renseigner('#v-besoin-detail .sourcing-infos div:nth-child(2) dd',lieu);renseigner('#v-besoin-detail .sourcing-infos div:nth-child(6) dd',tjm+' HT / jour');
     renseigner('#v-besoin-detail .decision-criteria div:nth-child(1) dd',titre.split('—')[0].trim());renseigner('#v-besoin-detail .decision-criteria div:nth-child(2) dd',lieu);renseigner('#v-besoin-detail .decision-criteria div:nth-child(4) dd',tjm+' HT / jour');
     document.querySelectorAll('#v-besoin-detail .sourcing-description p,#v-besoin-detail .description-besoin p').forEach(function(p){p.textContent='Besoin rattaché au marché '+marche+' et suivi par '+responsable+'.';});
