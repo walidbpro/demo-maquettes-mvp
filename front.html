@@ -1750,7 +1750,7 @@
   body:not(.acces-ok){overflow:hidden}
   body:not(.acces-ok) .ecran-login,body:not(.acces-ok) .app{display:none!important}
   body.acces-ok:not(.connecte) .app{display:none!important}
-  body.connecte .ecran-login,body.connecte .access-gate{display:none!important}
+  body.connecte .ecran-login,body.acces-ok.connecte .access-gate{display:none!important}
   label[for="l-mdp"],#l-mdp{display:none!important}
   .access-gate{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:24px;background:linear-gradient(135deg,#111a30 0%,#091121 100%)}
   .access-gate[hidden]{display:none!important}
