@@ -2323,7 +2323,7 @@
             <div><h2>L’analyse du besoin est en cours</h2><p>Camille Moreau prépare la recherche des profils correspondant à votre besoin. Les candidatures proposées apparaîtront ici dès leur validation.</p></div>
           </section>
           <section class="card prestation-compliance" id="table-candidatures-besoin" hidden>
-            <div class="twrap"><table class="candidature-table"><thead><tr><th>Candidat</th><th>Poste</th><th>Localisation</th><th>Voir le CV</th><th class="num">TJM</th><th>Statut</th><th class="num">Décision</th></tr></thead><tbody></tbody></table></div>
+            <div class="twrap"><table class="candidature-table"><thead><tr><th>Candidat</th><th>Poste</th><th>Localisation</th><th class="num">TJM</th><th>Statut</th><th class="num">Décision</th></tr></thead><tbody></tbody></table></div>
           </section>
         <section class="card decision-space" id="decision-candidatures" hidden>
           <div class="decision-layout">
@@ -3628,7 +3628,7 @@
     var corps=document.querySelector('#table-candidatures-besoin tbody'),fiches=window.__candidatFiches||{};
     if(!corps)return;
     corps.innerHTML='';
-    candidats.forEach(function(nom){var fiche=fiches[nom]||{},ligne=document.createElement('tr');ligne.innerHTML='<td><b></b></td><td></td><td></td><td><a class="cv-link" href="cv-demo.pdf" target="_blank" rel="noopener">Voir le CV</a></td><td class="num"></td><td><span class="badge b-bleu">Proposée</span></td><td class="candidate-actions"><button class="btn-candidate refuse" type="button" data-candidature-decision="refuse">Refuser</button><button class="btn-candidate accept" type="button" data-candidature-decision="accept">Valider</button></td>';ligne.cells[0].querySelector('b').textContent=nom;ligne.cells[1].textContent=fiche.role||'Candidat proposé';ligne.cells[2].textContent=(fiche.meta||'').split(' · ')[0]||'—';ligne.cells[4].textContent=fiche.tjm||'—';corps.appendChild(ligne);});
+    candidats.forEach(function(nom){var fiche=fiches[nom]||{},ligne=document.createElement('tr');ligne.innerHTML='<td><b></b></td><td></td><td></td><td class="num"></td><td><span class="badge b-bleu">Proposée</span></td><td class="candidate-actions"><button class="btn-candidate refuse" type="button" data-candidature-decision="refuse">Refuser</button><button class="btn-candidate accept" type="button" data-candidature-decision="accept">Valider</button></td>';ligne.cells[0].querySelector('b').textContent=nom;ligne.cells[1].textContent=fiche.role||'Candidat proposé';ligne.cells[2].textContent=(fiche.meta||'').split(' · ')[0]||'—';ligne.cells[3].textContent=fiche.tjm||'—';corps.appendChild(ligne);});
     if(!corps.dataset.decisionsLiees){corps.dataset.decisionsLiees='true';corps.addEventListener('click',function(event){var bouton=event.target.closest('[data-candidature-decision]');if(!bouton)return;var ligne=bouton.closest('tr'),badge=ligne.querySelector('.badge'),accepte=bouton.dataset.candidatureDecision==='accept';badge.className='badge '+(accepte?'ok':'bad');badge.textContent=accepte?'Validée':'Refusée';bouton.closest('td').innerHTML='<span class="decision-done '+(accepte?'accepted':'refused')+'">Candidature '+(accepte?'validée':'refusée')+'</span>';});}
   }
   function renseignerBesoin(lien){
