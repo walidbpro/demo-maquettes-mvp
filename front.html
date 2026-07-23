@@ -4439,23 +4439,23 @@
 })();
 </script>
 <script>
-/* Accès initial à la maquette : le MFA de la connexion reste requis ensuite. */
+/* Accès initial à la maquette : aucun état d'accès ni de connexion n'est conservé. */
 (function(){
-  var cle='portail-client-acces-initial';
   var gate=document.getElementById('access-gate');
   var form=document.getElementById('access-gate-form');
   var input=document.getElementById('access-code');
   var error=document.getElementById('access-gate-error');
   function ouvrir(){
+    /* La maquette repart volontairement du login : le MFA reste toujours dans le parcours. */
+    try{localStorage.removeItem('portail-client-session');}catch(e){}
+    document.body.classList.remove('connecte');
     document.body.classList.add('acces-ok');
     gate.setAttribute('hidden','');
     setTimeout(function(){var email=document.getElementById('l-email');if(email)email.focus();},0);
   }
-  try{if(sessionStorage.getItem(cle)==='ok')ouvrir();}catch(e){}
   form.addEventListener('submit',function(event){
     event.preventDefault();
     if(input.value==='Azerty1234.Azerty1234.@sdkzap'){
-      try{sessionStorage.setItem(cle,'ok');}catch(e){}
       error.textContent='';
       ouvrir();
       return;
