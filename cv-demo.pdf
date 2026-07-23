@@ -1,57 +1,38 @@
 %PDF-1.4
 %‚„œ”
 1 0 obj
-<< /Type /Catalog /Pages 2 0 R >>
+<< /Type /Catalog /Pages 2 0 R /PageMode /UseNone >>
 endobj
 2 0 obj
 << /Type /Pages /Kids [3 0 R] /Count 1 >>
 endobj
 3 0 obj
-<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 5 0 R >> >> /Contents 4 0 R >>
 endobj
 4 0 obj
-<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+<< /Length 58 >>
+stream
+BT
+/F1 64 Tf
+0.094 0.153 0.247 rg
+200 390 Td
+(DEMO) Tj
+ET
+endstream
 endobj
 5 0 obj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
 endobj
-6 0 obj
-<< /Length 672 >>
-stream
-q
-0.09 0.27 0.78 rg
-52 728 491 62 re f
-1 1 1 rg
-BT /F2 16 Tf 78 754 Td (freelance.com | Portail client) Tj ET
-0.09 0.13 0.22 rg
-BT /F2 34 Tf 190 620 Td (CV CANDIDAT) Tj ET
-0.39 0.45 0.58 rg
-BT /F1 14 Tf 203 590 Td (Document de demonstration) Tj ET
-q 0.707 0.707 -0.707 0.707 340 330 cm
-0.84 0.89 1 rg
-BT /F2 96 Tf -142 0 Td (DEMO) Tj ET
-Q
-0.87 0.90 0.95 RG 1 w
-92 315 m 503 315 l S
-0.27 0.33 0.44 rg
-BT /F1 12 Tf 128 275 Td (Ce fichier est volontairement fictif.) Tj ET
-BT /F1 12 Tf 112 253 Td (Il simule la consultation d un CV depuis la liste des candidatures.) Tj ET
-0.53 0.58 0.67 rg
-BT /F1 9 Tf 160 46 Td (DEMO - Ne contient aucune donnee personnelle reelle) Tj ET
-Q
-endstream
-endobj
 xref
-0 7
-0000000000 65535 f 
-0000000015 00000 n 
-0000000064 00000 n 
-0000000121 00000 n 
-0000000257 00000 n 
-0000000327 00000 n 
-0000000402 00000 n 
+0 6
+0000000000 65535 f
+0000000015 00000 n
+0000000083 00000 n
+0000000140 00000 n
+0000000266 00000 n
+0000000373 00000 n
 trailer
-<< /Size 7 /Root 1 0 R >>
+<< /Size 6 /Root 1 0 R /Info << /Title (DEMO) >> >>
 startxref
-1124
+448
 %%EOF
