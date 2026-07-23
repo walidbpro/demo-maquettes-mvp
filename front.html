@@ -1768,6 +1768,9 @@
     margin:0;color:var(--detail-texte);font-size:18px;font-weight:800;letter-spacing:-.02em;line-height:1.25;
   }
   :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .sourcing-detail-head h2{font-size:18px;line-height:1.25}
+  /* Le libellé de l'onglet porte déjà le contexte : on évite le doublon au
+     début des panneaux Documents et DC4. */
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) :is([id$="-documents"],[id$="-dc4"])>.card>.h-vue{display:none}
   @media(max-width:960px){
     .cont:has(:is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail):not([hidden])){padding:20px 20px 48px}
     :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-header{padding:22px 20px}
