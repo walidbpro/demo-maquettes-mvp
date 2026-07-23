@@ -1691,6 +1691,59 @@
   #v-partenaires .champ-rech,#v-partenaires .partner-search-action{min-height:var(--controle-hauteur)}
   #v-partenaires .champ-rech{border-color:var(--controle-bord);border-radius:999px;background:#fff;box-shadow:none}
   #v-partenaires .partner-search-action{border-radius:999px;box-shadow:none}
+  /* ═══ Socle unique des fiches détail ═══
+     Toutes les fiches utilisent la même coque : fond, largeur, en-tête,
+     repères, onglets, cartes de contenu et tableaux. Les contenus métier
+     restent propres à chaque type de prestation. */
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail,#v-marche-detail,#v-dc4-detail,#v-conformite-detail){
+    --detail-fond:#f6f5f0;--detail-bord:#e8e6e0;--detail-texte:#161616;--detail-muted:#7a7a76;--detail-actif:#eaeffb;
+    max-width:100%;color:var(--detail-texte);
+  }
+  .cont:has(:is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail,#v-marche-detail,#v-dc4-detail,#v-conformite-detail):not([hidden])){
+    max-width:1560px;padding:24px 44px 64px;background:var(--detail-fond);
+  }
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail,#v-marche-detail,#v-dc4-detail,#v-conformite-detail)>.retour{
+    display:inline-flex;align-items:center;gap:8px;margin:0 0 16px;padding:0;border:0;background:transparent;color:var(--brand);font-size:13.5px;font-weight:700;
+  }
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail,#v-marche-detail,#v-dc4-detail,#v-conformite-detail)>.retour .ic{width:17px;height:17px}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-header{
+    margin:0 0 18px;padding:28px 30px;border:1px solid var(--detail-bord);border-radius:18px;background:#fff;box-shadow:none;
+  }
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-status{align-items:flex-start;gap:20px}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-status .h-vue{
+    margin:0;color:var(--detail-texte);font-size:31px;font-weight:800;letter-spacing:-.03em;line-height:1.2;
+  }
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .statut-besoin{
+    min-height:28px;padding:5px 14px;border-radius:999px;font-size:12px;font-weight:700;white-space:nowrap;
+  }
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .presta-reperes{gap:16px;margin:22px 0 6px}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .presta-repere{
+    min-height:86px;padding:18px 20px;border:1px solid var(--detail-bord);border-radius:14px;background:#fff;box-shadow:none;
+  }
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .presta-repere .repere-ic{width:50px;height:50px;border-radius:14px;background:var(--detail-actif);color:var(--brand)}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .presta-repere small{font-size:12.5px;font-weight:600;color:var(--detail-muted)}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .presta-repere strong{margin-top:2px;color:var(--detail-texte);font-size:21px;font-weight:800;letter-spacing:-.02em}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-tabs{gap:6px;margin-top:20px;padding:0;border:0}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-tabs .tab{
+    min-height:40px;padding:10px 18px;border:0;border-radius:10px;background:transparent;color:#5c5c5c;font-size:14px;font-weight:700;
+  }
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-tabs .tab:hover{background:#f0efea;color:var(--detail-texte)}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-tabs .tab[aria-selected="true"]{background:var(--detail-actif);color:var(--brand)}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail,#v-marche-detail,#v-dc4-detail,#v-conformite-detail) :is(.prestation-panel,.fiche-sourcing-panel)>.card,
+  :is(#v-marche-detail,#v-dc4-detail,#v-conformite-detail)>.card{
+    border:1px solid var(--detail-bord);border-radius:18px;background:#fff;box-shadow:none;
+  }
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail,#v-marche-detail,#v-dc4-detail,#v-conformite-detail) .twrap{
+    border:1px solid var(--detail-bord);border-radius:14px;background:#fff;box-shadow:none;
+  }
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail,#v-marche-detail,#v-dc4-detail,#v-conformite-detail) .twrap table{border:0;border-radius:0}
+  :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail,#v-marche-detail,#v-dc4-detail,#v-conformite-detail) .twrap thead th{color:#7a7a76}
+  @media(max-width:960px){
+    .cont:has(:is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail,#v-marche-detail,#v-dc4-detail,#v-conformite-detail):not([hidden])){padding:18px 16px 48px}
+    :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-header{padding:22px 20px}
+    :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .fiche-status .h-vue{font-size:25px}
+    :is(#v-besoin-detail,#v-forfait-detail,#v-portage-detail,#v-activite-detail,#v-portage-prestation-detail) .presta-reperes{grid-template-columns:1fr}
+  }
   @media(max-width:960px){.cont:has(#v-dc4-detail:not([hidden])){padding:18px 16px 48px}#v-dc4-detail .dc4-layout{grid-template-columns:1fr}#v-dc4-detail .dc4-side,#v-dc4-detail .dc4-detail{padding:22px 20px}#v-dc4-detail .dc4-detail-head h2{font-size:25px}}
 </style>
 <style>
