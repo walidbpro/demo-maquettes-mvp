@@ -1206,8 +1206,13 @@
   #v-besoins #f-actions{margin-left:auto}
   @media(max-width:880px){#v-besoins .barre-besoins{padding:10px}#v-besoins .outils-besoins{flex-wrap:wrap;width:100%}#v-besoins .barre-besoins .champ-rech{max-width:none}}
   #v-besoins .twrap{border:1px solid #e8e6e0;border-radius:14px;background:#fff;overflow-x:auto;overflow-y:hidden}
-  #v-besoins #pb-rm table th:last-child,#v-besoins #pb-rm table td:last-child,
-  #v-besoins #pb-po table th:last-child,#v-besoins #pb-po table td:last-child{display:none}
+  #v-besoins #pb-rm table th:last-child,#v-besoins #pb-rm table td:last-child{display:none}
+  #v-besoins #pb-po table th:last-child,#v-besoins #pb-po table td:last-child{display:table-cell!important}
+  #v-besoins .badge.b-bleu{background:#eff6ff;color:#1d4ed8}
+  #v-besoins .badge.b-violet{background:#f1e7fd;color:#6b21a8}
+  #v-besoins .badge.b-cyan{background:#ecfeff;color:#0e7490}
+  #v-besoins .badge.b-indigo{background:#eef2ff;color:#3730a3}
+  #v-besoins .badge.ok{background:#e8f7ee;color:#18713e}
   #v-besoins .candidature-table{min-width:1320px}
   #v-besoins .candidature-table th{white-space:nowrap}
   #v-besoins .candidate-name{display:flex;align-items:center;gap:9px;min-width:178px}
@@ -2068,7 +2073,7 @@
           <div id="pb-po" role="tabpanel" aria-labelledby="tb-po" hidden>
             <div class="twrap" role="region" aria-label="Tableau des besoins en portage" tabindex="0">
             <table>
-              <thead><tr><th>Besoin</th><th>Marché</th><th>Statut</th><th>Responsable</th><th>Localisation</th><th class="num">TJM</th><th>Ressource(s)</th><th class="num">Publiée le</th><th>Actions</th></tr></thead>
+              <thead><tr><th>Besoin</th><th>Marché</th><th>Localisation</th><th class="num">TJM</th><th>Ressource(s)</th><th>Statut</th><th class="num">Publiée le</th></tr></thead>
               <tbody>
                 <tr><td><div class="c-nom">Consultant SAP FI/CO — bascule TMA finance</div></td><td>AT Prestations SI 2024-28</td>
                   <td><span class="badge b-bleu">Solution identifiée</span></td><td>C. Dupont</td><td>Paris</td><td class="num">650 €</td><td><button type="button" class="avatar avatar-res" data-nom="Pierre Morel" aria-label="Ressource : Pierre Morel">PM</button></td><td class="num">12/07/2026</td>
@@ -3296,6 +3301,17 @@
       var role=(cells[1].querySelector('small')||{}).textContent||'—',roleCell=document.createElement('td');
       roleCell.className='candidate-role';roleCell.textContent=role.trim()||'—';
       row.append(cells[0],cells[2],cells[3],cells[4],cells[1],roleCell,cells[5],cells[6],cells[7]);
+    });
+  })();
+  (function(){
+    var table=document.querySelector('#v-besoins #pb-po table');
+    if(!table)return;
+    table.tBodies[0].querySelectorAll('tr').forEach(function(row){
+      var cells=[].slice.call(row.cells);
+      if(cells.length!==9)return;
+      cells[8].remove();
+      cells[3].remove();
+      row.append(cells[0],cells[1],cells[4],cells[5],cells[6],cells[2],cells[7]);
     });
   })();
   window.__trierCandidatures=function(){
