@@ -3747,7 +3747,8 @@
       if(el.dataset.docFilter){var typeDocument=document.getElementById('ged-type');if(typeDocument){typeDocument.value=el.dataset.docFilter;majGedFiltres();}}
       if(el.dataset.vue==='besoin-detail'){
         afficherOngletBesoin(el.dataset.onglet||'detail',el.dataset.onglet==='candidatures');
-        mettreEtapeBesoin(el.dataset.etape||1);
+        var ligneBesoin=el.closest('tr'),etapeLien=ligneBesoin?ligneBesoin.dataset.etape:el.dataset.etape;
+        mettreEtapeBesoin(etapeLien||1);
       }
     });
   });
